@@ -2,12 +2,12 @@ package com.ac.service.helper;
 
 import java.util.Comparator;
 
-import com.ac.model.City;
+import com.ac.dto.City;
 
 /**
  * Custom implementation of java.util.Comparator. Compares
- * {@link com.ac.model.City} objects based on {@link #key} and
- * {@link com.ac.model.City#getName()}.
+ * {@link com.ac.dto.City} objects based on {@link #key} and
+ * {@link com.ac.dto.City#getName()}.
  *
  * <p>
  * Final sort will have first all cities whose {@code name} starts with given
@@ -31,7 +31,7 @@ public class CityNameComparator implements Comparator<City> {
 
 	/**
 	 * @param key non-null keyword used for comparing
-	 *            {@link com.ac.model.City#getName()}
+	 *            {@link com.ac.dto.City#getName()}
 	 */
 	public CityNameComparator(final String key) {
 		if (key == null)

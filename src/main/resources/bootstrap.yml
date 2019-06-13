@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: auto-complete-service
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:auto-complete-demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    platform: h2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
+cache:
+  default:
+    timeToLive: 200
+    timerInterval: 500
+    maxItems: 6
+  city:
+    timeToLive: 200
+    timerInterval: 500
+    maxItems: 6
+  state:
+    timeToLive: 200
+    timerInterval: 500
+    maxItems: 6
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://dev.matrix.com:8888 #should be dev config-server url
+      username: root
+      password: s3cr3t
+      fail-fast: true
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: http://prod.matrix.com:8888 #should be prod config-server url
+      username: root
+      password: s3cr3t
+      fail-fast: true

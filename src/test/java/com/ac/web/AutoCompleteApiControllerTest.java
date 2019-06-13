@@ -22,12 +22,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.ac.model.City;
+import com.ac.dto.City;
 import com.ac.service.helper.CityNameComparator;
 import com.ac.service.impl.AutoCompleteSvcFacade;
+import com.ac.web.controller.AutoCompleteApiController;
 
 /**
- * @author unify
+ * @author sarvesh
  *
  */
 class AutoCompleteApiControllerTest {

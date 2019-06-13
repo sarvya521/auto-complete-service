@@ -15,15 +15,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ac.entity.MstState;
-import com.ac.model.State;
 import com.ac.dao.StateDAO;
+import com.ac.dto.State;
 import com.ac.service.AutoCompleteService;
 import com.ac.service.helper.StateNameComparator;
 import com.ac.util.SynchronizedInMemoryCache;
 
 /**
  * Implementation of {@link com.ac.service.AutoCompleteService} for type State.
- * See {@link com.ac.model.State}
+ * See {@link com.ac.dto.State}
  *
  * @author sarvesh
  */
@@ -94,7 +94,7 @@ public class StateAutoCompleteServiceImpl implements AutoCompleteService<State> 
      * <p>
      * {@link com.ac.service.helper.StateNameComparator} is custom {@link java.util.Comparator} used for sorting.
      *
-     * @return {@link java.util.List} list of {@link com.ac.model.State}
+     * @return {@link java.util.List} list of {@link com.ac.dto.State}
      */
 	@Transactional
 	@Override
@@ -125,7 +125,7 @@ public class StateAutoCompleteServiceImpl implements AutoCompleteService<State> 
 	 /**
      * {@inheritDoc}
      *
-     * @return {@link java.util.List} list of {@link com.ac.model.State}
+     * @return {@link java.util.List} list of {@link com.ac.dto.State}
      */
     @Transactional
 	@Override

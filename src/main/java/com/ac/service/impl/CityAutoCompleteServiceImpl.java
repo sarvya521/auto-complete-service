@@ -14,15 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ac.entity.MstCity;
-import com.ac.model.City;
 import com.ac.dao.CityDAO;
+import com.ac.dto.City;
 import com.ac.service.AutoCompleteService;
 import com.ac.service.helper.CityNameComparator;
 import com.ac.util.SynchronizedInMemoryCache;
 
 /**
  * Implementation of {@link com.ac.service.AutoCompleteService} for type City.
- * See {@link com.ac.model.City}
+ * See {@link com.ac.dto.City}
  *
  * @author sarvesh
  */
@@ -93,7 +93,7 @@ public class CityAutoCompleteServiceImpl implements AutoCompleteService<City> {
      * <p>
      * {@link com.ac.service.helper.CityNameComparator} is custom {@link java.util.Comparator} used for sorting.
      *
-     * @return {@link java.util.List} list of {@link com.ac.model.City}
+     * @return {@link java.util.List} list of {@link com.ac.dto.City}
      */
     @Transactional
     @Override
@@ -121,7 +121,7 @@ public class CityAutoCompleteServiceImpl implements AutoCompleteService<City> {
     /**
      * {@inheritDoc}
      *
-     * @return {@link java.util.List} list of {@link com.ac.model.City}
+     * @return {@link java.util.List} list of {@link com.ac.dto.City}
      */
     @Transactional
 	@Override

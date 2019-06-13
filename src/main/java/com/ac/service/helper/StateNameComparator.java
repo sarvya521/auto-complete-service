@@ -2,12 +2,12 @@ package com.ac.service.helper;
 
 import java.util.Comparator;
 
-import com.ac.model.State;
+import com.ac.dto.State;
 
 /**
  * Custom implementation of java.util.Comparator. Compares
- * {@link com.ac.model.State} objects based on {@link #key} and
- * {@link com.ac.model.State#getName()}.
+ * {@link com.ac.dto.State} objects based on {@link #key} and
+ * {@link com.ac.dto.State#getName()}.
  *
  * <p>
  * Final sort will have first all states whose {@code name} starts with given
@@ -31,7 +31,7 @@ public class StateNameComparator implements Comparator<State> {
 
 	/**
 	 * @param key non-null keyword used for comparing
-	 *            {@link com.ac.model.State#getName()}
+	 *            {@link com.ac.dto.State#getName()}
 	 */
 	public StateNameComparator(final String key) {
 		if (key == null)

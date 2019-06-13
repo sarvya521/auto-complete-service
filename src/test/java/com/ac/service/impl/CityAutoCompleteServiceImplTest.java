@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.ac.model.City;
+import com.ac.dto.City;
 import com.ac.service.AutoCompleteService;
 
 @SpringBootTest

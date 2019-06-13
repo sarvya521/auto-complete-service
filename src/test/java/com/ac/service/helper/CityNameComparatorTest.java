@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.ac.model.City;
+import com.ac.dto.City;
 
 public class CityNameComparatorTest {
 

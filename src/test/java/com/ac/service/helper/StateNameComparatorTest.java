@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.ac.model.State;
+import com.ac.dto.State;
 
 public class StateNameComparatorTest {
 
