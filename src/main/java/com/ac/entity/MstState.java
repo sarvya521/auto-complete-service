@@ -14,8 +14,8 @@ import lombok.ToString;
 @Entity
 @Table(name = "mst_state")
 @Data
-@EqualsAndHashCode(of = {"id"})
-@ToString(of = {"name"})
+@EqualsAndHashCode(of = { "id" })
+@ToString(of = { "name" })
 public class MstState {
 
     @Id

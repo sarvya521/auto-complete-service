@@ -18,15 +18,15 @@ import java.util.Map;
  * @author sarvesh
  */
 public enum AutoCompleteComponent {
-	INSTANCE;
+    INSTANCE;
 
-	private static final Map<String, String> AC_SERVICE = new HashMap<>();
-	static {
-		AC_SERVICE.put("city", "cityAutoCompleteService");
-		AC_SERVICE.put("state", "stateAutoCompleteService");
-	}
+    private static final Map<String, String> AC_SERVICE = new HashMap<>();
+    static {
+        AC_SERVICE.put("city", "cityAutoCompleteService");
+        AC_SERVICE.put("state", "stateAutoCompleteService");
+    }
 
-	public static String getService(String type) {
-		return AC_SERVICE.get(type);
-	}
+    public static String getService(String type) {
+        return AC_SERVICE.get(type);
+    }
 }

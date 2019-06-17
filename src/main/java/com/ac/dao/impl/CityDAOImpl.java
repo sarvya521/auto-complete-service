@@ -50,16 +50,16 @@ public class CityDAOImpl implements CityDAO {
      */
     @Override
     public List<MstCity> getCities(String keyword, int maxResult) {
-    	List<MstCity> result = new ArrayList<>();
+        List<MstCity> result = new ArrayList<>();
         getCitiesStartsWithKeyword(keyword, maxResult, result);
-        if(result.size() < maxResult) {
+        if (result.size() < maxResult) {
             getCitiesContainsKeyword(keyword, maxResult, result);
         }
         return result;
     }
 
     private void getCitiesStartsWithKeyword(String keyword, int maxResult, List<MstCity> result) {
-    	CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<MstCity> cq = cb.createQuery(MstCity.class);
 
         Root<MstCity> city = cq.from(MstCity.class);
@@ -70,7 +70,8 @@ public class CityDAOImpl implements CityDAO {
         cq.orderBy(cb.asc(city.get("name")));
 
         TypedQuery<MstCity> query = entityManager.createQuery(cq);
-        query.setFirstResult(0).setMaxResults(maxResult - result.size());
+        query.setFirstResult(0)
+            .setMaxResults(maxResult - result.size());
         result.addAll(query.getResultList());
     }
 
@@ -80,16 +81,19 @@ public class CityDAOImpl implements CityDAO {
 
         Root<MstCity> city = cq.from(MstCity.class);
 
-        List<String> cityNames = result.stream().map(c -> c.getName()).collect(Collectors.toList());
+        List<String> cityNames = result.stream()
+            .map(MstCity::getName)
+            .collect(Collectors.toList());
 
-        Predicate namePredicate = cb.and(cb.not(city.get("name").in(cityNames)),
-                cb.like(cb.lower(city.get("name")), "%" + keyword.toLowerCase() + "%"));
+        Predicate namePredicate = cb.and(cb.not(city.get("name")
+            .in(cityNames)), cb.like(cb.lower(city.get("name")), "%" + keyword.toLowerCase() + "%"));
         cq.where(namePredicate);
 
         cq.orderBy(cb.asc(city.get("name")));
 
         TypedQuery<MstCity> query = entityManager.createQuery(cq);
-        query.setFirstResult(0).setMaxResults(maxResult - result.size());
+        query.setFirstResult(0)
+            .setMaxResults(maxResult - result.size());
         result.addAll(query.getResultList());
     }
 }

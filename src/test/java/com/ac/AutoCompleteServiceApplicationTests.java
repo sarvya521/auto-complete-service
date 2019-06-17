@@ -11,11 +11,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public class AutoCompleteServiceApplicationTests {
 
-	@Autowired
-	private ApplicationContext context;
+    @Autowired
+    private ApplicationContext context;
 
-	@Test
-	public void whenSpringContextIsBootstrapped_thenNoExceptions() {
-		assertThat(this.context).isNotNull();
-	}
+    @Test
+    public void whenSpringContextIsBootstrapped_thenNoExceptions() {
+        assertThat(this.context).isNotNull();
+    }
 }

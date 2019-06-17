@@ -29,7 +29,9 @@ public class NotFoundErrorController implements ErrorController {
 
     @GetMapping
     public ResponseEntity<ErrorDetails> error(WebRequest request) {
-        return new ResponseEntity<>(new ErrorDetails(new Date(), AcError.RESOURCE_NOT_FOUND.msg(), Message.NO_INFO.msg()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                new ErrorDetails(new Date(), AcError.RESOURCE_NOT_FOUND.msg(), Message.NO_INFO.msg()),
+                HttpStatus.NOT_FOUND);
     }
 
 }

@@ -33,104 +33,106 @@ import com.ac.web.controller.AutoCompleteApiController;
  */
 class AutoCompleteApiControllerTest {
 
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-	@Mock
-	private AutoCompleteSvcFacade autoCompleteSvcFacade;
+    @Mock
+    private AutoCompleteSvcFacade autoCompleteSvcFacade;
 
-	@InjectMocks
-	private AutoCompleteApiController apiController;
+    @InjectMocks
+    private AutoCompleteApiController apiController;
 
-	@BeforeEach
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(apiController).build();
-	}
+    @BeforeEach
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(apiController)
+            .build();
+    }
 
-	@Test
-	public void when_givenNoLimit_then_search_city() throws Exception {
-		final String type = "city";
-		final String key = "n";
+    @Test
+    public void when_givenNoLimit_then_search_city() throws Exception {
+        final String type = "city";
+        final String key = "n";
 
-		City c1 = new City();
-		c1.setId(5);
-		c1.setName("Pune");
+        City c1 = new City();
+        c1.setId(5);
+        c1.setName("Pune");
 
-		City c2 = new City();
-		c2.setId(6);
-		c2.setName("Noida");
+        City c2 = new City();
+        c2.setId(6);
+        c2.setName("Noida");
 
-		City c3 = new City();
-		c3.setId(3);
-		c3.setName("New Delhi");
+        City c3 = new City();
+        c3.setId(3);
+        c3.setName("New Delhi");
 
-		City c4 = new City();
-		c4.setId(7);
-		c4.setName("Chennai");
+        City c4 = new City();
+        c4.setId(7);
+        c4.setName("Chennai");
 
-		City c5 = new City();
-		c5.setId(4);
-		c5.setName("Banglore");
+        City c5 = new City();
+        c5.setId(4);
+        c5.setName("Banglore");
 
-		List<City> expectedSortedList = new ArrayList<>();
-		expectedSortedList.add(c3);
-		expectedSortedList.add(c2);
-		expectedSortedList.add(c5);
-		expectedSortedList.add(c4);
-		expectedSortedList.add(c1);
+        List<City> expectedSortedList = new ArrayList<>();
+        expectedSortedList.add(c3);
+        expectedSortedList.add(c2);
+        expectedSortedList.add(c5);
+        expectedSortedList.add(c4);
+        expectedSortedList.add(c1);
 
-		expectedSortedList.sort(new CityNameComparator(key));
+        expectedSortedList.sort(new CityNameComparator(key));
 
-		when(autoCompleteSvcFacade.search(type, key, null)).thenReturn(expectedSortedList);
+        when(autoCompleteSvcFacade.search(type, key, null)).thenReturn(expectedSortedList);
 
-		mockMvc.perform(get("/api/search/" + type).param("start", key)
-				.contentType(APPLICATION_JSON_UTF8))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(5)))
-				.andExpect(jsonPath("$[0].name", is("New Delhi")))
-				.andExpect(jsonPath("$[1].name", is("Noida")))
-				.andExpect(jsonPath("$[2].name", is("Banglore")))
-				.andExpect(jsonPath("$[3].name", is("Chennai")))
-				.andExpect(jsonPath("$[4].name", is("Pune")));
+        mockMvc.perform(get("/api/search/" + type).param("start", key)
+            .contentType(APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(5)))
+            .andExpect(jsonPath("$[0].name", is("New Delhi")))
+            .andExpect(jsonPath("$[1].name", is("Noida")))
+            .andExpect(jsonPath("$[2].name", is("Banglore")))
+            .andExpect(jsonPath("$[3].name", is("Chennai")))
+            .andExpect(jsonPath("$[4].name", is("Pune")));
 
-		verify(autoCompleteSvcFacade, times(1)).search(type, key, null);
+        verify(autoCompleteSvcFacade, times(1)).search(type, key, null);
         verifyNoMoreInteractions(autoCompleteSvcFacade);
-	}
+    }
 
-	@Test
-	public void when_givenLimit_then_search_city() throws Exception {
-		final String type = "city";
-		final String key = "n";
-		final Integer maxResult = 3;
+    @Test
+    public void when_givenLimit_then_search_city() throws Exception {
+        final String type = "city";
+        final String key = "n";
+        final Integer maxResult = 3;
 
-		City c2 = new City();
-		c2.setId(6);
-		c2.setName("Noida");
+        City c2 = new City();
+        c2.setId(6);
+        c2.setName("Noida");
 
-		City c3 = new City();
-		c3.setId(3);
-		c3.setName("New Delhi");
+        City c3 = new City();
+        c3.setId(3);
+        c3.setName("New Delhi");
 
-		City c5 = new City();
-		c5.setId(4);
-		c5.setName("Banglore");
+        City c5 = new City();
+        c5.setId(4);
+        c5.setName("Banglore");
 
-		List<City> expectedSortedList = new ArrayList<>();
-		expectedSortedList.add(c3);
-		expectedSortedList.add(c2);
-		expectedSortedList.add(c5);
+        List<City> expectedSortedList = new ArrayList<>();
+        expectedSortedList.add(c3);
+        expectedSortedList.add(c2);
+        expectedSortedList.add(c5);
 
-		when(autoCompleteSvcFacade.search(type, key, maxResult)).thenReturn(expectedSortedList);
+        when(autoCompleteSvcFacade.search(type, key, maxResult)).thenReturn(expectedSortedList);
 
-		mockMvc.perform(get("/api/search/" + type).param("start", key).param("atmost", maxResult.toString())
-				.contentType(APPLICATION_JSON_UTF8))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(maxResult)))
-				.andExpect(jsonPath("$[0].name", is("New Delhi")))
-				.andExpect(jsonPath("$[1].name", is("Noida")))
-				.andExpect(jsonPath("$[2].name", is("Banglore")));
+        mockMvc.perform(get("/api/search/" + type).param("start", key)
+            .param("atmost", maxResult.toString())
+            .contentType(APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(maxResult)))
+            .andExpect(jsonPath("$[0].name", is("New Delhi")))
+            .andExpect(jsonPath("$[1].name", is("Noida")))
+            .andExpect(jsonPath("$[2].name", is("Banglore")));
 
-		verify(autoCompleteSvcFacade, times(1)).search(type, key, maxResult);
+        verify(autoCompleteSvcFacade, times(1)).search(type, key, maxResult);
         verifyNoMoreInteractions(autoCompleteSvcFacade);
-	}
+    }
 }

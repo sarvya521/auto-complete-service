@@ -27,31 +27,36 @@ import com.ac.dto.State;
  */
 public class StateNameComparator implements Comparator<State> {
 
-	private final String key;
+    private final String key;
 
-	/**
-	 * @param key non-null keyword used for comparing
-	 *            {@link com.ac.dto.State#getName()}
-	 */
-	public StateNameComparator(final String key) {
-		if (key == null)
-			throw new IllegalArgumentException("key can not be null");
-		this.key = key.toLowerCase();
-	}
+    /**
+     * @param key non-null keyword used for comparing
+     *            {@link com.ac.dto.State#getName()}
+     */
+    public StateNameComparator(final String key) {
+        if (key == null)
+            throw new IllegalArgumentException("key can not be null");
+        this.key = key.toLowerCase();
+    }
 
-	@Override
-	public int compare(final State st1, final State st2) {
-		String s1 = st1.getName();
-		String s2 = st2.getName();
-		if (s1.toLowerCase().startsWith(key) && s2.toLowerCase().startsWith(key)) {
-			return s1.compareTo(s2);
-		} else if (s1.toLowerCase().startsWith(key)) {
-			return -1;
-		} else if (s2.toLowerCase().startsWith(key)) {
-			return 1;
-		} else {
-			return s1.compareTo(s2);
-		}
-	}
+    @Override
+    public int compare(final State st1, final State st2) {
+        String s1 = st1.getName();
+        String s2 = st2.getName();
+        if (s1.toLowerCase()
+            .startsWith(key)
+                && s2.toLowerCase()
+                    .startsWith(key)) {
+            return s1.compareTo(s2);
+        } else if (s1.toLowerCase()
+            .startsWith(key)) {
+            return -1;
+        } else if (s2.toLowerCase()
+            .startsWith(key)) {
+            return 1;
+        } else {
+            return s1.compareTo(s2);
+        }
+    }
 
 }

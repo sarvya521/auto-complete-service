@@ -39,14 +39,15 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleHttpRequestMethodNotSupported(
-            HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+            HttpHeaders headers, HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
         Set<HttpMethod> supportedMethods = ex.getSupportedHttpMethods();
         if (!CollectionUtils.isEmpty(supportedMethods)) {
             headers.setAllow(supportedMethods);
         }
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_HTTP_METHOD_CALL.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_HTTP_METHOD_CALL.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -54,10 +55,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleNoHandlerFoundException(
-            NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.RESOURCE_NOT_FOUND.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.RESOURCE_NOT_FOUND.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -65,10 +67,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleMissingServletRequestParameter(
-            MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
+            HttpHeaders headers, HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -76,10 +79,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleServletRequestBindingException(
-            ServletRequestBindingException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleServletRequestBindingException(ServletRequestBindingException ex,
+            HttpHeaders headers, HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -87,10 +91,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleTypeMismatch(
-            TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -98,10 +103,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleHttpMessageNotReadable(
-            HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -109,10 +115,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -120,10 +127,11 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleMissingServletRequestPart(
-            MissingServletRequestPartException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    public ResponseEntity<Object> handleMissingServletRequestPart(MissingServletRequestPartException ex,
+            HttpHeaders headers, HttpStatus status, WebRequest request) {
         LOGGER.error(ex);
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 
@@ -131,9 +139,10 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
      * {@inheritDoc}
      */
     @Override
-    public ResponseEntity<Object> handleBindException(
-            BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(), request.getDescription(false));
+    public ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.INVALID_REQUEST.msg(),
+                request.getDescription(false));
         return handleExceptionInternal(ex, errorDetails, headers, status, request);
     }
 }

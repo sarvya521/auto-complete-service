@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -16,8 +18,19 @@ public class Swagger2Config {
     @Bean
     public Docket swaggerApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ac.web.controller"))
-                .paths(PathSelectors.any()).build().apiInfo(new ApiInfoBuilder().version("1.0")
-                        .title("AutoComplete API").description("Documentation AutoComplete API v1.0").build());
+            .apis(RequestHandlerSelectors.basePackage("com.ac.web.controller"))
+            .paths(PathSelectors.any())
+            .build()
+            .apiInfo(apiEndPointsInfo());
+    }
+
+    private ApiInfo apiEndPointsInfo() {
+        return new ApiInfoBuilder().title("AutoComplete API")
+            .description("Documentation AutoComplete API v1.0")
+            .contact(new Contact("Sarvesh Padwal", "www.google.com", "sarveshp@unifytech.com"))
+            .license("Apache 2.0")
+            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+            .version("1.0")
+            .build();
     }
 }

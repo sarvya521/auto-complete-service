@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(of = {"id"})
-@ToString(of = {"name"})
+@EqualsAndHashCode(of = { "id" })
+@ToString(of = { "name" })
 public class State {
 
     private Integer id;

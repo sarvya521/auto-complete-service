@@ -48,11 +48,11 @@ public class StateDAOImpl implements StateDAO {
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<MstState> getStates(String keyword, int maxResult) {
-		List<MstState> result = new ArrayList<>();
+    @Override
+    public List<MstState> getStates(String keyword, int maxResult) {
+        List<MstState> result = new ArrayList<>();
         getStatesStartsWithKeyword(keyword, maxResult, result);
-        if(result.size() < maxResult) {
+        if (result.size() < maxResult) {
             getStatesContainsKeyword(keyword, maxResult, result);
         }
         return result;
@@ -70,7 +70,8 @@ public class StateDAOImpl implements StateDAO {
         cq.orderBy(cb.asc(state.get("name")));
 
         TypedQuery<MstState> query = entityManager.createQuery(cq);
-        query.setFirstResult(0).setMaxResults(maxResult - result.size());
+        query.setFirstResult(0)
+            .setMaxResults(maxResult - result.size());
         result.addAll(query.getResultList());
     }
 
@@ -80,16 +81,19 @@ public class StateDAOImpl implements StateDAO {
 
         Root<MstState> state = cq.from(MstState.class);
 
-        List<String> stateNames = result.stream().map(c -> c.getName()).collect(Collectors.toList());
+        List<String> stateNames = result.stream()
+            .map(c -> c.getName())
+            .collect(Collectors.toList());
 
-        Predicate namePredicate = cb.and(cb.not(state.get("name").in(stateNames)),
-                cb.like(cb.lower(state.get("name")), "%" + keyword.toLowerCase() + "%"));
+        Predicate namePredicate = cb.and(cb.not(state.get("name")
+            .in(stateNames)), cb.like(cb.lower(state.get("name")), "%" + keyword.toLowerCase() + "%"));
         cq.where(namePredicate);
 
         cq.orderBy(cb.asc(state.get("name")));
 
         TypedQuery<MstState> query = entityManager.createQuery(cq);
-        query.setFirstResult(0).setMaxResults(maxResult - result.size());
+        query.setFirstResult(0)
+            .setMaxResults(maxResult - result.size());
         result.addAll(query.getResultList());
     }
 

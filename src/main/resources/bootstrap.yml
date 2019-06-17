@@ -3,6 +3,19 @@ spring:
     name: auto-complete-service
   profiles:
     active: local
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    org.springframework: INFO
 ---
 spring:
   profiles: local
@@ -10,11 +23,15 @@ spring:
     config:
       enabled: false
   datasource:
-    url: jdbc:h2:mem:auto-complete-demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:auto-complete-demo
     platform: h2
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -24,6 +41,7 @@ spring:
         show_sql: false
         use_sql_comments: false
         format_sql: false
+    open-in-view: false #VERY IMPORTANT SETTING. UNLESS `IllegalStateException: EnityManager is closed` at the time of shutdown
   h2:
     console:
       enabled: true

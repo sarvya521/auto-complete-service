@@ -29,7 +29,7 @@ import com.ac.exception.ResourceNotFoundException;
  */
 @RestControllerAdvice
 public class AutoCompleteExceptionHandler extends CommonResponseEntityExceptionHandler {
-	private static final Logger LOGGER = LogManager.getLogger(AutoCompleteExceptionHandler.class);
+    private static final Logger LOGGER = LogManager.getLogger(AutoCompleteExceptionHandler.class);
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<Object> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
@@ -38,36 +38,36 @@ public class AutoCompleteExceptionHandler extends CommonResponseEntityExceptionH
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-	@ExceptionHandler({ AutoCompleteSvcNotFoundException.class })
-	public final ResponseEntity<Object> handleResourceNotFound(AutoCompleteSvcNotFoundException ax,
-			NativeWebRequest request) {
-		LOGGER.error(ax);
+    @ExceptionHandler({ AutoCompleteSvcNotFoundException.class })
+    public final ResponseEntity<Object> handleResourceNotFound(AutoCompleteSvcNotFoundException ax,
+            NativeWebRequest request) {
+        LOGGER.error(ax);
         ErrorDetails errorDetails = new ErrorDetails(new Date(),
                 "auto-complete search is not implemented for requested type " + getPathVariables(request).get("type"),
                 request.getDescription(false));
-		return handleExceptionInternal(ax, errorDetails, new HttpHeaders(), HttpStatus.NOT_IMPLEMENTED, request);
-	}
+        return handleExceptionInternal(ax, errorDetails, new HttpHeaders(), HttpStatus.NOT_IMPLEMENTED, request);
+    }
 
-	@ExceptionHandler({ AutoCompleteSvcException.class })
-	public final ResponseEntity<Object> handleGloabalServiceExceptions(AutoCompleteSvcException ax, WebRequest request) {
-		LOGGER.error(ax);
-		ErrorDetails errorDetails = new ErrorDetails(new Date(),
-		        ax.getError() != null ? ax.getError().msg() : AcError.UNKNOWN_ERROR.msg(),
+    @ExceptionHandler({ AutoCompleteSvcException.class })
+    public final ResponseEntity<Object> handleGloabalServiceExceptions(AutoCompleteSvcException ax,
+            WebRequest request) {
+        LOGGER.error(ax);
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ax.getError() != null ? ax.getError()
+            .msg() : AcError.UNKNOWN_ERROR.msg(), request.getDescription(false));
+        return handleExceptionInternal(ax, errorDetails, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public final ResponseEntity<Object> handleExceptions(Exception ex, WebRequest request) {
+        LOGGER.error(ex);
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.UNKNOWN_ERROR.msg(),
                 request.getDescription(false));
-		return handleExceptionInternal(ax, errorDetails, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-	}
-	
-	@ExceptionHandler({ Exception.class })
-	public final ResponseEntity<Object> handleExceptions(Exception ex, WebRequest request) {
-		LOGGER.error(ex);
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), AcError.UNKNOWN_ERROR.msg(),
-				request.getDescription(false));
-		return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-	}
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
 
-	@SuppressWarnings("unchecked")
-	private Map<String, String> getPathVariables(NativeWebRequest request) {
-		HttpServletRequest httpServletRequest = request.getNativeRequest(HttpServletRequest.class);
-		return (Map<String, String>) httpServletRequest.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-	}
+    @SuppressWarnings("unchecked")
+    private Map<String, String> getPathVariables(NativeWebRequest request) {
+        HttpServletRequest httpServletRequest = request.getNativeRequest(HttpServletRequest.class);
+        return (Map<String, String>) httpServletRequest.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+    }
 }

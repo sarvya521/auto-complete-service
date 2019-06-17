@@ -1,6 +1,5 @@
 package com.ac.entity;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -16,8 +15,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "mst_city")
 @Data
-@EqualsAndHashCode(of = {"id"})
-@ToString(of = {"name"})
+@EqualsAndHashCode(of = { "id" })
+@ToString(of = { "name" })
 public class MstCity {
 
     @Id

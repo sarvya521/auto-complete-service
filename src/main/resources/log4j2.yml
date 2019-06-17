@@ -1,0 +1,37 @@
+Configuration:
+  status: debug
+  appenders:
+    Console:
+      name: Console-Appender
+      PatternLayout:
+        Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %msg%n'
+    RollingFile:
+    - name: App-File-Appender
+      fileName: logs/auto-complete-svc.log
+      filePattern: logs/$${date:yyyy-MM}/auto-complete-svc-%d{MM-dd-yyyy}-%i.log.gz
+      PatternLayout:
+        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %msg%n'
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: 10MB
+      DefaultRollOverStrategy:
+        max: 10
+  Loggers:
+    logger:
+    - name: com.ac
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: Console-Appender
+      - ref: App-File-Appender
+    - name: org.springframework.web
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: Console-Appender
+      - ref: App-File-Appender
+    Root:
+      level: error
+      AppenderRef:
+      - ref: Console-Appender
+      - ref: App-File-Appender

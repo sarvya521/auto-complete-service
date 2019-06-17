@@ -16,11 +16,13 @@ import com.ac.service.AutoCompleteService;
 import com.ac.util.LoggerUtilities;
 
 /**
- * Hybrid of Facade and Abstract Factory design pattern.
- * Client does not need to know about each auto-complete service implemented in system.
- * Hence all auto-complete service components are loosely coupled to client.
+ * Hybrid of Facade and Abstract Factory design pattern. Client does not need to
+ * know about each auto-complete service implemented in system. Hence all
+ * auto-complete service components are loosely coupled to client.
  *
- * <p> This class acts as a entry point to every implemented {@link com.ac.service.AutoCompleteService}.
+ * <p>
+ * This class acts as a entry point to every implemented
+ * {@link com.ac.service.AutoCompleteService}.
  *
  * @author sarvesh
  */
@@ -41,11 +43,13 @@ public class AutoCompleteSvcFacade {
      * @param key       non-null keyword to search.
      * @param maxResult maximum number of suggestions needed
      * @return java.util.List list of model objects representing given type
-     * @throws AutoCompleteSvcNotFoundException If No {@link com.ac.service.AutoCompleteService}
+     * @throws AutoCompleteSvcNotFoundException If No
+     *                                          {@link com.ac.service.AutoCompleteService}
      *                                          implementation found for given type
      */
     @SuppressWarnings("rawtypes")
-    public List search(final String type, final String key, final Integer maxResult) throws AutoCompleteSvcNotFoundException {
+    public List search(final String type, final String key, final Integer maxResult)
+            throws AutoCompleteSvcNotFoundException {
         LOGGER.info(LoggerUtilities.getMessage("fetching auto complete results for {} with keyword {}", type, key));
         String acServiceQualifierName = AutoCompleteComponent.getService(type);
         AutoCompleteService acService = BeanFactoryAnnotationUtils.qualifiedBeanOfType(
@@ -60,24 +64,25 @@ public class AutoCompleteSvcFacade {
         return acService.search(key, maxResult);
     }
 
-    /*@Autowired
-    @Qualifier("cityAutoCompleteService")
-    private AutoCompleteService<City> cityAutoCompleteService;
-
-    @Autowired
-    @Qualifier("stateAutoCompleteService")
-    private AutoCompleteService<State> stateAutoCompleteService;
-
-    public List search(final String type, final String key) throws AutoCompleteSvcException {
-    	LOGGER.info(LoggerUtilities.getMessage("fetching auto complete results for {} with keyword {}", type, key));
-        AutoCompleteComponent component = AutoCompleteComponent.get(type);
-        switch (component) {
-            case CITY:
-                return cityAutoCompleteService.search(key);
-            case STATE:
-                return stateAutoCompleteService.search(key);
-        }
-        LOGGER.error(LoggerUtilities.getMessage("auto complete is not available for component {}", type));
-        throw new AutoCompleteSvcException(AcError.INVALID_COMPONENT);
-    }*/
+    /*
+     * @Autowired
+     * 
+     * @Qualifier("cityAutoCompleteService") private AutoCompleteService<City>
+     * cityAutoCompleteService;
+     * 
+     * @Autowired
+     * 
+     * @Qualifier("stateAutoCompleteService") private AutoCompleteService<State>
+     * stateAutoCompleteService;
+     * 
+     * public List search(final String type, final String key) throws
+     * AutoCompleteSvcException { LOGGER.info(LoggerUtilities.
+     * getMessage("fetching auto complete results for {} with keyword {}", type,
+     * key)); AutoCompleteComponent component = AutoCompleteComponent.get(type);
+     * switch (component) { case CITY: return cityAutoCompleteService.search(key);
+     * case STATE: return stateAutoCompleteService.search(key); }
+     * LOGGER.error(LoggerUtilities.
+     * getMessage("auto complete is not available for component {}", type)); throw
+     * new AutoCompleteSvcException(AcError.INVALID_COMPONENT); }
+     */
 }
