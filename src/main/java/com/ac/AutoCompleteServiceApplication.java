@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@EnableAsync
 public class AutoCompleteServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(AutoCompleteServiceApplication.class, args);
