@@ -20,15 +20,15 @@ Refer [Package Structure](https://docs.google.com/document/d/1pc0mhAToil6K3kmknU
 
 ### Git Branching Strategy
 
-To follow the guidelines, Refer [Branching-Model](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.5x0d5h95i329)
+Refer [Branching-Strategy](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.5x0d5h95i329)
 
 ###### Branch Naming Convention
 
-[Follow](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.awhel6pw88o3) for Naming convention for feature branch guidelines
+Refer [Naming convention for feature branch guidelines](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.awhel6pw88o3)
 
 ###### Commit Message Format
 
-[Follow](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.aggiqwqdmqn5) for Naming convention for commit message guidelines
+Refer [Naming convention for commit message guidelines](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.aggiqwqdmqn5)
 
 ###### Pull Request
 
@@ -40,8 +40,8 @@ Refer - ControllerAdvice in `com.ac.exception` and `com.ac.web.exception`
 	
 ### Unit Test Cases
 
-We will use junit 5 framework for normal test cases.
-API/Controllers will be tested with Mockito framework. These API/Controllers should also cover their IntegrationTest with TestRestTemplate
+We will use `junit 5` framework for normal test cases.
+API/Controllers will be tested with `Mockito framework`. These API/Controllers should also cover their IntegrationTest with TestRestTemplate
 Database testing can be done with in-memory database like h2 and test schema.
 Test schema should be part of `src/test/resources`.
 All util, service, dao and controller classes should have full test coverage.
@@ -51,13 +51,10 @@ All util, service, dao and controller classes should have full test coverage.
 Refer - `com.ac.util.LoggerUtilities`
 
 ### HTTP Request Tracing
-
-##### Micro Service
-
+###### Micro Service
 We use opentracing in micro services
 
-#### Monolith
-
+###### Monolith
 We use MDC or ThreadContext in Monolith.
 
 Refer - [MDC in log4j2](https://www.baeldung.com/mdc-in-log4j-2-logback), [Log4j MDC in Spring Boot](https://medium.com/sipios/how-to-use-log4j-and-mdc-in-java-spring-boot-application-26b1a77f5c3e)
@@ -71,8 +68,6 @@ For Reference - [Spring Boot boilerplate](https://gitlab.com/crazy-app-starters/
 
 For LoggerUtilites, Refer `com.ac.util.LoggerUtilities`
 
-For SynchronizedInMemoryCache, Refer `com.ac.util.SynchronizedInMemoryCache`
-
 Related to exception handling, Refer `com.ac.exception`, `com.ac.web.exception`
 
 Swagger Configuration, Refer `com.ac.config.Swagger2Config`
@@ -80,3 +75,5 @@ Swagger Configuration, Refer `com.ac.config.Swagger2Config`
 Cloud Configuration, Refer `bootstrap.yml`
 
 Log4j Configuration, Refer `log4j2.yml`
+
+For SynchronizedInMemoryCache, Refer `com.ac.util.SynchronizedInMemoryCache`

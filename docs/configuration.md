@@ -2,8 +2,9 @@
 
 ### Swagger
 
-	For Configuration - Refer com.ac.config.Swagger2Config 
-	For API Documentation - Refer com.ac.web.controller.AutoCompleteApiController
+For Configuration - Refer `com.ac.config.Swagger2Config` 
+
+For API Documentation - Refer `com.ac.web.controller.AutoCompleteApiController`
 
 Below are the required dependencies
 
@@ -21,8 +22,9 @@ Below are the required dependencies
 ```
 
 ### Log4j2
+For Configuration - Refer `log4j2.yml`. 
 
-Refer log4j2.yml. Below are the required dependencies
+Below are the required dependencies
 
 ```sh
 <dependency>
@@ -52,8 +54,23 @@ Refer log4j2.yml. Below are the required dependencies
 </dependency>
 ```
 
-### Lombok
+### LoggerUtilities
+Below are the required dependencies
 
+```sh
+<dependency>
+  <groupId>org.apache.commons</groupId>
+  <artifactId>commons-collections4</artifactId>
+  <version>4.3</version>
+</dependency>
+<dependency>
+  <groupId>org.owasp.encoder</groupId>
+  <artifactId>encoder</artifactId>
+  <version>1.2.2</version>
+</dependency>
+```
+
+### Lombok
 Below is the required dependency
 
 ```sh
@@ -63,11 +80,9 @@ Below is the required dependency
   <optional>true</optional>
 </dependency>
 ```
-
-Add eclipse plug-in, Refer [Lombok Plugin](./lombok-plugin.md)
+To install lombok eclipse plug-in, Refer [Lombok Plugin Setup Doc](./lombok-plugin.md)
 
 ### Junit5
-
 Below are the required dependencies
 
 ```sh
@@ -98,7 +113,8 @@ Below are the required dependencies
 </dependency>
 ```
 
-### Spring Cloud
+### Spring Cloud Config
+For Configuration - Refer `bootstrap.yml`
 
 Below are the required dependencies
 
@@ -107,6 +123,12 @@ Below are the required dependencies
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-starter-config</artifactId>
 </dependency>
+```
+
+### Circuit Breaker
+Below are the required dependencies
+
+```sh
 <dependency>
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
@@ -115,13 +137,10 @@ Below are the required dependencies
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
 </dependency>
-<dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-sleuth</artifactId>
-</dependency>
 ```
 
 ### Spring boot maven plugin
+Add below plugin configuration in pom.xml
 
 ```sh
 <plugin>
@@ -137,29 +156,7 @@ Below are the required dependencies
 </plugin>
 ```
 
-### LoggerUtilities
-
-Below are the required dependencies
-
-```sh
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-log4j2</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.apache.commons</groupId>
-  <artifactId>commons-collections4</artifactId>
-  <version>4.3</version>
-</dependency>
-<dependency>
-  <groupId>org.owasp.encoder</groupId>
-  <artifactId>encoder</artifactId>
-  <version>1.2.2</version>
-</dependency>
-```
-
-### Editor Config
-
+### Editor Config maven plugin
 Add below plugin configuration in pom.xml
 
 ```sh
@@ -182,17 +179,16 @@ Add below plugin configuration in pom.xml
         file patterns are excluded by default -->
       <!-- see https://github.com/ec4j/editorconfig-maven-plugin/blob/master/ec4j-lint-api/src/main/java/org/ec4j/maven/lint/api/Constants.java#L37 -->
       <!-- You can exclude further files from processing: -->
-      <exclude>src/main/**/*.whatever</exclude>
+      <exclude>src/main/**/*.html</exclude>
+      <exclude>docs/</exclude>
     </excludes>
-    <!-- All files are included by default: <includes> <include>**</include> 
-      </includes> -->
+    <!-- All files are included by default: <includes> <include>**</include> </includes> -->
   </configuration>
 </plugin>
 ```
 Add eclipse plug-in, Refer [EditorConfig](./java-code-format.md)
 
-### JavaDocs
-
+### JavaDocs maven plugin
 Add below plugin configuration in pom.xml
 
 ```sh
