@@ -19,6 +19,9 @@ import java.util.Map;
  */
 public enum AutoCompleteComponent {
     INSTANCE;
+    
+    public static final String CITY = "city";
+    public static final String STATE = "state";
 
     private static final Map<String, String> AC_SERVICE = new HashMap<>();
     static {

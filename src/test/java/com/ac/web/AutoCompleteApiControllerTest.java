@@ -84,7 +84,7 @@ class AutoCompleteApiControllerTest {
 
         when(autoCompleteSvcFacade.search(type, key, null)).thenReturn(expectedSortedList);
 
-        mockMvc.perform(get("/api/search/" + type).param("start", key)
+        mockMvc.perform(get("/api/v2.1/search/" + type).param("start", key)
             .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(5)))
@@ -123,7 +123,7 @@ class AutoCompleteApiControllerTest {
 
         when(autoCompleteSvcFacade.search(type, key, maxResult)).thenReturn(expectedSortedList);
 
-        mockMvc.perform(get("/api/search/" + type).param("start", key)
+        mockMvc.perform(get("/api/v2.1/search/" + type).param("start", key)
             .param("atmost", maxResult.toString())
             .contentType(APPLICATION_JSON_UTF8))
             .andExpect(status().isOk())

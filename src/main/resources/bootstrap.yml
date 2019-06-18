@@ -41,7 +41,7 @@ spring:
         show_sql: false
         use_sql_comments: false
         format_sql: false
-    open-in-view: false #VERY IMPORTANT SETTING. UNLESS `IllegalStateException: EnityManager is closed` at the time of shutdown
+    #open-in-view: false #VERY IMPORTANT SETTING. Default value is true
   h2:
     console:
       enabled: true

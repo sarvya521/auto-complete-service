@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ac.constant.AutoCompleteComponent;
 import com.ac.service.impl.AutoCompleteSvcFacade;
 import com.ac.util.LoggerUtilities;
 
@@ -38,16 +39,6 @@ public class AutoCompleteApiController {
     @Autowired
     private AutoCompleteSvcFacade autoCompleteSvcFacade;
 
-    @ApiOperation(value = "Check the health of service", response = String.class, produces = "text/plain")
-    @ApiResponses(@ApiResponse(code = 200,
-                               message = "OK",
-                               examples = @Example(value = @ExampleProperty(value = "pong!",
-                                                                            mediaType = "text/plain"))))
-    @GetMapping("/api/ping")
-    public String ping() {
-        return "pong!";
-    }
-
     /**
      * @param type      auto-complete component
      * @param key       non-null keyword to search
@@ -55,13 +46,13 @@ public class AutoCompleteApiController {
      * @return {@link java.util.List} list of {@code model} objects representing
      *         {@code type}
      */
-    @ApiOperation(value = "Get a list of auto-complete suggestions for a given type", produces = "application/json")
+    @ApiOperation(value = "Get a list of auto-complete suggestions for a given type", notes = "Latest API", produces = "application/json")
     @ApiResponses(@ApiResponse(code = 200,
                                message = "OK",
                                examples = @Example(value = @ExampleProperty(value = "{\"id\": \"1\", \"name\": \"Aasam\"}, {\"id\": \"2\", \"name\": \"AandhraPradesh\"}]",
                                                                             mediaType = "application/json"))))
     @SuppressWarnings("rawtypes")
-    @GetMapping("/api/search/{type}")
+    @GetMapping("/api/v2.1/search/{type}")
     public List
         search(@ApiParam(value = "search component",
                          example = "city",
@@ -75,5 +66,51 @@ public class AutoCompleteApiController {
         LOGGER.info(LoggerUtilities.getMessage("serving auto-complete request for {} with keyword {} and limit {}",
                 type, key, maxResult));
         return autoCompleteSvcFacade.search(type, key, maxResult);
+    }
+    
+    /**
+     * @param type      auto-complete component
+     * @param key       non-null keyword to search
+     * @return {@link java.util.List} list of {@code model} objects representing
+     *         {@code type}
+     */
+    @ApiOperation(value = "Get a list of auto-complete suggestions for a given type", notes = "version 2.0", produces = "application/json")
+    @ApiResponses(@ApiResponse(code = 200,
+                               message = "OK",
+                               examples = @Example(value = @ExampleProperty(value = "{\"id\": \"1\", \"name\": \"Aasam\"}, {\"id\": \"2\", \"name\": \"AandhraPradesh\"}]",
+                                                                            mediaType = "application/json"))))
+    @SuppressWarnings("rawtypes")
+    @GetMapping("/api/v2.0/search/{type}")
+    public List
+        search(@ApiParam(value = "search component",
+                         example = "city",
+                         required = true) @PathVariable(value = "type") final String type,
+                @ApiParam(value = "search key",
+                          example = "aa",
+                          required = true) @RequestParam(value = "start") final String key) {
+        LOGGER.info(LoggerUtilities.getMessage("serving auto-complete request for {} with keyword {}",
+                type, key));
+        return autoCompleteSvcFacade.search(type, key, null);
+    }
+    
+    /**
+     * @deprecated
+     * @param key       non-null keyword to search
+     * @return {@link java.util.List} list of {@code City} objects
+     */
+    @ApiOperation(value = "Get a list of auto-complete suggestions for city", notes = "Deprecated API, kept for legacy support, Expiry: 31 Dec 2020", produces = "application/json")
+    @ApiResponses(@ApiResponse(code = 200,
+                               message = "OK",
+                               examples = @Example(value = @ExampleProperty(value = "{\"id\": \"1\", \"name\": \"Aasam\"}, {\"id\": \"2\", \"name\": \"AandhraPradesh\"}]",
+                                                                            mediaType = "application/json"))))
+    @Deprecated(since="2.0", forRemoval=true)
+    @SuppressWarnings("rawtypes")
+    @GetMapping("/api/v1.0/search/city")
+    public List
+        searchCity(@ApiParam(value = "search key",
+                          example = "aa",
+                          required = true) @RequestParam(value = "start") final String key) {
+        LOGGER.info(LoggerUtilities.getMessage("serving auto-complete request for city with keyword {}", key));
+        return autoCompleteSvcFacade.search(AutoCompleteComponent.CITY, key, null);
     }
 }
