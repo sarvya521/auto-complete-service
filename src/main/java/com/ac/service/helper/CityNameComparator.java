@@ -7,7 +7,7 @@ import com.ac.dto.City;
 /**
  * Custom implementation of java.util.Comparator. Compares
  * {@link com.ac.dto.City} objects based on {@link #key} and
- * {@link com.ac.dto.City#getName()}.
+ * {@link com.ac.dto.City#getName}.
  *
  * <p>
  * Final sort will have first all cities whose {@code name} starts with given

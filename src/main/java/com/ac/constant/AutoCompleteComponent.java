@@ -13,7 +13,7 @@ import java.util.Map;
  * same as {@code PathVariable} of search API.
  *
  * @see com.ac.service.AutoCompleteService
- * @see com.ac.service.impl.AutoCompleteSvcFacade#search(String, String)
+ * @see com.ac.service.impl.AutoCompleteSvcFacade#search
  *
  * @author sarvesh
  */

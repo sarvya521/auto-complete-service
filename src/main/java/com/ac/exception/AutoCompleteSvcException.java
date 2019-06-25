@@ -27,6 +27,8 @@ public class AutoCompleteSvcException extends RuntimeException {
     }
 
     /**
+     * @param   message   the detail message. The detail message is saved for
+     *          later retrieval by the {@link #getMessage()} method.
      * @see java.lang.RuntimeException#RuntimeException(String)
      */
     public AutoCompleteSvcException(String message) {
@@ -35,8 +37,8 @@ public class AutoCompleteSvcException extends RuntimeException {
     }
 
     /**
-     * Calls {@code super constructor} @see
-     * java.lang.RuntimeException#RuntimeException(String)
+     * @param   error   AcError
+     * @see java.lang.RuntimeException#RuntimeException(String)
      */
     public AutoCompleteSvcException(AcError error) {
         super(error.msg());
@@ -44,6 +46,12 @@ public class AutoCompleteSvcException extends RuntimeException {
     }
 
     /**
+     * @param  message the detail message (which is saved for later retrieval
+     *         by the {@link #getMessage()} method).
+     * @param  cause the cause (which is saved for later retrieval by the
+     *         {@link #getCause()} method).  (A {@code null} value is
+     *         permitted, and indicates that the cause is nonexistent or
+     *         unknown.)
      * @see java.lang.RuntimeException#RuntimeException(String, Throwable)
      */
     public AutoCompleteSvcException(String message, Throwable cause) {
@@ -52,8 +60,12 @@ public class AutoCompleteSvcException extends RuntimeException {
     }
 
     /**
-     * Calls {@code super constructor} @see
-     * java.lang.RuntimeException#RuntimeException(String, Throwable)
+     * @param  error   AcError
+     * @param  cause the cause (which is saved for later retrieval by the
+     *         {@link #getCause()} method).  (A {@code null} value is
+     *         permitted, and indicates that the cause is nonexistent or
+     *         unknown.)
+     * @see java.lang.RuntimeException#RuntimeException(String, Throwable)
      */
     public AutoCompleteSvcException(AcError error, Throwable cause) {
         super(error.msg(), cause);
@@ -61,6 +73,10 @@ public class AutoCompleteSvcException extends RuntimeException {
     }
 
     /**
+     * @param  cause the cause (which is saved for later retrieval by the
+     *         {@link #getCause()} method).  (A {@code null} value is
+     *         permitted, and indicates that the cause is nonexistent or
+     *         unknown.)
      * @see java.lang.RuntimeException#RuntimeException(Throwable)
      */
     public AutoCompleteSvcException(Throwable cause) {

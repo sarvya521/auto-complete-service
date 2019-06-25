@@ -32,7 +32,7 @@ Refer [Naming convention for commit message guidelines](https://docs.google.com/
 
 ###### Pull Request
 
-Refer [Branching-Model](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.5x0d5h95i329)
+Refer [Incorporating a finished feature on develop (PR)](https://docs.google.com/document/d/1zMBsAFxcE93J0lr98zwoV5Cy89-2u5xigpR_eG1Ugns/edit#heading=h.aggiqwqdmqn5)
 
 ### Exception Handling
 

@@ -10,7 +10,6 @@ com.ac.service
 com.ac.service.helper
 com.ac.service.impl
 com.ac.util
-com.ac.web
 com.ac.web.controller
 com.ac.web.exception
 com.ac.web.filter

@@ -1,0 +1,13 @@
+cache:
+  default:
+    timeToLive: 200
+    timerInterval: 500
+    maxItems: 6
+  city:
+    timeToLive: 200
+    timerInterval: 500
+    maxItems: 6
+  state:
+    timeToLive: 200
+    timerInterval: 500
+    maxItems: 6

@@ -23,7 +23,7 @@ spring:
     config:
       enabled: false
   datasource:
-    url: jdbc:h2:mem:auto-complete-demo
+    url: jdbc:h2:mem:auto-complete-demo;DB_CLOSE_DELAY=-1
     platform: h2
     username: sa
     password:
@@ -49,19 +49,9 @@ spring:
       settings:
         trace: false
         web-allow-others: false
-cache:
-  default:
-    timeToLive: 200
-    timerInterval: 500
-    maxItems: 6
-  city:
-    timeToLive: 200
-    timerInterval: 500
-    maxItems: 6
-  state:
-    timeToLive: 200
-    timerInterval: 500
-    maxItems: 6
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 ---
 spring:
   profiles: dev

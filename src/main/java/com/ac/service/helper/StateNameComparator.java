@@ -1,13 +1,15 @@
 package com.ac.service.helper;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 import com.ac.dto.State;
 
 /**
  * Custom implementation of java.util.Comparator. Compares
- * {@link com.ac.dto.State} objects based on {@link #key} and
- * {@link com.ac.dto.State#getName()}.
+ * {@link com.ac.dto.State} objects based on {@link #key}, and
+ * {@link com.ac.dto.State#getName}
  *
  * <p>
  * Final sort will have first all states whose {@code name} starts with given
