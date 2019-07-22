@@ -33,7 +33,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.navify.roche</groupId>
+      <groupId>com.sp.plugin.log4j</groupId>
       <artifactId>log4j2-masking-plugin</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
