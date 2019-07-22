@@ -37,6 +37,11 @@
       <artifactId>log4j2-masking-plugin</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.sp.common.util</groupId>
+      <artifactId>common-util</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
     <!-- excluding default logging framework in spring to support log4j2 -->
     <dependency>
