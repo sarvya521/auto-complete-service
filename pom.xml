@@ -305,20 +305,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.whitesource</groupId>
-        <artifactId>whitesource-maven-plugin</artifactId>
-        <version>17.11.3</version>
-        <configuration>
-          <orgToken>e9f209b1f37f4a009ef699ce57077a66197c2ab4c258410bb87222f468687dfa</orgToken>
-          <product>9ff889917b6c4e199f351442f1d712c552df9b43e38f4d728c838db73d1d9ff3</product>
-          <productVersion>develop</productVersion>
-          <excludes>
-            <exclude>*integration-tests</exclude>
-            <exclude>*performance-tests</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.4</version>
