@@ -195,19 +195,6 @@
     </dependencies>
   </dependencyManagement>
 
-  <distributionManagement>
-    <snapshotRepository>
-      <id>navify-snapshots</id>
-      <name>navify-snapshots</name>
-      <url>https://navify.jfrog.io/navify/navify-snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>navify-releases</id>
-      <name>navify-releases</name>
-      <url>https://navify.jfrog.io/navify/navify-releases</url>
-    </repository>
-  </distributionManagement>
-
   <build>
     <plugins>
       <plugin>
