@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+auto-complete-service,com.ac.dao.impl,CityDAOImpl,0,195,1,1,0,39,1,5,0,5
+auto-complete-service,com.ac.dao.impl,StateDAOImpl,0,198,1,1,0,39,1,6,0,6
+auto-complete-service,com.ac.service.impl,CityAutoCompleteServiceImpl,68,146,12,10,21,35,12,7,1,7
+auto-complete-service,com.ac.service.impl,AutoCompleteSvcFacade,53,7,4,0,10,2,3,2,1,2
+auto-complete-service,com.ac.service.impl,StateAutoCompleteServiceImpl,68,146,12,10,21,35,12,7,1,7
+auto-complete-service,com.ac.web.controller,AutoCompleteApiController,38,32,0,0,4,4,2,3,2,3
+auto-complete-service,com.ac.util,SynchronizedInMemoryCache,41,221,12,20,13,53,14,12,2,8
+auto-complete-service,com.ac.util,LoggerUtilities,24,80,7,13,6,20,8,6,1,3
+auto-complete-service,com.ac.util,SynchronizedInMemoryCache.new Runnable() {...},1,19,0,0,1,4,0,2,0,2
+auto-complete-service,com.ac.util,SynchronizedInMemoryCache.CacheObject,5,14,1,1,1,5,1,1,0,1
+auto-complete-service,com.ac.service.helper,StateNameComparator,5,51,1,9,1,18,1,6,0,2
+auto-complete-service,com.ac.service.helper,CityNameComparator,5,51,1,9,1,18,1,6,0,2

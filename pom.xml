@@ -28,10 +28,16 @@
     <delombok.skip>true</delombok.skip>
     <animal-sniffer.skip>true</animal-sniffer.skip>
     <duplicate-finder.skip>true</duplicate-finder.skip>
-    <jar_name>test.jar</jar_name>
+    <jacoco.skip>true</jacoco.skip>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.navify.roche</groupId>
+      <artifactId>log4j2-masking-plugin</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
     <!-- excluding default logging framework in spring to support log4j2 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -203,24 +209,6 @@
   </distributionManagement>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>animal-sniffer-maven-plugin</artifactId>
-          <configuration>
-            <skip>${animal-sniffer.skip}</skip>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.basepom.maven</groupId>
-          <artifactId>duplicate-finder-maven-plugin</artifactId>
-          <configuration>
-            <skip>${duplicate-finder.skip}</skip>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -238,6 +226,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.ec4j.maven</groupId>
         <artifactId>editorconfig-maven-plugin</artifactId>
@@ -302,6 +291,20 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <configuration>
+          <skip>${animal-sniffer.skip}</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.basepom.maven</groupId>
+        <artifactId>duplicate-finder-maven-plugin</artifactId>
+        <configuration>
+          <skip>${duplicate-finder.skip}</skip>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.whitesource</groupId>
         <artifactId>whitesource-maven-plugin</artifactId>
         <version>17.11.3</version>
@@ -314,6 +317,70 @@
             <exclude>*performance-tests</exclude>
           </excludes>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.4</version>
+        <configuration>
+          <skip>${jacoco.skip}</skip>
+          <includes>
+            <include>com/ac/dao/**</include>
+            <include>com/ac/service/**</include>
+            <include>com/ac/util/**</include>
+            <include>com/ac/web/controller/**</include>
+          </includes>
+          <excludes>
+            <exclude>${jacoco.exclude}*</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>docs/jacoco</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>CLASS</element>
+                  <limits>
+                    <limit>
+                      <counter>METHOD</counter>
+                      <value>MISSEDCOUNT</value>
+                      <maximum>0</maximum>
+                    </limit>
+                  </limits>
+                </rule>
+                <rule>
+                  <element>METHOD</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>.6</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
     <resources>

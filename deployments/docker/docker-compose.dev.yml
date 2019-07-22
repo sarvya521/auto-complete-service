@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    image: springboot-boilerplate
+    build: .
+    ports:
+      - "8888:8080"
+    # Mount source code to docker for LiveReload
+    volumes:
+      - ../../.:/app
+    working_dir: /app/
+    # dependency:go-offline will download the dependencies required for the build and cache them.
+    # spring-boot:run will start the spring boot application.
+    command: bash -c "./mvnw dependency:go-offline && ./mvnw spring-boot:run"
+    environment:
+      - SPRING_PROFILES_ACTIVE:local

@@ -2,8 +2,6 @@ package com.ac.web.controller;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +19,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Example;
 import io.swagger.annotations.ExampleProperty;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * Bundles all necessary APIs for auto-complete service.
@@ -28,11 +27,9 @@ import io.swagger.annotations.ExampleProperty;
  * @author sarvesh
  */
 @Api(tags = "Generic Auto-Complete Service")
+@Log4j2
 @RestController
 public class AutoCompleteApiController {
-
-    private static final Logger LOGGER = LogManager.getLogger(AutoCompleteApiController.class);
-
     /**
      * @see com.ac.service.impl.AutoCompleteSvcFacade
      */
@@ -63,7 +60,7 @@ public class AutoCompleteApiController {
                 @ApiParam(value = "max number of auto-complete suggestions",
                           example = "2",
                           required = false) @RequestParam(value = "atmost", required = false) Integer maxResult) {
-        LOGGER.info(LoggerUtilities.getMessage("serving auto-complete request for {} with keyword {} and limit {}",
+        log.info(LoggerUtilities.getMessage("serving auto-complete request for {} with keyword {} and limit {}",
                 type, key, maxResult));
         return autoCompleteSvcFacade.search(type, key, maxResult);
     }
@@ -88,7 +85,7 @@ public class AutoCompleteApiController {
                 @ApiParam(value = "search key",
                           example = "aa",
                           required = true) @RequestParam(value = "start") final String key) {
-        LOGGER.info(LoggerUtilities.getMessage("serving auto-complete request for {} with keyword {}",
+        log.info(LoggerUtilities.getMessage("serving auto-complete request for {} with keyword {}",
                 type, key));
         return autoCompleteSvcFacade.search(type, key, null);
     }
@@ -110,7 +107,7 @@ public class AutoCompleteApiController {
         searchCity(@ApiParam(value = "search key",
                           example = "aa",
                           required = true) @RequestParam(value = "start") final String key) {
-        LOGGER.info(LoggerUtilities.getMessage("serving auto-complete request for city with keyword {}", key));
+        log.info(LoggerUtilities.getMessage("serving auto-complete request for city with keyword {}", key));
         return autoCompleteSvcFacade.search(AutoCompleteComponent.CITY, key, null);
     }
 }

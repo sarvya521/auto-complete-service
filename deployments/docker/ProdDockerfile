@@ -1,0 +1,4 @@
+FROM openjdk:11-jre-slim as runtime
+EXPOSE 8080
+COPY target/auto-complete-service-*-SNAPSHOT.jar auto-complete-service
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/auto-complete-service"]

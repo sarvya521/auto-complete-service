@@ -10,6 +10,8 @@ Create maven goals from Eclipse. Below are some important goals you should know 
 * Generate javadoc: `mvn clean install -Ddelombok.skip=false -Djavadoc.skip=false`
 * Install with Animal-Sniffer: `mvn clean install -Danimal-sniffer.skip=false`
 * Install with Duplicate-Finder: `mvn clean install -Dduplicate-finder.skip=false`
+* Install with Jacoco: `mvn clean install -Djacoco.skip=false`
+* Install with Jacoco(exclude class/package): `mvn clean install -Djacoco.skip=false -Djacoco.exclude=<package/class path>`
 
 ### Swagger
 
@@ -286,5 +288,87 @@ Add below plugin configuration in pom.xml.
   <configuration>
     <skip>${duplicate-finder.skip}</skip>
   </configuration>
+</plugin>
+```
+
+### JaCoCo Maven plug-in
+
+The JaCoCo Maven plug-in provides the JaCoCo runtime agent to your tests and allows basic report creation. [Refer](https://www.jacoco.org/jacoco/trunk/doc/maven.html) for more details
+
+* Install with Jacoco: `mvn clean install -Djacoco.skip=false`
+* Install with Jacoco(exclude class/package): `mvn clean install -Djacoco.skip=false -Djacoco.exclude=<package/class path>`
+
+Example:
+* Exclude Specific Package: `mvn clean install -Djacoco.skip=false -Djacoco.exclude=com/ac/util/`
+* Exclude Specific Class: `mvn clean install -Djacoco.skip=false -Djacoco.exclude=com/ac/util/LoggerUtilities`
+
+Add below plugin configuration in pom.xml. With below configuration, build will fail if it violate below rules
+* All methods in a class should provide the test coverage
+* Minimum of 60% test code coverage for each method 
+
+```sh
+<plugin>
+  <groupId>org.jacoco</groupId>
+  <artifactId>jacoco-maven-plugin</artifactId>
+  <version>0.8.4</version>
+  <configuration>
+    <skip>${jacoco.skip}</skip>
+    <includes>
+      <include>com/ac/dao/*</include>
+      <include>com/ac/service/*</include>
+      <include>com/ac/util/*</include>
+      <include>com/ac/web/controller/*</include>
+    </includes>
+    <excludes>
+      <exclude>${jacoco.exclude}*</exclude>
+    </excludes>
+  </configuration>
+  <executions>
+    <execution>
+      <goals>
+        <goal>prepare-agent</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>report</id>
+      <phase>test</phase>
+      <goals>
+        <goal>report</goal>
+      </goals>
+      <configuration>
+        <outputDirectory>docs/jacoco</outputDirectory>
+      </configuration>
+    </execution>
+    <execution>
+      <id>check</id>
+      <goals>
+        <goal>check</goal>
+      </goals>
+      <configuration>
+        <rules>
+          <rule>
+            <element>CLASS</element>
+            <limits>
+              <limit>
+                <counter>METHOD</counter>
+                <value>MISSEDCOUNT</value>
+                <maximum>0</maximum>
+              </limit>
+            </limits>
+          </rule>
+          <rule>
+            <element>METHOD</element>
+            <limits>
+              <limit>
+                <counter>LINE</counter>
+                <value>COVEREDRATIO</value>
+                <minimum>.6</minimum>
+              </limit>
+            </limits>
+          </rule>
+        </rules>
+      </configuration>
+    </execution>
+  </executions>
 </plugin>
 ```

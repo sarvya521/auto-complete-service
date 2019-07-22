@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AutoCompleteApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">auto-complete-service</a> &gt; <a href="index.source.html" class="el_package">com.ac.web.controller</a> &gt; <span class="el_source">AutoCompleteApiController.java</span></div><h1>AutoCompleteApiController.java</h1><pre class="source lang-java linenums">package com.ac.web.controller;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ac.constant.AutoCompleteComponent;
+import com.ac.service.impl.AutoCompleteSvcFacade;
+import com.ac.util.LoggerUtilities;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
+
+/**
+ * Bundles all necessary APIs for auto-complete service.
+ *
+ * @author sarvesh
+ */
+@Api(tags = &quot;Generic Auto-Complete Service&quot;)
+@RestController
+<span class="fc" id="L32">public class AutoCompleteApiController {</span>
+
+<span class="fc" id="L34">    private static final Logger LOGGER = LogManager.getLogger(AutoCompleteApiController.class);</span>
+
+    /**
+     * @see com.ac.service.impl.AutoCompleteSvcFacade
+     */
+    @Autowired
+    private AutoCompleteSvcFacade autoCompleteSvcFacade;
+
+    /**
+     * @param type      auto-complete component
+     * @param key       non-null keyword to search
+     * @param maxResult maximum number of suggestions needed
+     * @return {@link java.util.List} list of {@code model} objects representing
+     *         {@code type}
+     */
+    @ApiOperation(value = &quot;Get a list of auto-complete suggestions for a given type&quot;, notes = &quot;Latest API&quot;, produces = &quot;application/json&quot;)
+    @ApiResponses(@ApiResponse(code = 200,
+                               message = &quot;OK&quot;,
+                               examples = @Example(value = @ExampleProperty(value = &quot;{\&quot;id\&quot;: \&quot;1\&quot;, \&quot;name\&quot;: \&quot;Aasam\&quot;}, {\&quot;id\&quot;: \&quot;2\&quot;, \&quot;name\&quot;: \&quot;AandhraPradesh\&quot;}]&quot;,
+                                                                            mediaType = &quot;application/json&quot;))))
+    @SuppressWarnings(&quot;rawtypes&quot;)
+    @GetMapping(&quot;/api/v2.1/search/{type}&quot;)
+    public List
+        search(@ApiParam(value = &quot;search component&quot;,
+                         example = &quot;city&quot;,
+                         required = true) @PathVariable(value = &quot;type&quot;) final String type,
+                @ApiParam(value = &quot;search key&quot;,
+                          example = &quot;aa&quot;,
+                          required = true) @RequestParam(value = &quot;start&quot;) final String key,
+                @ApiParam(value = &quot;max number of auto-complete suggestions&quot;,
+                          example = &quot;2&quot;,
+                          required = false) @RequestParam(value = &quot;atmost&quot;, required = false) Integer maxResult) {
+<span class="fc" id="L66">        LOGGER.info(LoggerUtilities.getMessage(&quot;serving auto-complete request for {} with keyword {} and limit {}&quot;,</span>
+                type, key, maxResult));
+<span class="fc" id="L68">        return autoCompleteSvcFacade.search(type, key, maxResult);</span>
+    }
+    
+    /**
+     * @param type      auto-complete component
+     * @param key       non-null keyword to search
+     * @return {@link java.util.List} list of {@code model} objects representing
+     *         {@code type}
+     */
+    @ApiOperation(value = &quot;Get a list of auto-complete suggestions for a given type&quot;, notes = &quot;version 2.0&quot;, produces = &quot;application/json&quot;)
+    @ApiResponses(@ApiResponse(code = 200,
+                               message = &quot;OK&quot;,
+                               examples = @Example(value = @ExampleProperty(value = &quot;{\&quot;id\&quot;: \&quot;1\&quot;, \&quot;name\&quot;: \&quot;Aasam\&quot;}, {\&quot;id\&quot;: \&quot;2\&quot;, \&quot;name\&quot;: \&quot;AandhraPradesh\&quot;}]&quot;,
+                                                                            mediaType = &quot;application/json&quot;))))
+    @SuppressWarnings(&quot;rawtypes&quot;)
+    @GetMapping(&quot;/api/v2.0/search/{type}&quot;)
+    public List
+        search(@ApiParam(value = &quot;search component&quot;,
+                         example = &quot;city&quot;,
+                         required = true) @PathVariable(value = &quot;type&quot;) final String type,
+                @ApiParam(value = &quot;search key&quot;,
+                          example = &quot;aa&quot;,
+                          required = true) @RequestParam(value = &quot;start&quot;) final String key) {
+<span class="nc" id="L91">        LOGGER.info(LoggerUtilities.getMessage(&quot;serving auto-complete request for {} with keyword {}&quot;,</span>
+                type, key));
+<span class="nc" id="L93">        return autoCompleteSvcFacade.search(type, key, null);</span>
+    }
+    
+    /**
+     * @deprecated
+     * @param key       non-null keyword to search
+     * @return {@link java.util.List} list of {@code City} objects
+     */
+    @ApiOperation(value = &quot;Get a list of auto-complete suggestions for city&quot;, notes = &quot;Deprecated API, kept for legacy support, Expiry: 31 Dec 2020&quot;, produces = &quot;application/json&quot;)
+    @ApiResponses(@ApiResponse(code = 200,
+                               message = &quot;OK&quot;,
+                               examples = @Example(value = @ExampleProperty(value = &quot;{\&quot;id\&quot;: \&quot;1\&quot;, \&quot;name\&quot;: \&quot;Aasam\&quot;}, {\&quot;id\&quot;: \&quot;2\&quot;, \&quot;name\&quot;: \&quot;AandhraPradesh\&quot;}]&quot;,
+                                                                            mediaType = &quot;application/json&quot;))))
+    @Deprecated(since=&quot;2.0&quot;, forRemoval=true)
+    @SuppressWarnings(&quot;rawtypes&quot;)
+    @GetMapping(&quot;/api/v1.0/search/city&quot;)
+    public List
+        searchCity(@ApiParam(value = &quot;search key&quot;,
+                          example = &quot;aa&quot;,
+                          required = true) @RequestParam(value = &quot;start&quot;) final String key) {
+<span class="nc" id="L113">        LOGGER.info(LoggerUtilities.getMessage(&quot;serving auto-complete request for city with keyword {}&quot;, key));</span>
+<span class="nc" id="L114">        return autoCompleteSvcFacade.search(AutoCompleteComponent.CITY, key, null);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

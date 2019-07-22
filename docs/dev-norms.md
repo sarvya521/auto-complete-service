@@ -62,7 +62,7 @@ Refer - [MDC in log4j2](https://www.baeldung.com/mdc-in-log4j-2-logback), [Log4j
 ### Java Doc
 
 Generate java documentation for every class and its members, Follow proper javadoc guidelines.
-For Reference - [Spring Boot boilerplate](https://gitlab.com/crazy-app-starters/spring-boot) project
+For Reference - [Spring Boot boilerplate](https://bitbucket.org/rochedis/ow-fhir-db-poc-scratch) project
 	
 ### Common Code
 
