@@ -21,7 +21,7 @@ This spring boot project has covered standard coding practices.
 * flyway: for database migration and versioning
 
 ## Setting up Dev
-1. Clone the repository with SSH - git clone git@bitbucket.org:rochedis/ow-fhir-db-poc-scratch.git
+1. Clone the repository with SSH - git clone https://github.com/sarvya521/springboot-boilerplate.git
 2. Import eclipse code formatter - Refer java-code-format.md
 3. Install Lombok, Refer lombok-plugin.md
 
