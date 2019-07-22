@@ -2,7 +2,7 @@ HELP.md
 /target/
 /logs/
 !.mvn/wrapper/maven-wrapper.jar
-flywayConfig.properties
+#flywayConfig.properties ### this should not be part of boilerplate, hence should be ignored using gitignore
 
 ### STS ###
 .apt_generated
