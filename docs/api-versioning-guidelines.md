@@ -45,10 +45,10 @@ Service and Repository should be designed for backward compatibility with some d
 Only latest API classes(dto and controller) will be in base/versionless package.
 
 For example:
-* com.ac.web.controller.v10
-* com.ac.web.controller.v20
-* com.ac.dto.v10
-* com.ac.dto.v20
+* com.sp.backend.boilerplate.web.controller.v10
+* com.sp.backend.boilerplate.web.controller.v20
+* com.sp.backend.boilerplate.dto.v10
+* com.sp.backend.boilerplate.dto.v20
   
 Note:
-v21 is latest version, Hence its controllers will remain to stay in com.ac.web.controller package and its dto will remain to stay in com.ac.dto package
+v21 is latest version, Hence its controllers will remain to stay in com.sp.backend.boilerplate.web.controller package and its dto will remain to stay in com.sp.backend.boilerplate.dto package

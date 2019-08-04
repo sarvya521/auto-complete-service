@@ -10,15 +10,16 @@
     <version>2.1.6.RELEASE</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.ac</groupId>
-  <artifactId>auto-complete-service</artifactId>
+  <groupId>com.sp.backend.boilerplate</groupId>
+  <artifactId>springboot-boilerplate</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>auto-complete-service</name>
-  <description>generic auto-complete service</description>
+  <name>springboot-boilerplate</name>
+  <description>generic auto-complete service created as part springboot-boilerplate</description>
 
   <properties>
     <java.version>11</java.version>
     <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+    <spring.cloud.contract.version>2.1.2.RELEASE</spring.cloud.contract.version>
     <springfox.version>2.9.2</springfox.version>
     <owasp.encoder.version>1.2.2</owasp.encoder.version>
     <commons-collections.version>4.3</commons-collections.version>
@@ -29,18 +30,23 @@
     <animal-sniffer.skip>true</animal-sniffer.skip>
     <duplicate-finder.skip>true</duplicate-finder.skip>
     <jacoco.skip>true</jacoco.skip>
+    <jacoco.exclude></jacoco.exclude>
+    
+    <!-- navify dependencies starts -->
+    <common-util.version>0.0.1-SNAPSHOT</common-util.version>
+    <log4j2-masking-plugin.version>0.0.1-SNAPSHOT</log4j2-masking-plugin.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>com.sp.plugin.log4j</groupId>
-      <artifactId>log4j2-masking-plugin</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>com.sp.common.util</groupId>
       <artifactId>common-util</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${common-util.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sp.plugin.log4j</groupId>
+      <artifactId>log4j2-masking-plugin</artifactId>
+      <version>${log4j2-masking-plugin.version}</version>
     </dependency>
 
     <!-- excluding default logging framework in spring to support log4j2 -->
@@ -154,7 +160,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-
+    
     <!-- dependencies for testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -170,6 +176,12 @@
           <artifactId>junit</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <!-- For Contract Testing -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-contract-stub-runner</artifactId>
+      <version>${spring.cloud.contract.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -199,6 +211,19 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>navify-snapshots</id>
+      <name>navify-snapshots</name>
+      <url>https://navify.jfrog.io/navify/navify-snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>navify-releases</id>
+      <name>navify-releases</name>
+      <url>https://navify.jfrog.io/navify/navify-releases</url>
+    </repository>
+  </distributionManagement>
 
   <build>
     <plugins>
@@ -239,7 +264,6 @@
             <!-- see https://github.com/ec4j/editorconfig-maven-plugin/blob/master/ec4j-lint-api/src/main/java/org/ec4j/maven/lint/api/Constants.java#L37 -->
             <!-- You can exclude further files from processing: -->
             <exclude>eclipse-java-code-style*.xml</exclude>
-            <exclude>intellij-java-code-style*.xml</exclude>
             <exclude>docs/</exclude>
           </excludes>
           <!-- All files are included by default: <includes> <include>**</include> 
@@ -304,12 +328,13 @@
         <configuration>
           <skip>${jacoco.skip}</skip>
           <includes>
-            <include>com/ac/dao/**</include>
-            <include>com/ac/service/**</include>
-            <include>com/ac/util/**</include>
-            <include>com/ac/web/controller/**</include>
+            <include>com/roche/navify/ow/boilerplate/dao/impl/**</include>
+            <include>com/roche/navify/ow/boilerplate/service/impl/**</include>
+            <include>com/roche/navify/ow/boilerplate/util/**</include>
+            <include>com/roche/navify/ow/boilerplate/web/controller/**</include>
           </includes>
           <excludes>
+            <exclude>com/roche/navify/ow/boilerplate/service/helper</exclude>
             <exclude>${jacoco.exclude}*</exclude>
           </excludes>
         </configuration>

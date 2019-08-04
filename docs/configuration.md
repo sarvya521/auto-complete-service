@@ -15,9 +15,9 @@ Create maven goals from Eclipse. Below are some important goals you should know 
 
 ### Swagger
 
-For Configuration - Refer `com.ac.config.Swagger2Config` 
+For Configuration - Refer `com.sp.backend.boilerplate.config.Swagger2Config` 
 
-For API Documentation - Refer `com.ac.web.controller.AutoCompleteApiController`
+For API Documentation - Refer `com.sp.backend.boilerplate.web.controller.AutoCompleteApiController`
 
 Below are the required dependencies
 
