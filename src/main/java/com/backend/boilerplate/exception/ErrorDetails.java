@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2019 www.roche.com.
- * All rights reserved.
- */
-
 package com.backend.boilerplate.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
