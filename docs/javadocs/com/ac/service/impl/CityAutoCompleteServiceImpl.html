@@ -117,7 +117,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">com.sp.backend.boilerplate.service.impl</a></div>
+    <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">com.backend.boilerplate.service.impl</a>
+    </div>
 <h2 title="Class CityAutoCompleteServiceImpl" class="title">Class CityAutoCompleteServiceImpl</h2>
 </div>
 <div class="contentContainer">
@@ -125,7 +126,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.sp.backend.boilerplate.service.impl.CityAutoCompleteServiceImpl</li>
+    <li>com.backend.boilerplate.service.impl.CityAutoCompleteServiceImpl</li>
 </ul>
 </li>
 </ul>
@@ -134,16 +135,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../AutoCompleteService.html" title="interface in com.sp.backend.boilerplate.service">AutoCompleteService</a>&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;</code></dd>
+    <dd><code><a href="../AutoCompleteService.html" title="interface in com.backend.boilerplate.service">AutoCompleteService</a>&lt;<a
+            href="../../dto/City.html" title="class in com.backend.boilerplate.dto">City</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>@Service
 @Qualifier("cityAutoCompleteService")
 public class <span class="typeNameLabel">CityAutoCompleteServiceImpl</span>
 extends java.lang.Object
-implements <a href="../AutoCompleteService.html" title="interface in com.sp.backend.boilerplate.service">AutoCompleteService</a>&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;</pre>
-<div class="block">Implementation of <a href="../AutoCompleteService.html" title="interface in com.sp.backend.boilerplate.service"><code>AutoCompleteService</code></a> for type City.
- See <a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto"><code>City</code></a></div>
+implements <a href="../AutoCompleteService.html" title="interface in com.backend.boilerplate.service">AutoCompleteService</a>&lt;<a
+            href="../../dto/City.html" title="class in com.backend.boilerplate.dto">City</a>&gt;</pre>
+    <div class="block">Implementation of <a href="../AutoCompleteService.html"
+                                            title="interface in com.backend.boilerplate.service"><code>AutoCompleteService</code></a>
+        for type City.
+        See <a href="../../dto/City.html" title="class in com.backend.boilerplate.dto"><code>City</code></a></div>
 <dl>
 <dt><span class="simpleTagLabel">Author:</span></dt>
 <dd>sarvesh</dd>
@@ -198,7 +203,9 @@ implements <a href="../AutoCompleteService.html" title="interface in com.sp.back
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;</code></td>
+    <td class="colFirst"><code>java.util.List&lt;<a href="../../dto/City.html"
+                                                    title="class in com.backend.boilerplate.dto">City</a>&gt;</code>
+    </td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#search(java.lang.String)">search</a></span>&#8203;(java.lang.String&nbsp;key)</code></th>
 <td class="colLast">
 <div class="block">Encapsulate core business logic of searching for a given key in database and
@@ -206,7 +213,9 @@ implements <a href="../AutoCompleteService.html" title="interface in com.sp.back
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;</code></td>
+    <td class="colFirst"><code>java.util.List&lt;<a href="../../dto/City.html"
+                                                    title="class in com.backend.boilerplate.dto">City</a>&gt;</code>
+    </td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#search(java.lang.String,java.lang.Integer)">search</a></span>&#8203;(java.lang.String&nbsp;key,
       java.lang.Integer&nbsp;maxResult)</code></th>
 <td class="colLast">
@@ -267,8 +276,11 @@ implements <a href="../AutoCompleteService.html" title="interface in com.sp.back
 public&nbsp;void&nbsp;initCache()</pre>
 <div class="block">Initializes cache for storing auto-complete search results <code>List&lt;City&gt;</code>
  against search keyword <code>key</code>. Caching mechanism is implemented using
- <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.sp.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a>. Settings needed for
- initializing <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.sp.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a> are configured in
+    <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a>.
+    Settings needed for
+    initializing <a href="../../util/SynchronizedInMemoryCache.html"
+                    title="class in com.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a> are
+    configured in
  <code>environment properties</code>.
 
  <p>
@@ -290,7 +302,7 @@ public&nbsp;void&nbsp;initCache()</pre>
 <li class="blockList">
 <h4>search</h4>
 <pre class="methodSignature">@Transactional
-public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;&nbsp;search&#8203;(java.lang.String&nbsp;key)</pre>
+public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.backend.boilerplate.dto">City</a>&gt;&nbsp;search&#8203;(java.lang.String&nbsp;key)</pre>
 <div class="block">Encapsulate core business logic of searching for a given key in database and
  returns the sorted result. <code>Database Entity</code> is queried for given key
  to get <code>List</code> list of <code>DTO</code> objects for specified
@@ -299,7 +311,8 @@ public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.
 
  <p>
  Implementing service can have its custom <code>Comparator</code> for
- this sorting inside package <a href="../helper/package-summary.html"><code>com.sp.backend.boilerplate.service.helper</code></a>
+     this sorting inside package <a
+         href="../helper/package-summary.html"><code>com.backend.boilerplate.service.helper</code></a>
 
  <p>
  Result <code>List&lt;T&gt;</code> can be stored in cache against the requested
@@ -307,19 +320,24 @@ public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.
 
  <p>
  Caching mechanism can be implemented using
- <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.sp.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a> which follows
+     <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a>
+     which follows
  <code>Least Recently Used</code> algorithm in <code>synchronized</code> context
 
  <p>
- <a href="../helper/CityNameComparator.html" title="class in com.sp.backend.boilerplate.service.helper"><code>CityNameComparator</code></a> is custom
+     <a href="../helper/CityNameComparator.html" title="class in com.backend.boilerplate.service.helper"><code>CityNameComparator</code></a>
+     is custom
  <code>Comparator</code> used for sorting.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../AutoCompleteService.html#search(java.lang.String)">search</a></code>&nbsp;in interface&nbsp;<code><a href="../AutoCompleteService.html" title="interface in com.sp.backend.boilerplate.service">AutoCompleteService</a>&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;</code></dd>
+    <dd><code><a href="../AutoCompleteService.html#search(java.lang.String)">search</a></code>&nbsp;in
+        interface&nbsp;<code><a href="../AutoCompleteService.html" title="interface in com.backend.boilerplate.service">AutoCompleteService</a>&lt;<a
+                href="../../dto/City.html" title="class in com.backend.boilerplate.dto">City</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>key</code> - non-null keyword to search.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd><code>List</code> list of <a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto"><code>City</code></a></dd>
+    <dd><code>List</code> list of <a href="../../dto/City.html"
+                                     title="class in com.backend.boilerplate.dto"><code>City</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -330,7 +348,7 @@ public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.
 <li class="blockList">
 <h4>search</h4>
 <pre class="methodSignature">@Transactional
-public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;&nbsp;search&#8203;(java.lang.String&nbsp;key,
+public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.backend.boilerplate.dto">City</a>&gt;&nbsp;search&#8203;(java.lang.String&nbsp;key,
                                    java.lang.Integer&nbsp;maxResult)</pre>
 <div class="block">Encapsulate core business logic of searching for a given key in database and
  returns the sorted result. <code>Database Entity</code> is queried for given key
@@ -344,16 +362,20 @@ public&nbsp;java.util.List&lt;<a href="../../dto/City.html" title="class in com.
 
  <p>
  Caching mechanism can be implemented using
- <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.sp.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a> which follows
+     <a href="../../util/SynchronizedInMemoryCache.html" title="class in com.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a>
+     which follows
  <code>Least Recently Used</code> algorithm in <code>synchronized</code> context</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../AutoCompleteService.html#search(java.lang.String,java.lang.Integer)">search</a></code>&nbsp;in interface&nbsp;<code><a href="../AutoCompleteService.html" title="interface in com.sp.backend.boilerplate.service">AutoCompleteService</a>&lt;<a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto">City</a>&gt;</code></dd>
+    <dd><code><a href="../AutoCompleteService.html#search(java.lang.String,java.lang.Integer)">search</a></code>&nbsp;in
+        interface&nbsp;<code><a href="../AutoCompleteService.html" title="interface in com.backend.boilerplate.service">AutoCompleteService</a>&lt;<a
+                href="../../dto/City.html" title="class in com.backend.boilerplate.dto">City</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>key</code> - non-null keyword to search.</dd>
 <dd><code>maxResult</code> - maximum number of suggestions needed</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd><code>List</code> list of <a href="../../dto/City.html" title="class in com.sp.backend.boilerplate.dto"><code>City</code></a></dd>
+    <dd><code>List</code> list of <a href="../../dto/City.html"
+                                     title="class in com.backend.boilerplate.dto"><code>City</code></a></dd>
 </dl>
 </li>
 </ul>

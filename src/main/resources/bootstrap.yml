@@ -1,72 +1,9 @@
 spring:
   application:
-    name: auto-complete-service
-  profiles:
-    active: local
-management:
-  endpoint:
-    shutdown:
-      enabled: true
-    info:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-logging:
-  level:
-    org.springframework: INFO
----
-spring:
-  profiles: local
-  cloud:
-    config:
-      enabled: false
-  datasource:
-    url: jdbc:h2:mem:auto-complete-demo;DB_CLOSE_DELAY=-1
-    platform: h2
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-    hikari:
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        show_sql: false
-        use_sql_comments: false
-        format_sql: false
-    #open-in-view: false #VERY IMPORTANT SETTING. Default value is true
-  h2:
-    console:
-      enabled: true
-      path: /console
-      settings:
-        trace: false
-        web-allow-others: false
-  flyway:
+    name: bootstrap
+aws:
+  paramstore:
     enabled: true
-    locations: classpath:db/migration
----
-spring:
-  profiles: dev
-  cloud:
-    config:
-      uri: http://dev.matrix.com:8888 #should be dev config-server url
-      username: root
-      password: s3cr3t
-      fail-fast: true
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      uri: http://prod.matrix.com:8888 #should be prod config-server url
-      username: root
-      password: s3cr3t
-      fail-fast: true
+    prefix: /${ENV_NAME}
+    failFast: true
+    name: bootstrap

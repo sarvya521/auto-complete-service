@@ -117,7 +117,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">com.sp.backend.boilerplate.service</a></div>
+    <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">com.backend.boilerplate.service</a>
+    </div>
 <h2 title="Interface AutoCompleteService" class="title">Interface AutoCompleteService&lt;T&gt;</h2>
 </div>
 <div class="contentContainer">
@@ -130,7 +131,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="impl/CityAutoCompleteServiceImpl.html" title="class in com.sp.backend.boilerplate.service.impl">CityAutoCompleteServiceImpl</a></code>, <code><a href="impl/StateAutoCompleteServiceImpl.html" title="class in com.sp.backend.boilerplate.service.impl">StateAutoCompleteServiceImpl</a></code></dd>
+    <dd><code><a href="impl/CityAutoCompleteServiceImpl.html" title="class in com.backend.boilerplate.service.impl">CityAutoCompleteServiceImpl</a></code>,
+        <code><a href="impl/StateAutoCompleteServiceImpl.html" title="class in com.backend.boilerplate.service.impl">StateAutoCompleteServiceImpl</a></code>
+    </dd>
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">AutoCompleteService&lt;T&gt;</span></pre>
@@ -145,7 +148,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  Every implementing <code>Spring Service</code> must have unique <code>Qualifier</code>.
 
  <p>
- <a href="../constant/AutoCompleteComponent.html" title="enum in com.sp.backend.boilerplate.constant"><code>AutoCompleteComponent</code></a> must have mapping of
+     <a href="../constant/AutoCompleteComponent.html" title="enum in com.backend.boilerplate.constant"><code>AutoCompleteComponent</code></a>
+     must have mapping of
  <code>type</code> and it&#39;s service <code>Qualifier</code>.
 
  <p>
@@ -224,7 +228,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 
  <p>
  Implementing service can have its custom <code>Comparator</code> for
- this sorting inside package <a href="helper/package-summary.html"><code>com.sp.backend.boilerplate.service.helper</code></a>
+     this sorting inside package <a
+         href="helper/package-summary.html"><code>com.backend.boilerplate.service.helper</code></a>
 
  <p>
  Result <code>List&lt;T&gt;</code> can be stored in cache against the requested
@@ -232,7 +237,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 
  <p>
  Caching mechanism can be implemented using
- <a href="../util/SynchronizedInMemoryCache.html" title="class in com.sp.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a> which follows
+     <a href="../util/SynchronizedInMemoryCache.html" title="class in com.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a>
+     which follows
  <code>Least Recently Used</code> algorithm in <code>synchronized</code> context</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -262,7 +268,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 
  <p>
  Caching mechanism can be implemented using
- <a href="../util/SynchronizedInMemoryCache.html" title="class in com.sp.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a> which follows
+     <a href="../util/SynchronizedInMemoryCache.html" title="class in com.backend.boilerplate.util"><code>SynchronizedInMemoryCache</code></a>
+     which follows
  <code>Least Recently Used</code> algorithm in <code>synchronized</code> context</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

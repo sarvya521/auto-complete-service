@@ -10,11 +10,11 @@
     <version>2.1.6.RELEASE</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.sp.backend.boilerplate</groupId>
+  <groupId>com.backend.boilerplate</groupId>
   <artifactId>springboot-boilerplate</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>springboot-boilerplate</name>
-  <description>generic auto-complete service created as part springboot-boilerplate</description>
+  <description>generic springboot-boilerplate</description>
 
   <properties>
     <java.version>11</java.version>
@@ -25,6 +25,10 @@
     <commons-collections.version>4.3</commons-collections.version>
     <flyway.version>5.2.4</flyway.version>
     <hikaricp.version>3.2.0</hikaricp.version>
+    <modelmapper.version>2.3.5</modelmapper.version>
+    <postgresql.version>42.2.5</postgresql.version>
+    <embedded-postgresql.version>1.5.0</embedded-postgresql.version>
+
     <javadoc.skip>true</javadoc.skip>
     <delombok.skip>true</delombok.skip>
     <animal-sniffer.skip>true</animal-sniffer.skip>
@@ -66,6 +70,21 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version><!--$NO-MVN-MAN-VER$ -->
+    </dependency>
+
+    <!-- embedded postgress for testing -->
+    <dependency>
+      <groupId>io.zonky.test</groupId>
+      <artifactId>embedded-database-spring-test</artifactId>
+      <version>${embedded-postgresql.version}</version>
+      <scope>test</scope>
+    </dependency>
+
 
     <!-- dependencies for reactive -->
     <dependency>
@@ -160,7 +179,14 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-    
+
+    <!-- moddelmapper for Dto to Entity conevrsion and vice-versa -->
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>${modelmapper.version}</version>
+    </dependency>
+
     <!-- dependencies for testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -176,6 +202,13 @@
           <artifactId>junit</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.9.10</version>
+      <scope>test</scope>
     </dependency>
     <!-- For Contract Testing -->
     <dependency>
@@ -211,19 +244,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>navify-snapshots</id>
-      <name>navify-snapshots</name>
-      <url>https://navify.jfrog.io/navify/navify-snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>navify-releases</id>
-      <name>navify-releases</name>
-      <url>https://navify.jfrog.io/navify/navify-releases</url>
-    </repository>
-  </distributionManagement>
 
   <build>
     <plugins>
@@ -328,13 +348,12 @@
         <configuration>
           <skip>${jacoco.skip}</skip>
           <includes>
-            <include>com/roche/navify/ow/boilerplate/dao/impl/**</include>
-            <include>com/roche/navify/ow/boilerplate/service/impl/**</include>
-            <include>com/roche/navify/ow/boilerplate/util/**</include>
-            <include>com/roche/navify/ow/boilerplate/web/controller/**</include>
+            <include>com/backend/boilerplate/dao/impl/**</include>
+            <include>com/backend/boilerplate/service/impl/**</include>
+            <include>com/backend/boilerplate/util/**</include>
+            <include>com/backend/boilerplate/web/controller/**</include>
           </includes>
           <excludes>
-            <exclude>com/roche/navify/ow/boilerplate/service/helper</exclude>
             <exclude>${jacoco.exclude}*</exclude>
           </excludes>
         </configuration>
@@ -383,6 +402,19 @@
                 </rule>
               </rules>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.sp.maven</groupId>
+        <artifactId>sp-maven-plugin</artifactId>
+        <version>0.0.1</version>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <goals>
+              <goal>baseline</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

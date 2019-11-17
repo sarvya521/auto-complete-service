@@ -1,0 +1,929 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentation USERMANAGEMENT API v1",
+    "version": "1",
+    "title": "USERMANAGEMENT API",
+    "contact": {
+      "name": "Sarvesh Padwal",
+      "url": "https://www.google.com",
+      "email": "sarvesh.padwal@contractors.roche.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Permission API",
+      "description": "Claim Controller"
+    },
+    {
+      "name": "Role CRUD API",
+      "description": "Role Controller"
+    },
+    {
+      "name": "User CRUD API",
+      "description": "User Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/claim": {
+      "get": {
+        "tags": [
+          "Permission API"
+        ],
+        "summary": "Get a list of Permissions",
+        "operationId": "getAllClaimsUsingGET",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of Permissions",
+            "schema": {
+              "$ref": "#/definitions/Response«List«ClaimDto»»"
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource"
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/role": {
+      "get": {
+        "tags": [
+          "Role CRUD API"
+        ],
+        "summary": "Get a list of Roles with respective permissions",
+        "operationId": "getAllRolesUsingGET",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of roles with respective permissions",
+            "schema": {
+              "$ref": "#/definitions/Response«List«RoleDto»»"
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource"
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Role CRUD API"
+        ],
+        "summary": "Create an Role with respective permissions",
+        "operationId": "createRoleUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "createRoleDto",
+            "description": "role object to store in database table",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response«RoleDto»"
+            }
+          },
+          "201": {
+            "description": "Role created successfully",
+            "schema": {
+              "$ref": "#/definitions/Response«RoleDto»"
+            }
+          },
+          "401": {
+            "description": "You are not authorized to perform this action on the resource"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Role CRUD API"
+        ],
+        "summary": "Update an Role with respective permissions",
+        "operationId": "updateRoleUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "updateRoleDto",
+            "description": "Update role object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role with permissions are updated successfully",
+            "schema": {
+              "$ref": "#/definitions/Response«RoleDto»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "You are not authorized to perform this action on the resource"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to update is not found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/role/{uuid}": {
+      "delete": {
+        "tags": [
+          "Role CRUD API"
+        ],
+        "summary": "Delete an Role",
+        "operationId": "deleteRoleUsingDELETE",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "Role UUID from which role object will delete from database table",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "x-example": "36ed1611-5236-42a3-83ec-d408b45e3c19"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "You are not authorized to perform this action on the resource"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to delete is not found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/user": {
+      "get": {
+        "tags": [
+          "User CRUD API"
+        ],
+        "summary": "Get a current page of list of Users",
+        "operationId": "getUsersUsingGET",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "asc",
+            "in": "query",
+            "description": "asc",
+            "required": false,
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "pageNo",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "pageSize",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of users",
+            "schema": {
+              "$ref": "#/definitions/Response«UserPageDto»"
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource"
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "User CRUD API"
+        ],
+        "summary": "Create an User",
+        "operationId": "createUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "createUserDto",
+            "description": "user object store in database table",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response«UserDto»"
+            }
+          },
+          "201": {
+            "description": "User created successfully",
+            "schema": {
+              "$ref": "#/definitions/Response«UserDto»"
+            }
+          },
+          "401": {
+            "description": "You are not authorized to perform this action on the resource"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "User CRUD API"
+        ],
+        "summary": "Update an User",
+        "operationId": "updateUserUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "updateUserDto",
+            "description": "Update user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "schema": {
+              "$ref": "#/definitions/Response«UserDto»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "You are not authorized to perform this action on the resource"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to update is not found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/user/{uuid}": {
+      "get": {
+        "tags": [
+          "User CRUD API"
+        ],
+        "summary": "Get an User by UUID",
+        "operationId": "getUserByUuidUsingGET",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "User id from which user object will retrieve",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "x-example": "3275ae93-97c1-4181-b96d-4d4e1e507a3b"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the user details",
+            "schema": {
+              "$ref": "#/definitions/Response«UserDto»"
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource"
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "User CRUD API"
+        ],
+        "summary": "Delete an User",
+        "operationId": "deleteUserUsingDELETE",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "User Id from which user object will delete from database table",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "x-example": "3275ae93-97c1-4181-b96d-4d4e1e507a3b"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "You are not authorized to perform this action on the resource"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to delete is not found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "ClaimDto": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The uuid of the claim"
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "The resource name of the claim"
+        }
+      },
+      "title": "ClaimDto",
+      "description": "All details about the claims."
+    },
+    "CreateRoleDto": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the role"
+        },
+        "claims": {
+          "type": "array",
+          "description": "List of claims for this role",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "title": "CreateRoleDto",
+      "description": "All details about creating the role."
+    },
+    "CreateUserDto": {
+      "type": "object",
+      "required": [
+        "email",
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user"
+        },
+        "email": {
+          "type": "string",
+          "description": "The email id of the user"
+        },
+        "roles": {
+          "type": "array",
+          "description": "The role details of the user",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "title": "CreateUserDto",
+      "description": "All details to create the user."
+    },
+    "ErrorDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Service Error Code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Service Error Message"
+        },
+        "target": {
+          "type": "string",
+          "description": "Error's whereabouts"
+        }
+      },
+      "title": "ErrorDetails"
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS",
+          "description": "Status of API call",
+          "enum": [
+            "SUCCESS",
+            "FAIL",
+            "CLIENT_ERROR"
+          ]
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 200,
+          "description": "Http Status Code"
+        },
+        "data": {
+          "type": "object",
+          "description": "Response Payload"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          }
+        }
+      },
+      "title": "Response",
+      "description": "API Response"
+    },
+    "Response«List«ClaimDto»»": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS",
+          "description": "Status of API call",
+          "enum": [
+            "SUCCESS",
+            "FAIL",
+            "CLIENT_ERROR"
+          ]
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 200,
+          "description": "Http Status Code"
+        },
+        "data": {
+          "type": "array",
+          "description": "Response Payload",
+          "items": {
+            "$ref": "#/definitions/ClaimDto"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          }
+        }
+      },
+      "title": "Response«List«ClaimDto»»",
+      "description": "API Response"
+    },
+    "Response«List«RoleDto»»": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS",
+          "description": "Status of API call",
+          "enum": [
+            "SUCCESS",
+            "FAIL",
+            "CLIENT_ERROR"
+          ]
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 200,
+          "description": "Http Status Code"
+        },
+        "data": {
+          "type": "array",
+          "description": "Response Payload",
+          "items": {
+            "$ref": "#/definitions/RoleDto"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          }
+        }
+      },
+      "title": "Response«List«RoleDto»»",
+      "description": "API Response"
+    },
+    "Response«RoleDto»": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS",
+          "description": "Status of API call",
+          "enum": [
+            "SUCCESS",
+            "FAIL",
+            "CLIENT_ERROR"
+          ]
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 200,
+          "description": "Http Status Code"
+        },
+        "data": {
+          "description": "Response Payload",
+          "$ref": "#/definitions/RoleDto"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          }
+        }
+      },
+      "title": "Response«RoleDto»",
+      "description": "API Response"
+    },
+    "Response«UserDto»": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS",
+          "description": "Status of API call",
+          "enum": [
+            "SUCCESS",
+            "FAIL",
+            "CLIENT_ERROR"
+          ]
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 200,
+          "description": "Http Status Code"
+        },
+        "data": {
+          "description": "Response Payload",
+          "$ref": "#/definitions/UserDto"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          }
+        }
+      },
+      "title": "Response«UserDto»",
+      "description": "API Response"
+    },
+    "Response«UserPageDto»": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "SUCCESS",
+          "description": "Status of API call",
+          "enum": [
+            "SUCCESS",
+            "FAIL",
+            "CLIENT_ERROR"
+          ]
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 200,
+          "description": "Http Status Code"
+        },
+        "data": {
+          "description": "Response Payload",
+          "$ref": "#/definitions/UserPageDto"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          }
+        }
+      },
+      "title": "Response«UserPageDto»",
+      "description": "API Response"
+    },
+    "RoleDto": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The uuid of the role"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the role"
+        },
+        "claims": {
+          "type": "array",
+          "description": "List of claims for this role",
+          "items": {
+            "$ref": "#/definitions/ClaimDto"
+          }
+        }
+      },
+      "title": "RoleDto",
+      "description": "All details about the role."
+    },
+    "UpdateRoleDto": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The uuid of the role"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the role"
+        },
+        "claims": {
+          "type": "array",
+          "description": "List of claims for this role",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "title": "UpdateRoleDto",
+      "description": "All details about creating the role."
+    },
+    "UpdateUserDto": {
+      "type": "object",
+      "required": [
+        "email",
+        "firstName",
+        "lastName",
+        "uuid"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The uuid of the user"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user"
+        },
+        "email": {
+          "type": "string",
+          "description": "The email id of the user"
+        },
+        "roles": {
+          "type": "array",
+          "description": "The role details of the user",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "title": "UpdateUserDto",
+      "description": "All details to update the user."
+    },
+    "UserDto": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The uuid of the user"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user"
+        },
+        "email": {
+          "type": "string",
+          "description": "The email id of the user"
+        },
+        "roles": {
+          "type": "array",
+          "description": "The role details of the user",
+          "items": {
+            "$ref": "#/definitions/UserRoleDto"
+          }
+        }
+      },
+      "title": "UserDto",
+      "description": "All details about the user."
+    },
+    "UserPageDto": {
+      "type": "object",
+      "properties": {
+        "totalRecords": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total number available users"
+        },
+        "users": {
+          "type": "array",
+          "description": "List of user with user details",
+          "items": {
+            "$ref": "#/definitions/UserDto"
+          }
+        }
+      },
+      "title": "UserPageDto",
+      "description": "Paginated result of user list"
+    },
+    "UserRoleDto": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The uuid of the role"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the role"
+        }
+      },
+      "title": "UserRoleDto",
+      "description": "The uuid and name of the role with user details."
+    }
+  }
+}

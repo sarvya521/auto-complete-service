@@ -5,22 +5,19 @@ Configuration:
     - name: Console-Appender
       PatternLayout:
         Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %msg%n'
-    - name: Masked-Console-Appender
-      PatternLayout:
-        Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %spi%n'
   Loggers:
     logger:
-    - name: com.ac
-      level: info
+      - name: com
+        level: INFO
       additivity: false
       AppenderRef:
-      - ref: Masked-Console-Appender
+        - ref: Console-Appender
     - name: org.springframework.web
-      level: info
+      level: INFO
       additivity: false
       AppenderRef:
       - ref: Console-Appender
     Root:
-      level: error
+      level: INFO
       AppenderRef: 
       - ref: Console-Appender

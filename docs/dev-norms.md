@@ -36,7 +36,7 @@ Refer [Incorporating a finished feature on develop (PR)](https://docs.google.com
 
 ### Exception Handling
 
-Refer - ControllerAdvice in `com.sp.backend.boilerplate.exception` and `com.sp.backend.boilerplate.web.exception`
+Refer - ControllerAdvice in `com.backend.boilerplate.exception` and `com.backend.boilerplate.web.exception`
 	
 ### Unit Test Cases
 
@@ -48,7 +48,7 @@ All util, service, dao and controller classes should have full test coverage.
 
 ### Logging
 
-Refer - `com.sp.backend.boilerplate.util.LoggerUtilities`
+Refer - `com.backend.boilerplate.util.LoggerUtilities`
 
 ### HTTP Request Tracing
 ###### Micro Service
@@ -66,14 +66,14 @@ For Reference - [Spring Boot boilerplate](https://bitbucket.org/rochedis/ow-fhir
 	
 ### Common Code
 
-For LoggerUtilites, Refer `com.sp.backend.boilerplate.util.LoggerUtilities`
+For LoggerUtilites, Refer `com.backend.boilerplate.util.LoggerUtilities`
 
-Related to exception handling, Refer `com.sp.backend.boilerplate.exception`, `com.sp.backend.boilerplate.web.exception`
+Related to exception handling, Refer `com.backend.boilerplate.exception`, `com.backend.boilerplate.web.exception`
 
-Swagger Configuration, Refer `com.sp.backend.boilerplate.config.Swagger2Config`
+Swagger Configuration, Refer `com.backend.boilerplate.config.Swagger2Config`
 
 Cloud Configuration, Refer `bootstrap.yml`
 
 Log4j Configuration, Refer `log4j2.yml`
 
-For SynchronizedInMemoryCache, Refer `com.sp.backend.boilerplate.util.SynchronizedInMemoryCache`
+For SynchronizedInMemoryCache, Refer `com.backend.boilerplate.util.SynchronizedInMemoryCache`

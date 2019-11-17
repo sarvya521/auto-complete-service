@@ -2,49 +2,25 @@ Configuration:
   status: INFO
   appenders:
     Console:
-    - name: Console-Appender
-      PatternLayout:
-        Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %msg%n'
-    - name: Masked-Console-Appender
-      PatternLayout:
-        Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %spi%n'
-    RollingFile:
-    - name: App-File-Appender
-      fileName: logs/auto-complete-svc.log
-      filePattern: logs/$${date:yyyy-MM}/auto-complete-svc-%d{MM-dd-yyyy}-%i.log.gz
-      PatternLayout:
-        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %msg%n'
-      Policies:
-        SizeBasedTriggeringPolicy:
-          size: 10MB
-      DefaultRollOverStrategy:
-        max: 10
-    - name: Masked-File-Appender
-      fileName: logs/auto-complete-svc.log
-      filePattern: logs/$${date:yyyy-MM}/auto-complete-svc-%d{MM-dd-yyyy}-%i.log.gz
-      PatternLayout:
-        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} %x{}- %spi%n'
-      Policies:
-        SizeBasedTriggeringPolicy:
-          size: 10MB
-      DefaultRollOverStrategy:
-        max: 10
+      - name: Console-Appender
+        PatternLayout:
+          Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}- %msg%n'
+      - name: Masked-Console-Appender
+        PatternLayout:
+          Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}- %spi%n'
   Loggers:
     logger:
-    - name: com.ac
-      level: info
-      additivity: false
-      AppenderRef:
-      - ref: Masked-Console-Appender
-      - ref: Masked-File-Appender
-    - name: org.springframework.web
-      level: info
-      additivity: false
-      AppenderRef:
-      - ref: Console-Appender
-      - ref: App-File-Appender
+      - name: com
+        level: INFO
+        additivity: false
+        AppenderRef:
+          - ref: Masked-Console-Appender
+      - name: org.springframework.web
+        level: INFO
+        additivity: false
+        AppenderRef:
+          - ref: Masked-Console-Appender
     Root:
-      level: error
+      level: INFO
       AppenderRef:
-      - ref: Console-Appender
-      - ref: App-File-Appender
+        - ref: Masked-Console-Appender
