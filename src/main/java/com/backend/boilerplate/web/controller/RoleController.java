@@ -7,6 +7,7 @@ import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
 import com.backend.boilerplate.dto.validator.Exist;
 import com.backend.boilerplate.dto.validator.ExistRoleValidator;
+import com.backend.boilerplate.dto.validator.OwConstraintSequence;
 import com.backend.boilerplate.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,7 +66,7 @@ public class RoleController {
     @PostMapping
     public Response<RoleDto> createRole(
         @ApiParam(value = "role object to store in database table", required = true)
-        @RequestBody @Validated CreateRoleDto createRoleDto) {
+        @RequestBody @Validated(OwConstraintSequence.class) CreateRoleDto createRoleDto) {
         RoleDto roleDto = roleService.createRole(createRoleDto);
         return new Response<>(Status.SUCCESS, HttpStatus.CREATED.value(), roleDto);
     }
@@ -77,7 +78,7 @@ public class RoleController {
     @PutMapping
     public Response<RoleDto> updateRole(
         @ApiParam(value = "Update role object", required = true)
-        @RequestBody @Validated UpdateRoleDto updateRoleDto) {
+        @RequestBody @Validated(OwConstraintSequence.class) UpdateRoleDto updateRoleDto) {
         RoleDto roleDto = roleService.updateRole(updateRoleDto);
         return new Response<>(Status.SUCCESS, HttpStatus.OK.value(), roleDto);
     }
