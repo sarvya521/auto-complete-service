@@ -1,6 +1,10 @@
 # Includes all common properties irrespective of any environment
 spring:
   datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
     hikari:
       minimumIdle: 2
       maximumPoolSize: 4
