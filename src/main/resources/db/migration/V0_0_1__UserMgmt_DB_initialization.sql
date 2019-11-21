@@ -107,6 +107,8 @@ CREATE TABLE IF NOT EXISTS claim (
 CREATE TABLE IF NOT EXISTS role_claim (
   fk_role_id BIGINT NOT NULL,
   fk_claim_id BIGINT NOT NULL,
+  performed_by BIGINT NOT NULL,
+  ts TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (fk_role_id, fk_claim_id),
   CONSTRAINT fk_role_claim_role FOREIGN KEY(fk_role_id) REFERENCES role(id),
   CONSTRAINT fk_role_claim_claim FOREIGN KEY(fk_claim_id) REFERENCES claim(id)
@@ -114,6 +116,8 @@ CREATE TABLE IF NOT EXISTS role_claim (
 CREATE TABLE IF NOT EXISTS user_role (
   fk_user_id BIGINT NOT NULL,
   fk_role_id BIGINT NOT NULL,
+  performed_by BIGINT NOT NULL,
+  ts TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (fk_user_id, fk_role_id),
   CONSTRAINT fk_user_role_app_user FOREIGN KEY(fk_user_id) REFERENCES app_user(id),
   CONSTRAINT fk_user_role_role FOREIGN KEY(fk_role_id) REFERENCES role(id)

@@ -29,6 +29,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ import static com.backend.boilerplate.constant.Role.DEFAULT;
  * Implementation of {@link UserService}.
  *
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @Service
@@ -113,12 +114,14 @@ public class UserServiceImpl implements UserService {
 
         List<UserRole> userRoles = createUserDto.getRoles().stream()
             .map(roleUuid -> roleRepository.findByUuid(roleUuid).orElseThrow(RoleNotFoundException::new))
-            .map(role -> new UserRole(user, role))
+            .map(role -> new UserRole(user, role, createdBy))
             .collect(Collectors.toList());
 
         Role defaultRole = roleRepository.findByNameIgnoreCase(DEFAULT.getName())
             .orElseThrow(RoleNotFoundException::new);
-        userRoles.add(new UserRole(user, defaultRole));
+        userRoles.add(new UserRole(user, defaultRole, createdBy));
+
+        user.getUserRoles().addAll(userRoles);
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
@@ -135,8 +138,8 @@ public class UserServiceImpl implements UserService {
                     .build();
                 userHistoryRepository.save(userHistory);
 
-                userRoles.forEach(userRole -> userRole.setUser(userPersisted));
-                userRoleRepository.saveAll(userRoles);
+//                userRoles.forEach(userRole -> userRole.setUser(userPersisted));
+//                userRoleRepository.saveAll(userRoles);
             }
         });
         return prepareUserDto(user);
@@ -158,20 +161,23 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Status.UPDATED);
         user.setPerformedBy(updatedBy);
 
-        List<UserRole> existingUserRoles = user.getUserRoles();
-        List<UserRole> newUserRoles = updateUserDto.getRoles().stream()
+        Set<UserRole> existingUserRoles = user.getUserRoles();
+        Set<UserRole> newUserRoles = updateUserDto.getRoles().stream()
             .map(roleUuid -> roleRepository.findByUuid(roleUuid).orElseThrow(RoleNotFoundException::new))
-            .map(role -> new UserRole(user, role))
-            .collect(Collectors.toList());
+            .map(role -> new UserRole(user, role, updatedBy))
+            .collect(Collectors.toSet());
 
         user.getUserRoles().stream()
             .filter(userRole -> userRole.getRole().getName().equals(DEFAULT.getName()))
             .findFirst()
             .ifPresent(newUserRoles::add);
 
-        List<UserRole> existingUserRolesToDelete = new ArrayList<>(existingUserRoles);
-        existingUserRolesToDelete.removeAll(newUserRoles);
-        newUserRoles.removeAll(existingUserRoles);
+//        List<UserRole> existingUserRolesToDelete = new ArrayList<>(existingUserRoles);
+//        existingUserRolesToDelete.removeAll(newUserRoles);
+//        newUserRoles.removeAll(existingUserRoles);
+
+        user.getUserRoles().clear();
+        user.getUserRoles().addAll(newUserRoles);
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
@@ -188,12 +194,12 @@ public class UserServiceImpl implements UserService {
                     .build();
                 userHistoryRepository.save(userHistory);
 
-                if (!existingUserRolesToDelete.isEmpty()) {
-                    userRoleRepository.deleteAll(existingUserRolesToDelete);
-                }
-                if (!newUserRoles.isEmpty()) {
-                    userRoleRepository.saveAll(newUserRoles);
-                }
+//                if (!existingUserRolesToDelete.isEmpty()) {
+//                    userRoleRepository.deleteAll(existingUserRolesToDelete);
+//                }
+//                if (!newUserRoles.isEmpty()) {
+//                    userRoleRepository.saveAll(newUserRoles);
+//                }
             }
         });
         return prepareUserDto(user);
@@ -215,7 +221,7 @@ public class UserServiceImpl implements UserService {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-                userRoleRepository.deleteAll(user.getUserRoles());
+                //userRoleRepository.deleteAll(user.getUserRoles());
                 userRepository.delete(user);
                 UserHistory userHistory = UserHistory.builder()
                     .id(new UserHistory.UserHistoryId(user.getId()))

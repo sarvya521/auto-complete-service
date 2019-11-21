@@ -15,6 +15,7 @@ import com.backend.boilerplate.entity.Claim;
 import com.backend.boilerplate.entity.Role;
 import com.backend.boilerplate.entity.RoleClaim;
 import com.backend.boilerplate.entity.RoleHistory;
+import com.backend.boilerplate.entity.User;
 import com.backend.boilerplate.entity.UserRole;
 import com.backend.boilerplate.exception.RoleNotFoundException;
 import com.backend.boilerplate.exception.UserManagementException;
@@ -37,8 +38,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -47,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
@@ -116,9 +119,9 @@ public class RoleServiceImplTest {
         assertEquals(role.getName(), roleDto.getName());
         assertNotNull(role.getRoleClaims());
         assertEquals(role.getRoleClaims().size(), roleDto.getClaims().size());
-        assertEquals(role.getRoleClaims().get(0).getClaim().getUuid().toString(),
+        assertEquals(role.getRoleClaims().stream().findFirst().get().getClaim().getUuid().toString(),
             roleDto.getClaims().get(0).getUuid().toString());
-        assertEquals(role.getRoleClaims().get(0).getClaim().getResourceName(),
+        assertEquals(role.getRoleClaims().stream().findFirst().get().getClaim().getResourceName(),
             roleDto.getClaims().get(0).getResourceName());
     }
 
@@ -157,7 +160,7 @@ public class RoleServiceImplTest {
         Mockito.verify(claimRepositoryMock, Mockito.times(1)).findByUuid(claimUuid);
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).saveAndFlush(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).saveAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).saveAll(ArgumentMatchers.<RoleClaim>anyList());
     }
 
     @Test
@@ -183,8 +186,8 @@ public class RoleServiceImplTest {
         Mockito.verify(claimRepositoryMock, Mockito.times(1)).findByUuid(claimUuid);
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).saveAndFlush(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).saveAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).saveAll(ArgumentMatchers.<RoleClaim>anyList());
     }
 
     @Test
@@ -208,8 +211,8 @@ public class RoleServiceImplTest {
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).saveAndFlush(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).saveAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).saveAll(ArgumentMatchers.<RoleClaim>anyList());
     }
 
     @Test
@@ -225,7 +228,7 @@ public class RoleServiceImplTest {
         Role role = prepareRole(roleId, roleUuid, roleName, claimId, UUID.randomUUID());
         Long newClaimId = 2L;
         Claim claim = prepareClaim(newClaimId, UUID.randomUUID(), "UserCreate");
-        role.getRoleClaims().add(new RoleClaim(role, claim));
+        role.getRoleClaims().add(new RoleClaim(role, claim, PERFORMED_BY));
 
         Optional<Claim> claimOptional = Optional.of(prepareClaim(claimId, claimUuid, "UserGetAll"));
         Mockito.when(claimRepositoryMock.findByUuid(claimUuid)).thenReturn(claimOptional);
@@ -240,8 +243,8 @@ public class RoleServiceImplTest {
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).saveAndFlush(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).saveAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).saveAll(ArgumentMatchers.<RoleClaim>anyList());
     }
 
     @Test
@@ -277,8 +280,8 @@ public class RoleServiceImplTest {
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).saveAndFlush(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).saveAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).saveAll(ArgumentMatchers.<RoleClaim>anyList());
     }
 
     @Test
@@ -306,8 +309,8 @@ public class RoleServiceImplTest {
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).saveAndFlush(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).saveAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).saveAll(ArgumentMatchers.<RoleClaim>anyList());
     }
 
     @Test
@@ -319,16 +322,17 @@ public class RoleServiceImplTest {
         Long claimId = 1L;
         String roleName = "Manager";
         Role role = prepareRole(roleId, roleUuid, roleName, claimId, UUID.randomUUID());
+        role.getUserRoles().clear();
         Mockito.when(roleRepositoryMock.findByUuid(roleUuid)).thenReturn(Optional.of(role));
-        Mockito.when(userRoleRepositoryMock.findByRole(role)).thenReturn(new ArrayList<>());
+        //Mockito.when(userRoleRepositoryMock.findByRole(role)).thenReturn(new ArrayList<>());
 
         /*********** Execute ************/
         roleServiceImpl.deleteRole(roleUuid);
 
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).findByUuid(roleUuid);
-        Mockito.verify(userRoleRepositoryMock, Mockito.times(1)).findByRole(role);
-        Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(userRoleRepositoryMock, Mockito.times(1)).findByRole(role);
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.times(1)).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).delete(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.times(1)).save(Mockito.any(RoleHistory.class));
     }
@@ -348,7 +352,7 @@ public class RoleServiceImplTest {
 
         List<UserRole> userRoles = new ArrayList<>();
         userRoles.add(userRole);
-        Mockito.when(userRoleRepositoryMock.findByRole(role)).thenReturn(userRoles);
+        //Mockito.when(userRoleRepositoryMock.findByRole(role)).thenReturn(userRoles);
 
         /*********** Execute ************/
         Assertions.assertThrows(UserManagementException.class, () -> {
@@ -357,8 +361,8 @@ public class RoleServiceImplTest {
 
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).findByUuid(roleUuid);
-        Mockito.verify(userRoleRepositoryMock, Mockito.times(1)).findByRole(role);
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(userRoleRepositoryMock, Mockito.times(1)).findByRole(role);
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
         Mockito.verify(roleRepositoryMock, Mockito.never()).delete(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.never()).save(Mockito.any(RoleHistory.class));
     }
@@ -377,8 +381,8 @@ public class RoleServiceImplTest {
 
         /*********** Verify/Assertions ************/
         Mockito.verify(roleRepositoryMock, Mockito.times(1)).findByUuid(roleUuid);
-        Mockito.verify(userRoleRepositoryMock, Mockito.never()).findByRole(Mockito.any(Role.class));
-        Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
+        //Mockito.verify(userRoleRepositoryMock, Mockito.never()).findByRole(Mockito.any(Role.class));
+        //Mockito.verify(roleClaimRepositoryMock, Mockito.never()).deleteAll(ArgumentMatchers.<RoleClaim>anyList());
         Mockito.verify(roleRepositoryMock, Mockito.never()).delete(Mockito.any(Role.class));
         Mockito.verify(roleHistoryRepositoryMock, Mockito.never()).save(Mockito.any(RoleHistory.class));
     }
@@ -397,12 +401,17 @@ public class RoleServiceImplTest {
         role.setName(roleName);
 
         Claim claim = prepareClaim(claimId, claimUuid, "UserGetAll");
-
-        List<RoleClaim> roleClaims = new ArrayList<>();
-        RoleClaim roleClaim = new RoleClaim(role, claim);
+        Set<RoleClaim> roleClaims = new HashSet<>();
+        RoleClaim roleClaim = new RoleClaim(role, claim, PERFORMED_BY);
         roleClaims.add(roleClaim);
-
         role.setRoleClaims(roleClaims);
+
+        User user = prepareUser(1L, UUID.randomUUID());
+        Set<UserRole> userRoles = new HashSet<>();
+        UserRole userRole = new UserRole(user, role, PERFORMED_BY);
+        userRoles.add(userRole);
+        role.setUserRoles(userRoles);
+
         return role;
     }
 
@@ -412,6 +421,13 @@ public class RoleServiceImplTest {
         claim.setUuid(claimUuid);
         claim.setResourceName(resourceName);
         return claim;
+    }
+
+    private User prepareUser(Long id, UUID uuid) {
+        User user = new User();
+        user.setId(id);
+        user.setUuid(uuid);
+        return user;
     }
 
     private RoleDto prepareRoleDto(UUID roleId, String roleName, UUID claimId) {

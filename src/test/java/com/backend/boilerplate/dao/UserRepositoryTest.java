@@ -21,6 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
@@ -84,10 +85,10 @@ class UserRepositoryTest {
             .lastName(lastName)
             .status(status)
             .performedBy(PERFORMED_BY)
-            .userRoles(new ArrayList<>())
+            .userRoles(new HashSet<>())
             .build();
 
-        userRole = new UserRole(user, role);
+        userRole = new UserRole(user, role, PERFORMED_BY);
 
         user.getUserRoles().add(userRole);
     }
@@ -121,7 +122,7 @@ class UserRepositoryTest {
         assertEquals(PERFORMED_BY, user.getPerformedBy());
         assertNotNull(user.getTimestamp());
         assertEquals(1, user.getUserRoles().size());
-        assertEquals("Manager", user.getUserRoles().get(0).getRole().getName());
+        assertEquals("Manager", user.getUserRoles().stream().findFirst().get().getRole().getName());
 
         assertNotNull(userHistory.getId());
         assertEquals(user.getId(), userHistory.getId().getUserId());
@@ -257,7 +258,7 @@ class UserRepositoryTest {
         User userById = userOptional.get();
         assertNotNull(userById);
         assertEquals(1, userById.getUserRoles().size());
-        assertEquals("Manager", userById.getUserRoles().get(0).getRole().getName());
+        assertEquals("Manager", userById.getUserRoles().stream().findFirst().get().getRole().getName());
     }
 
     private List<User> setup_getAllUsers() {
@@ -274,9 +275,9 @@ class UserRepositoryTest {
             .lastName(lastName1)
             .status(CREATED)
             .performedBy(PERFORMED_BY)
-            .userRoles(new ArrayList<>())
+            .userRoles(new HashSet<>())
             .build();
-        UserRole userRole1 = new UserRole(user1, role);
+        UserRole userRole1 = new UserRole(user1, role, PERFORMED_BY);
         user1.getUserRoles().add(userRole1);
 
         UUID uuid2 = UUID.randomUUID();
@@ -292,9 +293,9 @@ class UserRepositoryTest {
             .lastName(lastName2)
             .status(CREATED)
             .performedBy(PERFORMED_BY)
-            .userRoles(new ArrayList<>())
+            .userRoles(new HashSet<>())
             .build();
-        UserRole userRole2 = new UserRole(user2, role);
+        UserRole userRole2 = new UserRole(user2, role, PERFORMED_BY);
         user2.getUserRoles().add(userRole2);
 
         List<User> users = List.of(user1, user2);

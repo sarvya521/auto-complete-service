@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -43,7 +43,7 @@ import static com.backend.boilerplate.constant.Role.SYSTEM_ADMIN;
  * Implementation of {@link RoleService}.
  *
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @Service
@@ -111,7 +111,7 @@ public class RoleServiceImpl implements RoleService {
 
         List<RoleClaim> roleClaims = createRoleDto.getClaims().stream()
             .map(claimUuid -> claimRepository.findByUuid(claimUuid).orElseThrow(ClaimNotFoundException::new))
-            .map(claim -> new RoleClaim(role, claim))
+            .map(claim -> new RoleClaim(role, claim, createdBy))
             .collect(Collectors.toList());
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -155,15 +155,17 @@ public class RoleServiceImpl implements RoleService {
         role.setStatus(Status.UPDATED);
         role.setPerformedBy(updatedBy);
 
-        List<RoleClaim> existingRoleClaims = role.getRoleClaims();
-        List<RoleClaim> newRoleClaims = updateRoleDto.getClaims().stream()
+        Set<RoleClaim> existingRoleClaims = role.getRoleClaims();
+        Set<RoleClaim> newRoleClaims = updateRoleDto.getClaims().stream()
             .map(claimUuid -> claimRepository.findByUuid(claimUuid).orElseThrow(ClaimNotFoundException::new))
-            .map(claim -> new RoleClaim(role, claim))
-            .collect(Collectors.toList());
+            .map(claim -> new RoleClaim(role, claim, updatedBy))
+            .collect(Collectors.toSet());
 
-        List<RoleClaim> existingRoleClaimsToDelete = new ArrayList<>(existingRoleClaims);
-        existingRoleClaimsToDelete.removeAll(newRoleClaims);
-        newRoleClaims.removeAll(existingRoleClaims);
+//        List<RoleClaim> existingRoleClaimsToDelete = new ArrayList<>(existingRoleClaims);
+//        existingRoleClaimsToDelete.removeAll(newRoleClaims);
+//        newRoleClaims.removeAll(existingRoleClaims);
+        role.getRoleClaims().clear();
+        role.getRoleClaims().addAll(newRoleClaims);
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
@@ -178,12 +180,12 @@ public class RoleServiceImpl implements RoleService {
                     .build();
                 roleHistoryRepository.save(roleHistory);
 
-                if (!existingRoleClaimsToDelete.isEmpty()) {
-                    roleClaimRepository.deleteAll(existingRoleClaimsToDelete);
-                }
-                if (!newRoleClaims.isEmpty()) {
-                    roleClaimRepository.saveAll(newRoleClaims);
-                }
+//                if (!existingRoleClaimsToDelete.isEmpty()) {
+//                    roleClaimRepository.deleteAll(existingRoleClaimsToDelete);
+//                }
+//                if (!newRoleClaims.isEmpty()) {
+//                    roleClaimRepository.saveAll(newRoleClaims);
+//                }
             }
         });
         RoleDto roleDto = roleMapper.convertToDto(role);
@@ -207,7 +209,7 @@ public class RoleServiceImpl implements RoleService {
         role.setStatus(Status.DELETED);
         role.setPerformedBy(deletedBy);
 
-        List<UserRole> userRoles = userRoleRepository.findByRole(role);
+        Set<UserRole> userRoles = role.getUserRoles();
         if (!userRoles.isEmpty()) {
             throw new UserManagementException(ErrorGenerator.generateForCode("1021"));
         }

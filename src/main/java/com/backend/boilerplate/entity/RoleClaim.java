@@ -4,7 +4,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -12,15 +17,22 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @Entity
 @Table(name = "role_claim")
+@AssociationOverride(name = "id.role",
+    joinColumns = @JoinColumn(name = "fk_role_id"))
+@AssociationOverride(name = "id.claim",
+    joinColumns = @JoinColumn(name = "fk_claim_id"))
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
@@ -28,46 +40,48 @@ import java.io.Serializable;
 public class RoleClaim implements Serializable {
     @Getter
     @Setter
-    @EqualsAndHashCode(of = {"roleId", "claimId"})
+    @EqualsAndHashCode(of = {"role", "claim"})
     @NoArgsConstructor
     @Embeddable
     public static class RoleClaimId implements Serializable {
-        @Column(name = "fk_role_id")
-        protected Long roleId;
+        @ManyToOne(cascade = CascadeType.ALL)
+        private Role role;
 
-        @Column(name = "fk_claim_id")
-        protected Long claimId;
-
-        public RoleClaimId(Long roleId, Long claimId) {
-            this.roleId = roleId;
-            this.claimId = claimId;
-        }
+        @ManyToOne(cascade = CascadeType.ALL)
+        private Claim claim;
     }
 
     @EmbeddedId
-    private RoleClaimId id;
+    private RoleClaimId id = new RoleClaimId();
 
-    @ManyToOne
-    @JoinColumn(name = "fk_role_id", insertable = false, updatable = false)
-    private Role role;
+    @Column(name = "performed_by", nullable = false)
+    private Long performedBy;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_claim_id", insertable = false, updatable = false)
-    private Claim claim;
+    @Generated(GenerationTime.ALWAYS)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false,
+        insertable = false, updatable = false)
+    private Date timestamp;
 
-    public RoleClaim(Role role, Claim claim) {
-        this.id = new RoleClaimId(role.getId(), claim.getId());
-        this.role = role;
-        this.claim = claim;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-        this.id.setRoleId(role.getId());
+    public RoleClaim(Role role, Claim claim, Long performedBy) {
+        setRole(role);
+        setClaim(claim);
+        setPerformedBy(performedBy);
     }
 
     public void setClaim(Claim claim) {
-        this.claim = claim;
-        this.id.setClaimId(claim.getId());
+        this.getId().setClaim(claim);
+    }
+
+    public void setRole(Role role) {
+        this.getId().setRole(role);
+    }
+
+    public Claim getClaim() {
+        return this.getId().getClaim();
+    }
+
+    public Role getRole() {
+        return this.getId().getRole();
     }
 }

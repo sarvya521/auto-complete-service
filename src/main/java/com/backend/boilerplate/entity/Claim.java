@@ -11,23 +11,28 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @Entity
@@ -73,4 +78,7 @@ public class Claim {
 
     @Column(name = "resource_endpoint", nullable = false)
     private String resourceEndpoint;
+
+    @OneToMany(mappedBy = "id.claim", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<RoleClaim> roleClaims = new HashSet<RoleClaim>();
 }

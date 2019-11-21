@@ -4,7 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -12,15 +16,22 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @Entity
 @Table(name = "user_role")
+@AssociationOverride(name = "id.user",
+    joinColumns = @JoinColumn(name = "fk_user_id"))
+@AssociationOverride(name = "id.role",
+    joinColumns = @JoinColumn(name = "fk_role_id"))
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
@@ -28,46 +39,48 @@ import java.io.Serializable;
 public class UserRole implements Serializable {
     @Getter
     @Setter
-    @EqualsAndHashCode(of = {"userId", "roleId"})
+    @EqualsAndHashCode(of = {"user", "role"})
     @NoArgsConstructor
     @Embeddable
     public static class UserRoleId implements Serializable {
-        @Column(name = "fk_user_id")
-        protected Long userId;
+        @ManyToOne(cascade = CascadeType.ALL)
+        private User user;
 
-        @Column(name = "fk_role_id")
-        protected Long roleId;
-
-        public UserRoleId(Long userId, Long roleId) {
-            this.userId = userId;
-            this.roleId = roleId;
-        }
+        @ManyToOne(cascade = CascadeType.ALL)
+        private Role role;
     }
 
     @EmbeddedId
-    private UserRoleId id;
+    private UserRoleId id = new UserRoleId();
 
-    @ManyToOne
-    @JoinColumn(name = "fk_user_id", insertable = false, updatable = false)
-    private User user;
+    @Column(name = "performed_by", nullable = false)
+    private Long performedBy;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_role_id", insertable = false, updatable = false)
-    private Role role;
+    @Generated(GenerationTime.ALWAYS)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false,
+        insertable = false, updatable = false)
+    private Date timestamp;
 
-    public UserRole(User user, Role role) {
-        this.id = new UserRoleId(user.getId(), role.getId());
-        this.user = user;
-        this.role = role;
+    public UserRole(User user, Role role, Long performedBy) {
+        setUser(user);
+        setRole(role);
+        setPerformedBy(performedBy);
     }
 
     public void setUser(User user) {
-        this.user = user;
-        this.id.setUserId(user.getId());
+        this.getId().setUser(user);
     }
 
     public void setRole(Role role) {
-        this.role = role;
-        this.id.setRoleId(role.getId());
+        this.getId().setRole(role);
+    }
+
+    public User getUser() {
+        return this.getId().getUser();
+    }
+
+    public Role getRole() {
+        return this.getId().getRole();
     }
 }
