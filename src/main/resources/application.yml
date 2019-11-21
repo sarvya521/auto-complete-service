@@ -29,7 +29,7 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
-    table: flyway_schema_history_usermanagement
+    table: flyway_schema_history_boilerplate
     baseline-on-migrate: true
     baseline-version: "0"
   jackson:

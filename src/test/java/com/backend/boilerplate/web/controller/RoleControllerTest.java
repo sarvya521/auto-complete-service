@@ -247,6 +247,12 @@ public class RoleControllerTest {
         String newRoleName = "Project Lead";
         UpdateRoleDto updateRoleDto = prepareUpdateRoleDto(newRoleName, roleDto);
         roleDto.setName(newRoleName);
+        Mockito.when(roleRepository.countByUuid(updateRoleDto.getUuid()))
+            .thenReturn(Optional.of(1L));
+        Mockito.when(roleRepository.countByUuidNotAndNameIgnoreCase(updateRoleDto.getUuid(), updateRoleDto.getName()))
+            .thenReturn(Optional.of(0L));
+        Mockito.when(claimRepository.countByUuidIn(updateRoleDto.getClaims()))
+            .thenReturn(Optional.of((long)updateRoleDto.getClaims().size()));
         Mockito.when(roleService.updateRole(updateRoleDto)).thenReturn(roleDto);
 
         /*********** Execute ************/
