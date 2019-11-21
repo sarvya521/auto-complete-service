@@ -50,7 +50,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         }
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1001"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -63,7 +63,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<NoHandlerFoundException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1003"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -77,7 +77,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<MissingServletRequestParameterException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1002"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -91,7 +91,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<ServletRequestBindingException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1002"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -104,7 +104,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<TypeMismatchException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1002"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -117,7 +117,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<HttpMessageNotReadableException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1002"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -152,7 +152,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<MissingServletRequestPartException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1002"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
@@ -165,7 +165,7 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
         log.error("<<BindException>>", ex);
         Response errorResponse = new Response<Void>(Status.CLIENT_ERROR, status.value(),
             ErrorGenerator.generateForCode("1002"
-        ));
+            ));
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 }

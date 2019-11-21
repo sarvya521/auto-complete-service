@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -138,8 +137,8 @@ public class UserServiceImpl implements UserService {
                     .build();
                 userHistoryRepository.save(userHistory);
 
-//                userRoles.forEach(userRole -> userRole.setUser(userPersisted));
-//                userRoleRepository.saveAll(userRoles);
+                //                userRoles.forEach(userRole -> userRole.setUser(userPersisted));
+                //                userRoleRepository.saveAll(userRoles);
             }
         });
         return prepareUserDto(user);
@@ -172,9 +171,9 @@ public class UserServiceImpl implements UserService {
             .findFirst()
             .ifPresent(newUserRoles::add);
 
-//        List<UserRole> existingUserRolesToDelete = new ArrayList<>(existingUserRoles);
-//        existingUserRolesToDelete.removeAll(newUserRoles);
-//        newUserRoles.removeAll(existingUserRoles);
+        //        List<UserRole> existingUserRolesToDelete = new ArrayList<>(existingUserRoles);
+        //        existingUserRolesToDelete.removeAll(newUserRoles);
+        //        newUserRoles.removeAll(existingUserRoles);
 
         user.getUserRoles().clear();
         user.getUserRoles().addAll(newUserRoles);
@@ -194,12 +193,12 @@ public class UserServiceImpl implements UserService {
                     .build();
                 userHistoryRepository.save(userHistory);
 
-//                if (!existingUserRolesToDelete.isEmpty()) {
-//                    userRoleRepository.deleteAll(existingUserRolesToDelete);
-//                }
-//                if (!newUserRoles.isEmpty()) {
-//                    userRoleRepository.saveAll(newUserRoles);
-//                }
+                //                if (!existingUserRolesToDelete.isEmpty()) {
+                //                    userRoleRepository.deleteAll(existingUserRolesToDelete);
+                //                }
+                //                if (!newUserRoles.isEmpty()) {
+                //                    userRoleRepository.saveAll(newUserRoles);
+                //                }
             }
         });
         return prepareUserDto(user);

@@ -161,9 +161,9 @@ public class RoleServiceImpl implements RoleService {
             .map(claim -> new RoleClaim(role, claim, updatedBy))
             .collect(Collectors.toSet());
 
-//        List<RoleClaim> existingRoleClaimsToDelete = new ArrayList<>(existingRoleClaims);
-//        existingRoleClaimsToDelete.removeAll(newRoleClaims);
-//        newRoleClaims.removeAll(existingRoleClaims);
+        //        List<RoleClaim> existingRoleClaimsToDelete = new ArrayList<>(existingRoleClaims);
+        //        existingRoleClaimsToDelete.removeAll(newRoleClaims);
+        //        newRoleClaims.removeAll(existingRoleClaims);
         role.getRoleClaims().clear();
         role.getRoleClaims().addAll(newRoleClaims);
 
@@ -180,12 +180,12 @@ public class RoleServiceImpl implements RoleService {
                     .build();
                 roleHistoryRepository.save(roleHistory);
 
-//                if (!existingRoleClaimsToDelete.isEmpty()) {
-//                    roleClaimRepository.deleteAll(existingRoleClaimsToDelete);
-//                }
-//                if (!newRoleClaims.isEmpty()) {
-//                    roleClaimRepository.saveAll(newRoleClaims);
-//                }
+                //                if (!existingRoleClaimsToDelete.isEmpty()) {
+                //                    roleClaimRepository.deleteAll(existingRoleClaimsToDelete);
+                //                }
+                //                if (!newRoleClaims.isEmpty()) {
+                //                    roleClaimRepository.saveAll(newRoleClaims);
+                //                }
             }
         });
         RoleDto roleDto = roleMapper.convertToDto(role);

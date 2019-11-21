@@ -11,11 +11,11 @@ import java.util.List;
 
 /**
  * @author sarvesh
- * @deprecated
  * @version 0.0.2
  * @since 0.0.1
+ * @deprecated
  */
-@Deprecated(since="0.0.2", forRemoval=true)
+@Deprecated(since = "0.0.2", forRemoval = true)
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, UserRole.UserRoleId> {
 
