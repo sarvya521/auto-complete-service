@@ -36,7 +36,6 @@
     <jacoco.skip>true</jacoco.skip>
     <jacoco.exclude></jacoco.exclude>
     
-    <!-- navify dependencies starts -->
     <common-util.version>0.0.1-SNAPSHOT</common-util.version>
     <log4j2-masking-plugin.version>0.0.1-SNAPSHOT</log4j2-masking-plugin.version>
   </properties>
