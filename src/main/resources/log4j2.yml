@@ -4,10 +4,10 @@ Configuration:
     Console:
       - name: Console-Appender
         PatternLayout:
-          Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}- %msg%n'
+          Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [traceId:%X{x-trace-id}] [%t] %c{1} %M{}- %msg%n'
       - name: Masked-Console-Appender
         PatternLayout:
-          Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}- %spi%n'
+          Pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [traceId:%X{x-trace-id}] [%t] %c{1} %M{}- %spi%n'
   Loggers:
     logger:
       - name: com.backend.boilerplate

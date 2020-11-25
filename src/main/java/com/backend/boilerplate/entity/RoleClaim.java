@@ -4,8 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.AssociationOverride;
 import javax.persistence.CascadeType;
@@ -56,10 +55,9 @@ public class RoleClaim implements Serializable {
     @Column(name = "performed_by", nullable = false)
     private Long performedBy;
 
-    @Generated(GenerationTime.ALWAYS)
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false,
-        insertable = false, updatable = false)
+    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date timestamp;
 
     public RoleClaim(Role role, Claim claim, Long performedBy) {

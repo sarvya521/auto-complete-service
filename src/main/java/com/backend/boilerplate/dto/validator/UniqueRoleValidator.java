@@ -1,15 +1,23 @@
 package com.backend.boilerplate.dto.validator;
 
-import com.backend.boilerplate.dao.ClaimRepository;
+import com.backend.boilerplate.constant.AdminFeature;
+import com.backend.boilerplate.constant.FeatureAction;
+import com.backend.boilerplate.dao.ModuleFeaturesRepository;
 import com.backend.boilerplate.dao.RoleRepository;
 import com.backend.boilerplate.dto.UpdateRoleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * @author sarvesh
@@ -23,14 +31,35 @@ public class UniqueRoleValidator implements ConstraintValidator<UniqueResource, 
     private RoleRepository roleRepository;
 
     @Autowired
-    private ClaimRepository claimRepository;
+    private ModuleFeaturesRepository moduleFeaturesRepository;
 
+    @SuppressWarnings("squid:S1192")
+    @Transactional
     @Override
-    @SuppressWarnings("squid:S3655")
     public boolean isValid(UpdateRoleDto updateRoleDto, ConstraintValidatorContext context) {
+        Map<String, List<FeatureAction>> featureClaims = updateRoleDto.getFeatureClaims();
+        final boolean emptyClaims = featureClaims.values().stream()
+            .allMatch(featureActions -> Objects.isNull(featureActions) || featureActions.isEmpty());
+        if (emptyClaims) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("1074")
+                .addPropertyNode("featureClaims")
+                .addConstraintViolation();
+            return false;
+        }
+
+        final boolean anyRestrictedClaim = Stream.of(AdminFeature.Restricted.values())
+            .anyMatch(feature -> featureClaims.containsKey(feature.getName()));
+        if (anyRestrictedClaim) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("1095")
+                .addPropertyNode("featureClaims")
+                .addConstraintViolation();
+            return false;
+        }
+
         UUID uuid = updateRoleDto.getUuid();
-        Optional<Long> countExistOptional = roleRepository.countByUuid(uuid);
-        if (countExistOptional.get() < 1) {
+        if (!roleRepository.existsByUuid(uuid)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("1009")
                 .addPropertyNode("uuid")
@@ -38,21 +67,14 @@ public class UniqueRoleValidator implements ConstraintValidator<UniqueResource, 
             return false;
         }
 
-        Optional<Long> countNameOptional =
-            roleRepository.countByUuidNotAndNameIgnoreCase(uuid, updateRoleDto.getName());
-        if (countNameOptional.get() > 0) {
+        Optional<Integer> countFeatureClaimsOptional =
+            moduleFeaturesRepository.countByNameIn(new ArrayList<>(updateRoleDto.getFeatureClaims().keySet()));
+        if (countFeatureClaimsOptional.isPresent()
+            && ((countFeatureClaimsOptional.get() < 1)
+            || (countFeatureClaimsOptional.get() != updateRoleDto.getFeatureClaims().size()))) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("1008")
-                .addPropertyNode("name")
-                .addConstraintViolation();
-            return false;
-        }
-
-        Optional<Long> countClaimOptional = claimRepository.countByUuidIn(updateRoleDto.getClaims());
-        if (countClaimOptional.get() < 1 || countClaimOptional.get() != updateRoleDto.getClaims().size()) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("1015")
-                .addPropertyNode("claims")
+            context.buildConstraintViolationWithTemplate("1075")
+                .addPropertyNode("featureClaims")
                 .addConstraintViolation();
             return false;
         }

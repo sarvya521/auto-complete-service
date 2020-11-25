@@ -2,9 +2,9 @@ package com.backend.boilerplate.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -12,28 +12,27 @@ import java.util.UUID;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"uuid", "firstName", "middleName", "lastName", "email", "salutation", "roles", "tenants"})
+@JsonPropertyOrder({"uuid", "firstName", "middleName", "lastName", "email", "salutation", "createdAt", "roles"})
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@ApiModel(description = "All details about the user.")
-public class UserDto {
+@Schema(description = "All details about the user.")
+public class UserDto extends BaseUserDto {
 
-    @ApiModelProperty(notes = "The uuid of the user", position = 0)
+    @Schema(description = "The uuid of the user")
     private UUID uuid;
 
-    @ApiModelProperty(notes = "The first name of the user", position = 1)
-    private String firstName;
+    /**
+     * @since 0.0.2
+     */
+    @Schema(description = "The created time of the user")
+    private long createdAt;
 
-    @ApiModelProperty(notes = "The last name of the user", position = 3)
-    private String lastName;
-
-    @ApiModelProperty(notes = "The email id of the user", position = 4)
-    private String email;
-
-    @ApiModelProperty(notes = "The role details of the user", position = 6)
+    @Schema(description = "The role details of the user")
     private List<UserRoleDto> roles;
+
 }

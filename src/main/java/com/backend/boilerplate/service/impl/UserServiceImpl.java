@@ -109,7 +109,6 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.convertToEntity(userDto);
         user.setStatus(Status.CREATED);
-        user.setPerformedBy(createdBy);
 
         List<UserRole> userRoles = createUserDto.getRoles().stream()
             .map(roleUuid -> roleRepository.findByUuid(roleUuid).orElseThrow(RoleNotFoundException::new))
@@ -127,13 +126,13 @@ public class UserServiceImpl implements UserService {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 User userPersisted = userRepository.saveAndFlush(user);
                 UserHistory userHistory = UserHistory.builder()
-                    .id(new UserHistory.UserHistoryId(user.getId()))
+                    .userId(user.getId())
                     .uuid(user.getUuid())
                     .email(user.getEmail())
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .status(user.getStatus())
-                    .performedBy(user.getPerformedBy())
+                    .performedBy(createdBy)
                     .build();
                 userHistoryRepository.save(userHistory);
 
@@ -158,9 +157,8 @@ public class UserServiceImpl implements UserService {
         UserDto userDto = userMapper.convertToDto(updateUserDto);
         userMapper.mergeToEntity(userDto, user);
         user.setStatus(Status.UPDATED);
-        user.setPerformedBy(updatedBy);
 
-        Set<UserRole> existingUserRoles = user.getUserRoles();
+        List<UserRole> existingUserRoles = user.getUserRoles();
         Set<UserRole> newUserRoles = updateUserDto.getRoles().stream()
             .map(roleUuid -> roleRepository.findByUuid(roleUuid).orElseThrow(RoleNotFoundException::new))
             .map(role -> new UserRole(user, role, updatedBy))
@@ -183,13 +181,13 @@ public class UserServiceImpl implements UserService {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 userRepository.saveAndFlush(user);
                 UserHistory userHistory = UserHistory.builder()
-                    .id(new UserHistory.UserHistoryId(user.getId()))
+                    .userId(user.getId())
                     .uuid(user.getUuid())
                     .email(user.getEmail())
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .status(user.getStatus())
-                    .performedBy(user.getPerformedBy())
+                    .performedBy(updatedBy)
                     .build();
                 userHistoryRepository.save(userHistory);
 
@@ -215,7 +213,6 @@ public class UserServiceImpl implements UserService {
             .orElseThrow(UserNotFoundException::new);
 
         user.setStatus(Status.DELETED);
-        user.setPerformedBy(deletedBy);
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
@@ -223,13 +220,13 @@ public class UserServiceImpl implements UserService {
                 //userRoleRepository.deleteAll(user.getUserRoles());
                 userRepository.delete(user);
                 UserHistory userHistory = UserHistory.builder()
-                    .id(new UserHistory.UserHistoryId(user.getId()))
+                    .userId(user.getId())
                     .uuid(user.getUuid())
                     .email(user.getEmail())
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .status(user.getStatus())
-                    .performedBy(user.getPerformedBy())
+                    .performedBy(deletedBy)
                     .build();
                 userHistoryRepository.save(userHistory);
             }

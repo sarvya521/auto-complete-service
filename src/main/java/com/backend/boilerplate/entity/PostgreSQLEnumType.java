@@ -12,8 +12,11 @@ import java.sql.Types;
  * @version 0.0.1
  * @since 0.0.1
  */
+@SuppressWarnings("squid:S3740")
 public class PostgreSQLEnumType extends org.hibernate.type.EnumType {
 
+    @SuppressWarnings("squid:RedundantThrowsDeclarationCheck")
+    @Override
     public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
         throws HibernateException, SQLException {
         if (value == null) {

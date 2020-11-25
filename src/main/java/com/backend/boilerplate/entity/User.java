@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,9 +25,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -44,8 +43,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class User implements Serializable {
     @Id
@@ -61,13 +60,9 @@ public class User implements Serializable {
     @Column(name = "status", columnDefinition = "Status", nullable = false)
     private Status status;
 
-    @Column(name = "performed_by", nullable = false)
-    private Long performedBy;
-
-    @Generated(GenerationTime.ALWAYS)
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false,
-        insertable = false, updatable = false)
+    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date timestamp;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -76,10 +71,14 @@ public class User implements Serializable {
     @Column(name = "f_name", nullable = false)
     private String firstName;
 
+    @Column(name = "m_name")
+    private String middleName;
+
     @Column(name = "l_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "id.user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
-    private Set<UserRole> userRoles = new HashSet<UserRole>();
+    private List<UserRole> userRoles = new ArrayList<>();
+
 }

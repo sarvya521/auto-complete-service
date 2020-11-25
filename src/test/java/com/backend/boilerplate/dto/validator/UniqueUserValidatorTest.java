@@ -1,10 +1,9 @@
 package com.backend.boilerplate.dto.validator;
 
 import com.backend.boilerplate.TestBoilerplateServiceApplication;
-import com.backend.boilerplate.config.ErrorMessageSourceConfig;
+import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
 import com.backend.boilerplate.dto.UpdateUserDto;
 import com.backend.boilerplate.entity.User;
-import com.backend.boilerplate.util.ErrorGeneratorInitializer;
 import com.backend.boilerplate.web.exception.CommonResponseEntityExceptionHandler;
 import com.backend.boilerplate.web.exception.UserManagementExceptionHandler;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -43,8 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Import({
     SpringConstraintValidatorFactory.class,
     LocalValidatorFactoryBean.class,
-    ErrorMessageSourceConfig.class,
-    ErrorGeneratorInitializer.class,
+    ErrorMessageSourceAutoConfiguration.class,
     UserManagementExceptionHandler.class,
     CommonResponseEntityExceptionHandler.class})
 @AutoConfigureEmbeddedDatabase
@@ -67,7 +65,7 @@ public class UniqueUserValidatorTest {
         user.setLastName("Snow");
         user.setEmail("johnsnow@mail.com");
         user.setStatus(CREATED);
-        user.setPerformedBy(1L);
+        //user.setPerformedBy(1L);
         user = testEntityManager.persistAndFlush(user);
 
         User secondUser = new User();
@@ -76,7 +74,7 @@ public class UniqueUserValidatorTest {
         secondUser.setLastName("Lannister");
         secondUser.setEmail("tyrionlannister@mail.com");
         secondUser.setStatus(CREATED);
-        secondUser.setPerformedBy(1L);
+        //secondUser.setPerformedBy(1L);
         secondUser = testEntityManager.persistAndFlush(secondUser);
 
         users.add(user);
@@ -88,7 +86,7 @@ public class UniqueUserValidatorTest {
         UUID uuid = users.get(0).getUuid();
         UpdateUserDto dto = updateUserDto(uuid, "khaldrogo@mail.com");
         Set<ConstraintViolation<UpdateUserDto>> constraintViolations = validator.validate(dto,
-            OwConstraintSequence.class);
+            ConstraintSequence.class);
         assertTrue(constraintViolations.isEmpty());
     }
 
@@ -97,7 +95,7 @@ public class UniqueUserValidatorTest {
         UUID uuid = UUID.randomUUID();
         UpdateUserDto dto = updateUserDto(uuid, "khaldrogo@mail.com");
         Set<ConstraintViolation<UpdateUserDto>> constraintViolations = validator.validate(dto,
-            OwConstraintSequence.class);
+            ConstraintSequence.class);
         assertFalse(constraintViolations.isEmpty());
         assertThat(constraintViolations).hasSize(1);
         assertThat(constraintViolations.stream().findFirst().get().getMessage()).isEqualTo("1004");
@@ -108,7 +106,7 @@ public class UniqueUserValidatorTest {
         UUID uuid = users.get(0).getUuid();
         UpdateUserDto dto = updateUserDto(uuid, "tyrionlannister@mail.com");
         Set<ConstraintViolation<UpdateUserDto>> constraintViolations = validator.validate(dto,
-            OwConstraintSequence.class);
+            ConstraintSequence.class);
         assertFalse(constraintViolations.isEmpty());
         assertThat(constraintViolations).hasSize(1);
         assertThat(constraintViolations.stream().findFirst().get().getMessage()).isEqualTo("1061");

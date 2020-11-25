@@ -1,13 +1,12 @@
 package com.backend.boilerplate.dto;
 
+import com.backend.boilerplate.dto.validator.CreateUserValidator;
 import com.backend.boilerplate.dto.validator.Extended;
-import com.backend.boilerplate.dto.validator.UniqueField;
-import com.backend.boilerplate.dto.validator.UniqueUserEmailValidator;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.backend.boilerplate.dto.validator.ValidCreateResource;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -15,26 +14,18 @@ import java.util.UUID;
 
 /**
  * @author sarvesh
- * @version 0.0.1
- * @since 0.0.1
+ * @version 0.0.2
+ * @since 0.0.2
  */
-@JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"firstName", "lastName", "email", "roles"})
+@JsonPropertyOrder({"firstName", "middleName", "lastName", "email", "salutation", "roles"})
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@ApiModel(description = "All details to create the user.")
-public class CreateUserDto {
+@Schema(description = "All details to create the user.")
+@ValidCreateResource(constraintValidator = CreateUserValidator.class, groups = Extended.class)
+public class CreateUserDto extends BaseUserDto {
 
-    @ApiModelProperty(notes = "The first name of the user", position = 0, required = true)
-    private String firstName;
-
-    @ApiModelProperty(notes = "The last name of the user", position = 2, required = true)
-    private String lastName;
-
-    @ApiModelProperty(notes = "The email id of the user", position = 3, required = true)
-    @UniqueField(message = "1061", constraintValidator = UniqueUserEmailValidator.class, groups = Extended.class)
-    private String email;
-
-    @ApiModelProperty(notes = "The role details of the user", position = 5)
+    @Schema(description = "The role details of the user")
     private List<UUID> roles;
+
 }

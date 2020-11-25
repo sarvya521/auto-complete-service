@@ -60,6 +60,10 @@ management:
     web:
       exposure:
         include: "*"
+      base-path: /api/v1/boilerplate/actuator
+---
+springdoc:
+  show-actuator: true
 ---
 #i18n settings start here
 spring:
@@ -82,3 +86,9 @@ sort:
       - firstName
       - lastName
       - email
+---
+flyway:
+  repair: false
+---
+cors:
+  allowed-origins: "*"

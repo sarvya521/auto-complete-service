@@ -7,13 +7,12 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
  * @author sarvesh
- * @version 0.0.1
- * @since 0.0.1
+ * @version 0.0.2
+ * @since 0.0.2
  */
 @Component
 public class UniqueUserValidator implements ConstraintValidator<UniqueResource, UpdateUserDto> {
@@ -25,8 +24,7 @@ public class UniqueUserValidator implements ConstraintValidator<UniqueResource, 
     @SuppressWarnings("squid:S3655")
     public boolean isValid(UpdateUserDto updateUserDto, ConstraintValidatorContext context) {
         UUID uuid = updateUserDto.getUuid();
-        Optional<Long> countExistOptional = userRepository.countByUuid(uuid);
-        if (countExistOptional.get() < 1) {
+        if (!userRepository.existsByUuid(uuid)) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("1004")
                 .addPropertyNode("uuid")
@@ -34,9 +32,7 @@ public class UniqueUserValidator implements ConstraintValidator<UniqueResource, 
             return false;
         }
 
-        Optional<Long> countEmailOptional =
-            userRepository.countByUuidNotAndEmailIgnoreCase(uuid, updateUserDto.getEmail());
-        if (countEmailOptional.get() > 0) {
+        if (userRepository.existsByUuidNotAndEmailIgnoreCase(uuid, updateUserDto.getEmail())) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("1061")
                 .addPropertyNode("email")

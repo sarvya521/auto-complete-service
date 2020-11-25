@@ -21,7 +21,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -69,7 +68,6 @@ class UserRepositoryTest {
         role = Role.builder()
             .name("Manager")
             .status(CREATED)
-            .performedBy(PERFORMED_BY)
             .build();
         role = testEntityManager.persistAndFlush(role);
         assertNotNull(role.getId());
@@ -84,8 +82,7 @@ class UserRepositoryTest {
             .firstName(firstName)
             .lastName(lastName)
             .status(status)
-            .performedBy(PERFORMED_BY)
-            .userRoles(new HashSet<>())
+            .userRoles(new ArrayList<>())
             .build();
 
         userRole = new UserRole(user, role, PERFORMED_BY);
@@ -105,27 +102,27 @@ class UserRepositoryTest {
         /*********** Execute ************/
         user = userRepository.saveAndFlush(user);
         UserHistory userHistory = UserHistory.builder()
-            .id(new UserHistory.UserHistoryId(user.getId()))
+            .userId(user.getId())
             .uuid(user.getUuid())
             .email(user.getEmail())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .status(user.getStatus())
-            .performedBy(user.getPerformedBy())
+            .performedBy(PERFORMED_BY)
             .build();
         userHistory = userHistoryRepository.saveAndFlush(userHistory);
         /*********** Verify/Assertions ************/
-        assertEquals(PERFORMED_BY, user.getPerformedBy());
+        assertEquals(PERFORMED_BY, userHistory.getPerformedBy());
 
         assertNotNull(user.getId());
         assertEquals(CREATED, user.getStatus());
-        assertEquals(PERFORMED_BY, user.getPerformedBy());
+        assertEquals(PERFORMED_BY, userHistory.getPerformedBy());
         assertNotNull(user.getTimestamp());
         assertEquals(1, user.getUserRoles().size());
         assertEquals("Manager", user.getUserRoles().stream().findFirst().get().getRole().getName());
 
         assertNotNull(userHistory.getId());
-        assertEquals(user.getId(), userHistory.getId().getUserId());
+        assertEquals(user.getId(), userHistory.getUserId());
     }
 
     private User setup_updateUser() {
@@ -136,13 +133,13 @@ class UserRepositoryTest {
         });
 
         UserHistory userHistory = UserHistory.builder()
-            .id(new UserHistory.UserHistoryId(user.getId()))
+            .userId(user.getId())
             .uuid(user.getUuid())
             .email(user.getEmail())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .status(user.getStatus())
-            .performedBy(user.getPerformedBy())
+            .performedBy(PERFORMED_BY)
             .build();
         userHistory = userHistoryRepository.saveAndFlush(userHistory);
 
@@ -162,26 +159,26 @@ class UserRepositoryTest {
         /*********** Execute ************/
         user = userRepository.saveAndFlush(user);
         UserHistory userHistory = UserHistory.builder()
-            .id(new UserHistory.UserHistoryId(user.getId()))
+            .userId(user.getId())
             .uuid(user.getUuid())
             .email(user.getEmail())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .status(user.getStatus())
-            .performedBy(user.getPerformedBy())
+            .performedBy(PERFORMED_BY)
             .build();
         userHistory = userHistoryRepository.saveAndFlush(userHistory);
         /*********** Verify/Assertions ************/
-        assertEquals(PERFORMED_BY, user.getPerformedBy());
+        assertEquals(PERFORMED_BY, userHistory.getPerformedBy());
 
         assertNotNull(user.getId());
         assertEquals(UPDATED, user.getStatus());
-        assertEquals(PERFORMED_BY, user.getPerformedBy());
+        assertEquals(PERFORMED_BY, userHistory.getPerformedBy());
         assertNotNull(user.getTimestamp());
         assertEquals("jack.sparrow@contacrtors.roche.com", user.getEmail());
 
         assertNotNull(userHistory.getId());
-        assertEquals(user.getId(), userHistory.getId().getUserId());
+        assertEquals(user.getId(), userHistory.getUserId());
         assertEquals(UPDATED, userHistory.getStatus());
         assertEquals("jack.sparrow@contacrtors.roche.com", userHistory.getEmail());
     }
@@ -189,13 +186,13 @@ class UserRepositoryTest {
     private User setup_deleteUser() {
         user = userRepository.saveAndFlush(user);
         UserHistory userHistory = UserHistory.builder()
-            .id(new UserHistory.UserHistoryId(user.getId()))
+            .userId(user.getId())
             .uuid(user.getUuid())
             .email(user.getEmail())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .status(user.getStatus())
-            .performedBy(user.getPerformedBy())
+            .performedBy(PERFORMED_BY)
             .build();
         userHistory = userHistoryRepository.saveAndFlush(userHistory);
 
@@ -213,35 +210,35 @@ class UserRepositoryTest {
         userRepository.delete(user);
         user.setStatus(Status.DELETED);
         UserHistory userHistory = UserHistory.builder()
-            .id(new UserHistory.UserHistoryId(user.getId()))
+            .userId(user.getId())
             .uuid(user.getUuid())
             .email(user.getEmail())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .status(user.getStatus())
-            .performedBy(user.getPerformedBy())
+            .performedBy(PERFORMED_BY)
             .build();
         userHistory = userHistoryRepository.saveAndFlush(userHistory);
         /*********** Verify/Assertions ************/
-        assertEquals(PERFORMED_BY, user.getPerformedBy());
+        assertEquals(PERFORMED_BY, userHistory.getPerformedBy());
 
         assertTrue(userRepository.findById(user.getId()).isEmpty());
 
         assertNotNull(userHistory.getId());
-        assertEquals(user.getId(), userHistory.getId().getUserId());
+        assertEquals(user.getId(), userHistory.getUserId());
         assertEquals(DELETED, userHistory.getStatus());
     }
 
     private User setup_getUserById() {
         user = userRepository.saveAndFlush(user);
         UserHistory userHistory = UserHistory.builder()
-            .id(new UserHistory.UserHistoryId(user.getId()))
+            .userId(user.getId())
             .uuid(user.getUuid())
             .email(user.getEmail())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .status(user.getStatus())
-            .performedBy(user.getPerformedBy())
+            .performedBy(PERFORMED_BY)
             .build();
         userHistory = userHistoryRepository.saveAndFlush(userHistory);
         return user;
@@ -274,8 +271,7 @@ class UserRepositoryTest {
             .firstName(firstName1)
             .lastName(lastName1)
             .status(CREATED)
-            .performedBy(PERFORMED_BY)
-            .userRoles(new HashSet<>())
+            .userRoles(new ArrayList<>())
             .build();
         UserRole userRole1 = new UserRole(user1, role, PERFORMED_BY);
         user1.getUserRoles().add(userRole1);
@@ -292,8 +288,7 @@ class UserRepositoryTest {
             .firstName(firstName2)
             .lastName(lastName2)
             .status(CREATED)
-            .performedBy(PERFORMED_BY)
-            .userRoles(new HashSet<>())
+            .userRoles(new ArrayList<>())
             .build();
         UserRole userRole2 = new UserRole(user2, role, PERFORMED_BY);
         user2.getUserRoles().add(userRole2);
@@ -304,13 +299,13 @@ class UserRepositoryTest {
         userRepository.flush();
         users.forEach(u -> {
             UserHistory userHistory = UserHistory.builder()
-                .id(new UserHistory.UserHistoryId(u.getId()))
+                .userId(u.getId())
                 .uuid(u.getUuid())
                 .email(u.getEmail())
                 .firstName(u.getFirstName())
                 .lastName(u.getLastName())
                 .status(u.getStatus())
-                .performedBy(u.getPerformedBy())
+                .performedBy(PERFORMED_BY)
                 .build();
             userHistory = userHistoryRepository.saveAndFlush(userHistory);
         });

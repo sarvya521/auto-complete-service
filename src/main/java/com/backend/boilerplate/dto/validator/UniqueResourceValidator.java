@@ -9,8 +9,8 @@ import javax.validation.ConstraintValidatorFactory;
 
 /**
  * @author sarvesh
- * @version 0.0.1
- * @since 0.0.1
+ * @version 0.0.2
+ * @since 0.0.2
  */
 @Component
 public class UniqueResourceValidator implements ConstraintValidator<UniqueResource, Object> {
@@ -18,6 +18,7 @@ public class UniqueResourceValidator implements ConstraintValidator<UniqueResour
     @Autowired
     private ConstraintValidatorFactory constraintValidatorFactory;
 
+    @SuppressWarnings("squid:S3740")
     private ConstraintValidator constraintValidator;
 
     @SuppressWarnings("unchecked")

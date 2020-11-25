@@ -2,33 +2,30 @@ package com.backend.boilerplate.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * @author sarvesh
- * @version 0.0.1
+ * @version 0.0.2
  * @since 0.0.1
  */
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"uuid", "name", "claims"})
+@JsonPropertyOrder({"uuid", "name", "featureClaims"})
 @Data
+@EqualsAndHashCode(of = {"uuid"}, callSuper = false)
 @NoArgsConstructor
-@ApiModel(description = "All details about the role.")
-public class RoleDto {
+@Schema(description = "All details about the Role.")
+public class RoleDto extends BaseRoleDto {
 
-    @ApiModelProperty(notes = "The uuid of the role", position = 0)
-    private UUID uuid;
-
-    @ApiModelProperty(notes = "The name of the role", position = 1)
+    @Schema(description = "The name of the role")
     private String name;
 
-    @ApiModelProperty(notes = "List of claims for this role", position = 2)
-    private List<ClaimDto> claims = new ArrayList<>();
+    @Schema(description = "The uuid of the role")
+    private UUID uuid;
+
 }

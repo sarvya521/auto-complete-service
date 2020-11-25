@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Optional;
 
 /**
  * @author sarvesh
@@ -22,7 +21,6 @@ public class UniqueRoleNameValidator implements ConstraintValidator<UniqueField,
     @Override
     @SuppressWarnings("squid:S3655")
     public boolean isValid(String roleName, ConstraintValidatorContext context) {
-        Optional<Long> longOptional = roleRepository.countByNameIgnoreCase(roleName);
-        return longOptional.get() == 0;
+        return roleRepository.existsByName(roleName);
     }
 }

@@ -13,8 +13,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author sarvesh
- * @version 0.0.1
- * @since 0.0.1
+ * @version 0.0.2
+ * @since 0.0.2
  */
 @Target({FIELD})
 @Retention(RUNTIME)
@@ -29,5 +29,6 @@ public @interface UniqueField {
 
     Class<? extends Payload>[] payload() default {};
 
-    Class<? extends ConstraintValidator<?, ?>> constraintValidator();
+    @SuppressWarnings("squid:S1452")
+    Class<? extends ConstraintValidator<UniqueField, ?>> constraintValidator();
 }

@@ -6,10 +6,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,9 +27,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -62,23 +65,24 @@ public class Role implements Serializable {
     @Column(name = "status", columnDefinition = "Status", nullable = false)
     private Status status;
 
-    @Column(name = "performed_by", nullable = false)
-    private Long performedBy;
-
-    @Generated(GenerationTime.ALWAYS)
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false,
-        insertable = false, updatable = false)
+    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date timestamp;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "id.role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<RoleClaim> roleClaims = new HashSet<>();
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<RoleFeatures> roleFeatures = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserRole> userRoles = new HashSet<>();
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserRole> userRoles = new ArrayList<>();
 
-
+    public Role(String name, Status status) {
+        this.name = name;
+        this.status = status;
+    }
 }

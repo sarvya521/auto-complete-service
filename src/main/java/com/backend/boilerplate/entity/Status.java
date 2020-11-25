@@ -5,7 +5,6 @@ package com.backend.boilerplate.entity;
  * @version 0.0.1
  * @since 0.0.1
  */
-@SuppressWarnings("squid:S00115")
 public enum Status {
-    CREATED, UPDATED, DELETED, RECREATED;
+    CREATED, UPDATED, DELETED, RECREATED, DEACTIVATED, REACTIVATED;
 }

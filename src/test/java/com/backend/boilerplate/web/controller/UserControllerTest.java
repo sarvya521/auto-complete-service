@@ -1,7 +1,7 @@
 package com.backend.boilerplate.web.controller;
 
 import com.backend.boilerplate.TestLocalValidatorFactoryBean;
-import com.backend.boilerplate.config.ErrorMessageSourceConfig;
+import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
 import com.backend.boilerplate.dao.UserRepository;
 import com.backend.boilerplate.dto.CreateUserDto;
 import com.backend.boilerplate.dto.UpdateUserDto;
@@ -10,7 +10,6 @@ import com.backend.boilerplate.dto.UserPageDto;
 import com.backend.boilerplate.dto.UserRoleDto;
 import com.backend.boilerplate.service.UserService;
 import com.backend.boilerplate.service.impl.UserPaginationServiceImpl;
-import com.backend.boilerplate.util.ErrorGeneratorInitializer;
 import com.backend.boilerplate.web.exception.UserManagementExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +59,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
-@Import({ErrorMessageSourceConfig.class, ErrorGeneratorInitializer.class, UserManagementExceptionHandler.class})
+@Import({ErrorMessageSourceAutoConfiguration.class, UserManagementExceptionHandler.class})
 @ContextConfiguration(classes = MockServletContext.class)
 @WebAppConfiguration
 public class UserControllerTest {
@@ -83,7 +82,7 @@ public class UserControllerTest {
     private MockServletContext servletContext;
 
     @Autowired
-    private UserManagementExceptionHandler owUserManagementExceptionHandler;
+    private UserManagementExceptionHandler userManagementExceptionHandler;
 
     /**
      * Setup for before each test case
@@ -99,7 +98,7 @@ public class UserControllerTest {
 
         mockMvc = standaloneSetup(userController)
             .setValidator(validatorFactoryBean)
-            .setControllerAdvice(owUserManagementExceptionHandler)
+            .setControllerAdvice(userManagementExceptionHandler)
             .build();
     }
 
@@ -239,7 +238,7 @@ public class UserControllerTest {
         UpdateUserDto updateUserDto = prepareUpdateUsersData(userId);
         UserDto userDto = prepareUsersData(userId);
         Mockito.when(userService.updateUser(updateUserDto)).thenReturn(userDto);
-        Mockito.when(userRepository.countByUuid(updateUserDto.getUuid())).thenReturn(Optional.of(1L));
+        Mockito.when(userRepository.countByUuid(updateUserDto.getUuid())).thenReturn(1);
         Mockito.when(userRepository.countByUuidNotAndEmailIgnoreCase(updateUserDto.getUuid(),
             updateUserDto.getEmail())).thenReturn(Optional.of(0L));
 

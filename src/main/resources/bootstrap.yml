@@ -1,6 +1,9 @@
 spring:
   application:
     name: bootstrap
+  cloud:
+    config:
+      enabled: false
 aws:
   paramstore:
     enabled: true

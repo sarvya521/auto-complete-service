@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -23,7 +22,6 @@ public class ExistRoleValidator implements ConstraintValidator<Exist, UUID> {
     @SuppressWarnings("squid:S3655")
     @Override
     public boolean isValid(UUID roleUuid, ConstraintValidatorContext context) {
-        Optional<Long> countOptional = roleRepository.countByUuid(roleUuid);
-        return countOptional.get() == 1;
+        return roleRepository.existsByUuid(roleUuid);
     }
 }

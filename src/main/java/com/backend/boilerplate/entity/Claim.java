@@ -1,7 +1,6 @@
 package com.backend.boilerplate.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,22 +9,18 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -41,9 +36,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 public class Claim {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -61,24 +55,27 @@ public class Claim {
     @Column(name = "status", columnDefinition = "Status", nullable = false)
     private Status status;
 
-    @Column(name = "performed_by", nullable = false)
-    private Long performedBy;
-
-    @Generated(GenerationTime.ALWAYS)
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false,
-        insertable = false, updatable = false)
+    @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date timestamp;
 
-    @Column(name = "resource_name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String resourceName;
 
-    @Column(name = "resource_http_method", nullable = false)
+    @Column(name = "api_http_method", nullable = false)
     private String resourceHttpMethod;
 
-    @Column(name = "resource_endpoint", nullable = false)
+    @Column(name = "api_endpoint", nullable = false)
     private String resourceEndpoint;
 
-    @OneToMany(mappedBy = "id.claim", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<RoleClaim> roleClaims = new HashSet<RoleClaim>();
+    @Column(name = "is_admin", columnDefinition = "boolean default false")
+    private boolean admin;
+
+    public Claim(String resourceName, String resourceHttpMethod, String resourceEndpoint, Status status) {
+        this.resourceName = resourceName;
+        this.resourceHttpMethod = resourceHttpMethod;
+        this.resourceEndpoint = resourceEndpoint;
+        this.status = status;
+    }
 }

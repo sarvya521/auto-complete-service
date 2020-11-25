@@ -1,11 +1,12 @@
 package com.backend.boilerplate.service.impl;
 
-import com.backend.boilerplate.config.ModelMapperConfig;
+import com.backend.boilerplate.autoconfigure.ModelMapperAutoConfiguration;
 import com.backend.boilerplate.dao.ClaimRepository;
 import com.backend.boilerplate.dto.ClaimDto;
 import com.backend.boilerplate.entity.Claim;
 import com.backend.boilerplate.modelmapper.ClaimMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
-@Import({ClaimMapper.class, ModelMapper.class, ModelMapperConfig.class})
+@Import({ClaimMapper.class, ModelMapper.class, ModelMapperAutoConfiguration.class})
+@Disabled
 public class ClaimServiceImplTest {
 
     private ClaimServiceImpl claimServiceImpl;

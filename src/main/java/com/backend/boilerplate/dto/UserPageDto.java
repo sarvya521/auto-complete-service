@@ -2,8 +2,7 @@ package com.backend.boilerplate.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,20 +11,20 @@ import java.util.List;
 
 /**
  * @author sarvesh
- * @version 0.0.1
- * @since 0.0.1
+ * @version 0.0.2
+ * @since 0.0.2
  */
 @JsonInclude(content = JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"totalRecords", "users"})
 @Data
 @NoArgsConstructor
-@ApiModel(description = "Paginated result of user list")
+@Schema(description = "Paginated result of user list")
 public class UserPageDto {
 
-    @ApiModelProperty(notes = "The total number available users", position = 0)
+    @Schema(description = "The total number available users")
     private Long totalRecords = 0l;
 
-    @ApiModelProperty(notes = "List of user with user details", position = 6)
+    @Schema(description = "List of user with user details")
     private List<UserDto> users = new ArrayList<>();
 
 }
