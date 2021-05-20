@@ -67,15 +67,11 @@ public class UniqueRoleValidatorTest {
     void setup() {
         Role manager = Role.builder()
             .name("Manager")
-            .status(CREATED)
-            //.performedBy(PERFORMED_BY)
             .build();
         manager = testEntityManager.persistAndFlush(manager);
 
         Role teamLead = Role.builder()
             .name("Team Lead")
-            .status(CREATED)
-            //.performedBy(PERFORMED_BY)
             .build();
         teamLead = testEntityManager.persistAndFlush(teamLead);
 

@@ -60,8 +60,6 @@ public class UniqueRoleNameValidatorTest {
     void setup() {
         role = new Role();
         role.setName("Manager");
-        role.setStatus(CREATED);
-        //role.setPerformedBy(1L);
         role = testEntityManager.persistAndFlush(role);
     }
 

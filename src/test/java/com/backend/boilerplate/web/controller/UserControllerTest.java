@@ -1,7 +1,9 @@
 package com.backend.boilerplate.web.controller;
 
+import com.backend.boilerplate.StringUtils;
 import com.backend.boilerplate.TestLocalValidatorFactoryBean;
 import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
+import com.backend.boilerplate.dao.RoleRepository;
 import com.backend.boilerplate.dao.UserRepository;
 import com.backend.boilerplate.dto.CreateUserDto;
 import com.backend.boilerplate.dto.UpdateUserDto;
@@ -78,6 +80,9 @@ public class UserControllerTest {
     @MockBean
     private UserRepository userRepository;
 
+    @MockBean
+    private RoleRepository roleRepository;
+
     @Autowired
     private MockServletContext servletContext;
 
@@ -93,6 +98,7 @@ public class UserControllerTest {
 
         Map<String, JpaRepository> repositories = new HashMap<>();
         repositories.put("userRepository", this.userRepository);
+        repositories.put("roleRepository", this.roleRepository);
         LocalValidatorFactoryBean validatorFactoryBean = new TestLocalValidatorFactoryBean(servletContext,
             repositories);
 
@@ -208,9 +214,14 @@ public class UserControllerTest {
         /*********** Setup ************/
         UUID userId = UUID.randomUUID();
         CreateUserDto createUserDto = prepareCreateUserData();
+        List<UUID> roles = createUserDto.getRoles();
+        List<String> roleNames = roles.stream()
+            .map(uuid -> StringUtils.generateName(5))
+            .collect(Collectors.toList());
         UserDto userDto = prepareUsersData(userId);
         Mockito.when(userService.createUser(createUserDto)).thenReturn(userDto);
         Mockito.when(userRepository.countByEmailIgnoreCase(createUserDto.getEmail())).thenReturn(Optional.of(0L));
+        Mockito.when(roleRepository.findNameByUuidIn(roles)).thenReturn(roleNames);
 
         /*********** Execute ************/
         mockMvc.perform(post("/api/v1/user").content(new ObjectMapper().writeValueAsBytes(createUserDto))
@@ -238,7 +249,7 @@ public class UserControllerTest {
         UpdateUserDto updateUserDto = prepareUpdateUsersData(userId);
         UserDto userDto = prepareUsersData(userId);
         Mockito.when(userService.updateUser(updateUserDto)).thenReturn(userDto);
-        Mockito.when(userRepository.countByUuid(updateUserDto.getUuid())).thenReturn(1);
+        Mockito.when(userRepository.existsByUuid(updateUserDto.getUuid())).thenReturn(true);
         Mockito.when(userRepository.countByUuidNotAndEmailIgnoreCase(updateUserDto.getUuid(),
             updateUserDto.getEmail())).thenReturn(Optional.of(0L));
 

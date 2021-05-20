@@ -67,7 +67,6 @@ class UserRepositoryTest {
 
         role = Role.builder()
             .name("Manager")
-            .status(CREATED)
             .build();
         role = testEntityManager.persistAndFlush(role);
         assertNotNull(role.getId());
@@ -262,9 +261,7 @@ class UserRepositoryTest {
         UUID uuid1 = UUID.randomUUID();
         String email1 = "jack.sparrow@roche.com";
         String firstName1 = "jack";
-        String middleName1 = null;
         String lastName1 = "sparrow";
-        String salutation1 = "Cap";
         User user1 = User.builder()
             .uuid(uuid1)
             .email(email1)
@@ -279,9 +276,7 @@ class UserRepositoryTest {
         UUID uuid2 = UUID.randomUUID();
         String email2 = "barbosa@roche.com";
         String firstName2 = "barbosa";
-        String middleName2 = null;
         String lastName2 = "blackpearl";
-        String salutation2 = "Cap";
         User user2 = User.builder()
             .uuid(uuid2)
             .email(email2)

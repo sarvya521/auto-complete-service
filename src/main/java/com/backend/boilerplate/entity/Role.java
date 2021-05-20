@@ -17,8 +17,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -60,11 +58,6 @@ public class Role implements Serializable {
     @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID uuid;
 
-    @Enumerated(EnumType.STRING)
-    @Type(type = "Status")
-    @Column(name = "status", columnDefinition = "Status", nullable = false)
-    private Status status;
-
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ts", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP", nullable = false)
@@ -81,8 +74,7 @@ public class Role implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserRole> userRoles = new ArrayList<>();
 
-    public Role(String name, Status status) {
+    public Role(String name) {
         this.name = name;
-        this.status = status;
     }
 }

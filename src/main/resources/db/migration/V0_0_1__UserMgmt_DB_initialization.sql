@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS app_user (
   CONSTRAINT uk_app_user_email UNIQUE(email)
 );
 CREATE TABLE IF NOT EXISTS app_user_history (
-  id BIGINT NOT NULL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
   uuid UUID NOT NULL,
   email VARCHAR(50) NOT NULL,
   f_name VARCHAR(50) NOT NULL,
@@ -85,7 +86,8 @@ CREATE TABLE IF NOT EXISTS role (
   CONSTRAINT uk_role_name UNIQUE(name)
 );
 CREATE TABLE IF NOT EXISTS role_history (
-  id BIGINT NOT NULL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
+  role_id BIGINT NOT NULL,
   uuid UUID NOT NULL,
   name VARCHAR(50) NOT NULL,
   performed_by BIGINT NOT NULL,

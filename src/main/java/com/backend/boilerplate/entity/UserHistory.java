@@ -68,9 +68,6 @@ public class UserHistory {
     @Column(name = "f_name", nullable = false)
     private String firstName;
 
-    @Column(name = "m_name")
-    private String middleName;
-
     @Column(name = "l_name", nullable = false)
     private String lastName;
 }
