@@ -90,7 +90,7 @@ public class LocalRunsSonarAnalysis implements EnforcerRule {
 
             if (this.shouldIfail) {
                 if (this.validateSonarMetrics(artifactId)) {
-                    throw new EnforcerRuleException("Failing because my param said so.");
+                    throw new EnforcerRuleException("Build Failed");
                 }
             }
         } catch (ComponentLookupException e) {
@@ -142,8 +142,8 @@ public class LocalRunsSonarAnalysis implements EnforcerRule {
     public boolean validateSonarMetrics(String artifactId) throws InterruptedException, IOException {
         String gitBranch = getCurrentGitBranch();
         System.out.println("git branch:" + gitBranch);
-        String[] command = {"curl", "-u", "e86952345289c42b866d48af60def753cfa8bab4" + ":", "https://sonarcloud" +
-            ".io/api/qualitygates/project_status?projectKey=rochedis_" + artifactId + "&branch=+" + gitBranch};
+        String[] command = {"curl", "-u", "exxxxx" + ":", "https://sonarcloud" +
+            ".io/api/qualitygates/project_status?projectKey="+ artifactId + "&branch=+" + gitBranch};
         Thread.sleep(2000);
         ProcessBuilder process = new ProcessBuilder(command);
         Process p;
