@@ -23,7 +23,7 @@
     <commons-collections.version>4.3</commons-collections.version>
     <flyway.version>6.0.8</flyway.version>
     <hikaricp.version>3.4.2</hikaricp.version>
-    <postgresql.version>42.2.11</postgresql.version>
+    <postgresql.version>42.2.25</postgresql.version>
     <modelmapper.version>2.3.7</modelmapper.version>
     <spring.cloud.contract.version>2.1.2.RELEASE</spring.cloud.contract.version>
     <owasp.encoder.version>1.2.2</owasp.encoder.version>
