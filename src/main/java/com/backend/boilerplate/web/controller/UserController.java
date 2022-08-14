@@ -1,8 +1,8 @@
 package com.backend.boilerplate.web.controller;
 
-import com.backend.boilerplate.constant.Status;
+import com.sp.boilerplate.commons.constant.Status;
 import com.backend.boilerplate.dto.CreateUserDto;
-import com.backend.boilerplate.dto.Response;
+import com.sp.boilerplate.commons.dto.Response;
 import com.backend.boilerplate.dto.UpdateUserDto;
 import com.backend.boilerplate.dto.UserDto;
 import com.backend.boilerplate.dto.UserPageDto;

@@ -2,6 +2,7 @@ package com.backend.boilerplate.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import com.sp.boilerplate.commons.exception.ErrorDetails;
 
 /**
  * @author sarvesh

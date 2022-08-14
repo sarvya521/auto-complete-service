@@ -1,8 +1,8 @@
 package com.backend.boilerplate.web.controller;
 
-import com.backend.boilerplate.constant.Status;
+import com.sp.boilerplate.commons.constant.Status;
 import com.backend.boilerplate.dto.CreateRoleDto;
-import com.backend.boilerplate.dto.Response;
+import com.sp.boilerplate.commons.dto.Response;
 import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
 import com.backend.boilerplate.dto.validator.ConstraintSequence;

@@ -1,4 +1,4 @@
-package com.backend.boilerplate.dao;
+package com.backend.boilerplate.repository;
 
 import com.backend.boilerplate.entity.Role;
 import com.backend.boilerplate.entity.UserRole;

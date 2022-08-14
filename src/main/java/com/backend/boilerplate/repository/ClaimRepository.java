@@ -1,4 +1,4 @@
-package com.backend.boilerplate.dao;
+package com.backend.boilerplate.repository;
 
 import com.backend.boilerplate.entity.Claim;
 import org.springframework.data.jpa.repository.JpaRepository;

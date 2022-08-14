@@ -1,6 +1,6 @@
 package com.backend.boilerplate.entity;
 
-import com.backend.boilerplate.constant.FeatureAction;
+import com.sp.boilerplate.commons.constant.FeatureAction;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

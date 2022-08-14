@@ -1,10 +1,10 @@
 package com.backend.boilerplate.web.exception;
 
-import com.backend.boilerplate.constant.Status;
-import com.backend.boilerplate.dto.Response;
-import com.backend.boilerplate.exception.ErrorDetails;
+import com.sp.boilerplate.commons.constant.Status;
+import com.sp.boilerplate.commons.dto.Response;
+import com.sp.boilerplate.commons.exception.ErrorDetails;
 import com.backend.boilerplate.exception.UserManagementException;
-import com.backend.boilerplate.util.ErrorGenerator;
+import com.sp.boilerplate.commons.util.ErrorGenerator;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

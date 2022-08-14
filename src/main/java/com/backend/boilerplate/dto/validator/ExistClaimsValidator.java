@@ -1,6 +1,6 @@
 package com.backend.boilerplate.dto.validator;
 
-import com.backend.boilerplate.dao.ClaimRepository;
+import com.backend.boilerplate.repository.ClaimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

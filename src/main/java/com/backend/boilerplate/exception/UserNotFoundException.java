@@ -1,6 +1,6 @@
 package com.backend.boilerplate.exception;
 
-import com.backend.boilerplate.util.ErrorGenerator;
+import com.sp.boilerplate.commons.util.ErrorGenerator;
 
 /**
  * @author sarvesh

@@ -1,6 +1,5 @@
-package com.backend.boilerplate.dao;
+package com.backend.boilerplate.repository;
 
-import com.backend.boilerplate.dao.query.UserRepositoryQuery;
 import com.backend.boilerplate.entity.Role;
 import com.backend.boilerplate.entity.User;
 import org.springframework.data.domain.Page;

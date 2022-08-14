@@ -1,7 +1,7 @@
 package com.backend.boilerplate.web.controller;
 
-import com.backend.boilerplate.constant.Status;
-import com.backend.boilerplate.dto.Response;
+import com.sp.boilerplate.commons.constant.Status;
+import com.sp.boilerplate.commons.dto.Response;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -30,9 +30,7 @@ public class CommonSuccessfulResponseAdvice implements ResponseBodyAdvice<Object
      */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        //return returnType.getDeclaringClass().getPackageName().equals("com.roche.navify.ow.web.controller"); //JAVA
-        // 9 >
-        return returnType.getDeclaringClass().getPackage().getName().equals("com.roche.navify.ow.web.controller");
+        return returnType.getDeclaringClass().getPackageName().equals("com.backend.boilerplate.web.controller"); //JAVA 9 >
     }
 
     /**

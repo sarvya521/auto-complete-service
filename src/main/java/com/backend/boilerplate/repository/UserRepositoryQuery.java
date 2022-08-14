@@ -1,4 +1,4 @@
-package com.backend.boilerplate.dao.query;
+package com.backend.boilerplate.repository;
 
 /**
  * @author sarvesh

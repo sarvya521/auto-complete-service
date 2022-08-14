@@ -1,7 +1,7 @@
-package com.backend.boilerplate.service.impl;
+package com.backend.boilerplate.service;
 
-import com.backend.boilerplate.dao.ClaimRepository;
-import com.backend.boilerplate.dto.ClaimDto;
+import com.backend.boilerplate.repository.ClaimRepository;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.entity.Claim;
 import com.backend.boilerplate.modelmapper.ClaimMapper;
 import com.backend.boilerplate.service.ClaimService;

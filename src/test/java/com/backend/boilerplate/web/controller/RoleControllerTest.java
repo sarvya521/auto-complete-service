@@ -2,9 +2,9 @@ package com.backend.boilerplate.web.controller;
 
 import com.backend.boilerplate.TestLocalValidatorFactoryBean;
 import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
-import com.backend.boilerplate.dao.ClaimRepository;
-import com.backend.boilerplate.dao.RoleRepository;
-import com.backend.boilerplate.dto.ClaimDto;
+import com.backend.boilerplate.repository.ClaimRepository;
+import com.backend.boilerplate.repository.RoleRepository;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.dto.CreateRoleDto;
 import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
@@ -41,7 +41,6 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -49,7 +48,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author sarvesh

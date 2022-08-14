@@ -1,6 +1,7 @@
 package com.backend.boilerplate.exception;
 
 import lombok.Getter;
+import com.sp.boilerplate.commons.exception.ErrorDetails;
 
 /**
  * @author sarvesh

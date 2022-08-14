@@ -1,8 +1,8 @@
 package com.backend.boilerplate.web.exception;
 
-import com.backend.boilerplate.constant.Status;
-import com.backend.boilerplate.dto.Response;
-import com.backend.boilerplate.util.ErrorGenerator;
+import com.sp.boilerplate.commons.constant.Status;
+import com.sp.boilerplate.commons.dto.Response;
+import com.sp.boilerplate.commons.util.ErrorGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpHeaders;
@@ -24,11 +24,6 @@ public class NotFoundErrorController implements ErrorController {
 
     @Value("${error.path:/error}")
     private String errorPath;
-
-    @Override
-    public String getErrorPath() {
-        return this.errorPath;
-    }
 
     @GetMapping
     public ResponseEntity<Response> error(WebRequest request) {

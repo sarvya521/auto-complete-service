@@ -1,4 +1,4 @@
-package com.backend.boilerplate.service.impl;
+package com.backend.boilerplate.service;
 
 import com.backend.boilerplate.service.PaginationService;
 import lombok.Getter;

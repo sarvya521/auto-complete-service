@@ -1,6 +1,6 @@
 package com.backend.boilerplate.dto;
 
-import com.backend.boilerplate.constant.FeatureAction;
+import com.sp.boilerplate.commons.constant.FeatureAction;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.backend.boilerplate.service;
 
-import com.backend.boilerplate.dto.ClaimDto;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.backend.boilerplate.service.impl;
+package com.backend.boilerplate.service;
 
 import com.backend.boilerplate.config.ApplicationProperties;
-import com.backend.boilerplate.dao.UserRepository;
+import com.backend.boilerplate.repository.UserRepository;
 import com.backend.boilerplate.dto.UserDto;
 import com.backend.boilerplate.dto.UserPageDto;
 import com.backend.boilerplate.entity.User;

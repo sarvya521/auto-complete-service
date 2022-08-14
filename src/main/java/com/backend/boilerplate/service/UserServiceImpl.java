@@ -1,9 +1,9 @@
-package com.backend.boilerplate.service.impl;
+package com.backend.boilerplate.service;
 
-import com.backend.boilerplate.dao.RoleRepository;
-import com.backend.boilerplate.dao.UserHistoryRepository;
-import com.backend.boilerplate.dao.UserRepository;
-import com.backend.boilerplate.dao.UserRoleRepository;
+import com.backend.boilerplate.repository.RoleRepository;
+import com.backend.boilerplate.repository.UserHistoryRepository;
+import com.backend.boilerplate.repository.UserRepository;
+import com.backend.boilerplate.repository.UserRoleRepository;
 import com.backend.boilerplate.dto.CreateUserDto;
 import com.backend.boilerplate.dto.UpdateUserDto;
 import com.backend.boilerplate.dto.UserDto;

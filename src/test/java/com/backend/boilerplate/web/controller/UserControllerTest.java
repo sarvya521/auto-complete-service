@@ -3,15 +3,15 @@ package com.backend.boilerplate.web.controller;
 import com.backend.boilerplate.StringUtils;
 import com.backend.boilerplate.TestLocalValidatorFactoryBean;
 import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
-import com.backend.boilerplate.dao.RoleRepository;
-import com.backend.boilerplate.dao.UserRepository;
+import com.backend.boilerplate.repository.RoleRepository;
+import com.backend.boilerplate.repository.UserRepository;
 import com.backend.boilerplate.dto.CreateUserDto;
 import com.backend.boilerplate.dto.UpdateUserDto;
 import com.backend.boilerplate.dto.UserDto;
 import com.backend.boilerplate.dto.UserPageDto;
 import com.backend.boilerplate.dto.UserRoleDto;
 import com.backend.boilerplate.service.UserService;
-import com.backend.boilerplate.service.impl.UserPaginationServiceImpl;
+import com.backend.boilerplate.service.UserPaginationServiceImpl;
 import com.backend.boilerplate.web.exception.UserManagementExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +53,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author sarvesh

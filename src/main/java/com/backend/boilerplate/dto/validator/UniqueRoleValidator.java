@@ -1,9 +1,9 @@
 package com.backend.boilerplate.dto.validator;
 
 import com.backend.boilerplate.constant.AdminFeature;
-import com.backend.boilerplate.constant.FeatureAction;
-import com.backend.boilerplate.dao.ModuleFeaturesRepository;
-import com.backend.boilerplate.dao.RoleRepository;
+import com.sp.boilerplate.commons.constant.FeatureAction;
+import com.backend.boilerplate.repository.ModuleFeaturesRepository;
+import com.backend.boilerplate.repository.RoleRepository;
 import com.backend.boilerplate.dto.UpdateRoleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

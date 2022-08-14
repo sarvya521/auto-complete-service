@@ -1,6 +1,6 @@
 package com.backend.boilerplate.modelmapper;
 
-import com.backend.boilerplate.dto.ClaimDto;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.entity.Claim;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

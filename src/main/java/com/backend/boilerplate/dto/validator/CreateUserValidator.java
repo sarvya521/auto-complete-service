@@ -1,8 +1,8 @@
 package com.backend.boilerplate.dto.validator;
 
 import com.backend.boilerplate.constant.Role;
-import com.backend.boilerplate.dao.RoleRepository;
-import com.backend.boilerplate.dao.UserRepository;
+import com.backend.boilerplate.repository.RoleRepository;
+import com.backend.boilerplate.repository.UserRepository;
 import com.backend.boilerplate.dto.CreateUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
