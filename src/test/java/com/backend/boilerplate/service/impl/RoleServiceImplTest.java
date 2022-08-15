@@ -1,27 +1,18 @@
 package com.backend.boilerplate.service.impl;
 
-import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
-import com.backend.boilerplate.autoconfigure.ModelMapperAutoConfiguration;
-import com.backend.boilerplate.repository.ClaimRepository;
-import com.backend.boilerplate.repository.RoleClaimRepository;
-import com.backend.boilerplate.repository.RoleHistoryRepository;
-import com.backend.boilerplate.repository.RoleRepository;
-import com.backend.boilerplate.repository.UserRepository;
-import com.backend.boilerplate.repository.UserRoleRepository;
-import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.dto.CreateRoleDto;
 import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
-import com.backend.boilerplate.entity.Claim;
-import com.backend.boilerplate.entity.Role;
-import com.backend.boilerplate.entity.RoleClaim;
-import com.backend.boilerplate.entity.RoleHistory;
-import com.backend.boilerplate.entity.User;
-import com.backend.boilerplate.entity.UserRole;
+import com.backend.boilerplate.entity.*;
 import com.backend.boilerplate.exception.RoleNotFoundException;
 import com.backend.boilerplate.exception.UserManagementException;
 import com.backend.boilerplate.modelmapper.ClaimMapper;
 import com.backend.boilerplate.modelmapper.RoleMapper;
+import com.backend.boilerplate.repository.*;
+import com.backend.boilerplate.service.RoleServiceImpl;
+import com.sp.boilerplate.commons.autoconfigure.ErrorMessageSourceAutoConfiguration;
+import com.sp.boilerplate.commons.autoconfigure.ModelMapperAutoConfiguration;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -37,12 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -121,8 +107,8 @@ public class RoleServiceImplTest {
         //        assertEquals(role.getRoleClaims().size(), roleDto.getClaims().size());
         //        assertEquals(role.getRoleClaims().stream().findFirst().get().getClaim().getUuid().toString(),
         //            roleDto.getClaims().get(0).getUuid().toString());
-        //        assertEquals(role.getRoleClaims().stream().findFirst().get().getClaim().getResourceName(),
-        //            roleDto.getClaims().get(0).getResourceName());
+        //        assertEquals(role.getRoleClaims().stream().findFirst().get().getClaim().getName(),
+        //            roleDto.getClaims().get(0).getName());
     }
 
     @Test
@@ -257,7 +243,7 @@ public class RoleServiceImplTest {
 
         ClaimDto newClaim = new ClaimDto();
         newClaim.setUuid(UUID.randomUUID());
-        newClaim.setResourceName("UserCreate");
+        newClaim.setName("UserCreate");
         //roleDto.getClaims().add(newClaim.getUuid());
 
         Long roleId = 1L;
@@ -266,7 +252,7 @@ public class RoleServiceImplTest {
         Mockito.when(claimRepositoryMock.findByUuid(claimUuid)).thenReturn(claimOptional);
         Long newClaimId = 2L;
         Optional<Claim> newClaimOptional = Optional.of(prepareClaim(newClaimId, newClaim.getUuid(),
-            newClaim.getResourceName()));
+            newClaim.getName()));
         Mockito.when(claimRepositoryMock.findByUuid(newClaim.getUuid())).thenReturn(newClaimOptional);
 
         Role role = prepareRole(roleId, roleUuid, roleName, claimId, claimUuid);
@@ -437,7 +423,7 @@ public class RoleServiceImplTest {
 
         ClaimDto claim = new ClaimDto();
         claim.setUuid(claimId);
-        claim.setResourceName("UserGetAll");
+        claim.setName("UserGetAll");
 
         List<ClaimDto> claims = new ArrayList<>();
         claims.add(claim);
@@ -463,7 +449,7 @@ public class RoleServiceImplTest {
     private ClaimDto prepareClaim(String resourceName) {
         ClaimDto claimDto = new ClaimDto();
         claimDto.setUuid(UUID.randomUUID());
-        claimDto.setResourceName(resourceName);
+        claimDto.setName(resourceName);
         return claimDto;
     }
 

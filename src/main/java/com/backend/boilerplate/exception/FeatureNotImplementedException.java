@@ -1,8 +1,8 @@
 package com.backend.boilerplate.exception;
 
+import com.sp.boilerplate.commons.exception.ErrorDetails;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import com.sp.boilerplate.commons.exception.ErrorDetails;
 
 /**
  * @author sarvesh

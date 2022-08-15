@@ -1,6 +1,4 @@
 spring:
   profiles: whitelist
-  flyway:
-    enabled: false
   autoconfigure:
     exclude: com.backend.boilerplate.security.autoconfigure.SecurityAutoConfiguration

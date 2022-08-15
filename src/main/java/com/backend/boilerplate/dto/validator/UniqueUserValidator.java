@@ -1,7 +1,7 @@
 package com.backend.boilerplate.dto.validator;
 
-import com.backend.boilerplate.repository.UserRepository;
 import com.backend.boilerplate.dto.UpdateUserDto;
+import com.backend.boilerplate.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

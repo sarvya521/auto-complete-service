@@ -1,7 +1,7 @@
 package com.backend.boilerplate.modelmapper;
 
-import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.entity.Claim;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

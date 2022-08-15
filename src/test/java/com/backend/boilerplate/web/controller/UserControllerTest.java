@@ -1,19 +1,14 @@
 package com.backend.boilerplate.web.controller;
 
 import com.backend.boilerplate.StringUtils;
-import com.backend.boilerplate.TestLocalValidatorFactoryBean;
-import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
+import com.backend.boilerplate.dto.*;
 import com.backend.boilerplate.repository.RoleRepository;
 import com.backend.boilerplate.repository.UserRepository;
-import com.backend.boilerplate.dto.CreateUserDto;
-import com.backend.boilerplate.dto.UpdateUserDto;
-import com.backend.boilerplate.dto.UserDto;
-import com.backend.boilerplate.dto.UserPageDto;
-import com.backend.boilerplate.dto.UserRoleDto;
-import com.backend.boilerplate.service.UserService;
 import com.backend.boilerplate.service.UserPaginationServiceImpl;
+import com.backend.boilerplate.service.UserService;
 import com.backend.boilerplate.web.exception.UserManagementExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sp.boilerplate.commons.autoconfigure.ErrorMessageSourceAutoConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,18 +19,14 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,16 +34,12 @@ import java.util.stream.IntStream;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author sarvesh
@@ -93,16 +80,8 @@ public class UserControllerTest {
      */
     @BeforeEach
     public void setup() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
-        Map<String, JpaRepository> repositories = new HashMap<>();
-        repositories.put("userRepository", this.userRepository);
-        repositories.put("roleRepository", this.roleRepository);
-        LocalValidatorFactoryBean validatorFactoryBean = new TestLocalValidatorFactoryBean(servletContext,
-            repositories);
-
+        MockitoAnnotations.openMocks(this);
         mockMvc = standaloneSetup(userController)
-            .setValidator(validatorFactoryBean)
             .setControllerAdvice(userManagementExceptionHandler)
             .build();
     }

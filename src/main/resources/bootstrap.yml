@@ -1,6 +1,6 @@
 spring:
   application:
-    name: bootstrap
+    name: springboot-boilerplate
   cloud:
     config:
       enabled: false
@@ -9,4 +9,4 @@ aws:
     enabled: true
     prefix: /${ENV_NAME}
     failFast: true
-    name: bootstrap
+    name: springboot-boilerplate

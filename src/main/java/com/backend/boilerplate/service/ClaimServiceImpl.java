@@ -1,10 +1,9 @@
 package com.backend.boilerplate.service;
 
-import com.backend.boilerplate.repository.ClaimRepository;
-import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.entity.Claim;
 import com.backend.boilerplate.modelmapper.ClaimMapper;
-import com.backend.boilerplate.service.ClaimService;
+import com.backend.boilerplate.repository.ClaimRepository;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;

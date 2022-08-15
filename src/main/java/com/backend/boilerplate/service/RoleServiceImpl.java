@@ -1,18 +1,12 @@
 package com.backend.boilerplate.service;
 
-import com.backend.boilerplate.repository.ClaimRepository;
-import com.backend.boilerplate.repository.RoleClaimRepository;
-import com.backend.boilerplate.repository.RoleHistoryRepository;
-import com.backend.boilerplate.repository.RoleRepository;
-import com.backend.boilerplate.repository.UserRepository;
-import com.backend.boilerplate.repository.UserRoleRepository;
 import com.backend.boilerplate.dto.CreateRoleDto;
 import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
 import com.backend.boilerplate.entity.Role;
 import com.backend.boilerplate.modelmapper.ClaimMapper;
 import com.backend.boilerplate.modelmapper.RoleMapper;
-import com.backend.boilerplate.service.RoleService;
+import com.backend.boilerplate.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;

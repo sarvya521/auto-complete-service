@@ -1,24 +1,20 @@
 package com.backend.boilerplate.service.impl;
 
-import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
-import com.backend.boilerplate.autoconfigure.ModelMapperAutoConfiguration;
-import com.backend.boilerplate.repository.RoleRepository;
-import com.backend.boilerplate.repository.UserHistoryRepository;
-import com.backend.boilerplate.repository.UserRepository;
-import com.backend.boilerplate.repository.UserRoleRepository;
 import com.backend.boilerplate.dto.CreateUserDto;
 import com.backend.boilerplate.dto.UpdateUserDto;
 import com.backend.boilerplate.dto.UserDto;
 import com.backend.boilerplate.dto.UserRoleDto;
-import com.backend.boilerplate.entity.Claim;
-import com.backend.boilerplate.entity.Role;
-import com.backend.boilerplate.entity.RoleClaim;
-import com.backend.boilerplate.entity.User;
-import com.backend.boilerplate.entity.UserHistory;
-import com.backend.boilerplate.entity.UserRole;
+import com.backend.boilerplate.entity.*;
 import com.backend.boilerplate.exception.UserNotFoundException;
 import com.backend.boilerplate.modelmapper.RoleMapper;
 import com.backend.boilerplate.modelmapper.UserMapper;
+import com.backend.boilerplate.repository.RoleRepository;
+import com.backend.boilerplate.repository.UserHistoryRepository;
+import com.backend.boilerplate.repository.UserRepository;
+import com.backend.boilerplate.repository.UserRoleRepository;
+import com.backend.boilerplate.service.UserServiceImpl;
+import com.sp.boilerplate.commons.autoconfigure.ErrorMessageSourceAutoConfiguration;
+import com.sp.boilerplate.commons.autoconfigure.ModelMapperAutoConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -34,17 +30,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static com.backend.boilerplate.constant.Role.DEFAULT;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author sarvesh

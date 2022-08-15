@@ -201,7 +201,7 @@
               <goal>start</goal>
             </goals>
             <configuration>
-              <mainClass>com.dazn.picks.DaznPicksApplication</mainClass>
+              <mainClass>com.backend.boilerplate.BoilerplateServiceApplication</mainClass>
               <useTestClasspath>true</useTestClasspath>
               <environmentVariables>
                 <spring.liquibase.enabled>false</spring.liquibase.enabled>

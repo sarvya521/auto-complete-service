@@ -1,17 +1,13 @@
 package com.backend.boilerplate.repository;
 
-import com.backend.boilerplate.TestBoilerplateServiceApplication;
+import com.backend.boilerplate.AbstractIT;
 import com.backend.boilerplate.entity.Claim;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -19,9 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author sarvesh
@@ -29,12 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-@ContextConfiguration(classes = {TestBoilerplateServiceApplication.class})
-@AutoConfigureEmbeddedDatabase
-@ActiveProfiles("embeddedpostgres")
 @Disabled
-public class ClaimRepositoryTest {
+public class ClaimRepositoryTest extends AbstractIT {
 
     @Autowired
     private TestEntityManager testEntityManager;

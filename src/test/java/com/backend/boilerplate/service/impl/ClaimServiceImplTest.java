@@ -1,10 +1,11 @@
 package com.backend.boilerplate.service.impl;
 
-import com.backend.boilerplate.autoconfigure.ModelMapperAutoConfiguration;
-import com.backend.boilerplate.repository.ClaimRepository;
-import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.entity.Claim;
 import com.backend.boilerplate.modelmapper.ClaimMapper;
+import com.backend.boilerplate.repository.ClaimRepository;
+import com.backend.boilerplate.service.ClaimServiceImpl;
+import com.sp.boilerplate.commons.autoconfigure.ModelMapperAutoConfiguration;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -76,7 +77,7 @@ public class ClaimServiceImplTest {
         assertNotNull(claimDtos);
         assertEquals(1, claimDtos.size());
         assertEquals(claimId.toString(), claimDtos.get(0).getUuid().toString());
-        assertEquals(claim.getResourceName(), claimDtos.get(0).getResourceName());
+        assertEquals(claim.getResourceName(), claimDtos.get(0).getName());
     }
 
     @Test

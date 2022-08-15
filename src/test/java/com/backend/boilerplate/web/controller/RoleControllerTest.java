@@ -1,16 +1,15 @@
 package com.backend.boilerplate.web.controller;
 
-import com.backend.boilerplate.TestLocalValidatorFactoryBean;
-import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
-import com.backend.boilerplate.repository.ClaimRepository;
-import com.backend.boilerplate.repository.RoleRepository;
-import com.sp.boilerplate.commons.dto.ClaimDto;
 import com.backend.boilerplate.dto.CreateRoleDto;
 import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
+import com.backend.boilerplate.repository.ClaimRepository;
+import com.backend.boilerplate.repository.RoleRepository;
 import com.backend.boilerplate.service.RoleService;
 import com.backend.boilerplate.web.exception.UserManagementExceptionHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sp.boilerplate.commons.autoconfigure.ErrorMessageSourceAutoConfiguration;
+import com.sp.boilerplate.commons.dto.ClaimDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,33 +20,25 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author sarvesh
@@ -86,16 +77,8 @@ public class RoleControllerTest {
      */
     @BeforeEach
     public void setup() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
-        Map<String, JpaRepository> repositories = new HashMap<>();
-        repositories.put("roleRepository", this.roleRepository);
-        repositories.put("claimRepository", this.claimRepository);
-        LocalValidatorFactoryBean validatorFactoryBean = new TestLocalValidatorFactoryBean(servletContext,
-            repositories);
-
+        MockitoAnnotations.openMocks(this);
         mockMvc = standaloneSetup(roleController)
-            .setValidator(validatorFactoryBean)
             .setControllerAdvice(userManagementExceptionHandler)
             .build();
     }
@@ -443,7 +426,7 @@ public class RoleControllerTest {
     private ClaimDto prepareClaim(String resourceName) {
         ClaimDto claimDto = new ClaimDto();
         claimDto.setUuid(UUID.randomUUID());
-        claimDto.setResourceName(resourceName);
+        claimDto.setName(resourceName);
         return claimDto;
     }
 

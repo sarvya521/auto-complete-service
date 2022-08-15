@@ -1,25 +1,16 @@
 package com.backend.boilerplate.dto.validator;
 
-import com.backend.boilerplate.TestBoilerplateServiceApplication;
-import com.backend.boilerplate.autoconfigure.ErrorMessageSourceAutoConfiguration;
+import com.backend.boilerplate.AbstractIT;
 import com.backend.boilerplate.dto.CreateUserDto;
 import com.backend.boilerplate.entity.User;
-import com.backend.boilerplate.web.exception.CommonResponseEntityExceptionHandler;
-import com.backend.boilerplate.web.exception.UserManagementExceptionHandler;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -36,18 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-@ContextConfiguration(classes = {TestBoilerplateServiceApplication.class})
-@Import({
-    SpringConstraintValidatorFactory.class,
-    LocalValidatorFactoryBean.class,
-    ErrorMessageSourceAutoConfiguration.class,
-    UserManagementExceptionHandler.class,
-    CommonResponseEntityExceptionHandler.class})
-@AutoConfigureEmbeddedDatabase
-@ActiveProfiles("embeddedpostgres")
 @Disabled
-public class UniqueUserEmailValidatorTest {
+public class UniqueUserEmailValidatorTest extends AbstractIT {
 
     @Autowired
     private LocalValidatorFactoryBean validator;

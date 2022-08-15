@@ -1,11 +1,10 @@
 package com.backend.boilerplate.service;
 
 import com.backend.boilerplate.config.ApplicationProperties;
-import com.backend.boilerplate.repository.UserRepository;
 import com.backend.boilerplate.dto.UserDto;
 import com.backend.boilerplate.dto.UserPageDto;
 import com.backend.boilerplate.entity.User;
-import com.backend.boilerplate.service.UserService;
+import com.backend.boilerplate.repository.UserRepository;
 import com.backend.boilerplate.util.FunctionalReadWriteLock;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

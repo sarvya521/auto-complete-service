@@ -1,16 +1,12 @@
 package com.backend.boilerplate.repository;
 
-import com.backend.boilerplate.TestBoilerplateServiceApplication;
+import com.backend.boilerplate.AbstractIT;
 import com.backend.boilerplate.entity.Claim;
 import com.backend.boilerplate.entity.Role;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.HashSet;
@@ -22,12 +18,8 @@ import java.util.Set;
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-@ContextConfiguration(classes = {TestBoilerplateServiceApplication.class})
-@AutoConfigureEmbeddedDatabase
-@ActiveProfiles("embeddedpostgres")
 @Disabled
-class RoleRepositoryTest {
+class RoleRepositoryTest extends AbstractIT {
 
     @Autowired
     private TestEntityManager testEntityManager;

@@ -1,14 +1,14 @@
 package com.backend.boilerplate.web.controller;
 
-import com.sp.boilerplate.commons.constant.Status;
 import com.backend.boilerplate.dto.CreateRoleDto;
-import com.sp.boilerplate.commons.dto.Response;
 import com.backend.boilerplate.dto.RoleDto;
 import com.backend.boilerplate.dto.UpdateRoleDto;
 import com.backend.boilerplate.dto.validator.ConstraintSequence;
 import com.backend.boilerplate.dto.validator.Exist;
 import com.backend.boilerplate.dto.validator.ExistRoleValidator;
 import com.backend.boilerplate.service.RoleService;
+import com.sp.boilerplate.commons.constant.Status;
+import com.sp.boilerplate.commons.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -23,14 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,22 +1,17 @@
 package com.backend.boilerplate.dto.validator;
 
 import com.backend.boilerplate.constant.AdminFeature;
-import com.sp.boilerplate.commons.constant.FeatureAction;
+import com.backend.boilerplate.dto.UpdateRoleDto;
 import com.backend.boilerplate.repository.ModuleFeaturesRepository;
 import com.backend.boilerplate.repository.RoleRepository;
-import com.backend.boilerplate.dto.UpdateRoleDto;
+import com.sp.boilerplate.commons.constant.FeatureAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**

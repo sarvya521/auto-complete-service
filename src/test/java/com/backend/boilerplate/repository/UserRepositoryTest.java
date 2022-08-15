@@ -1,23 +1,12 @@
 package com.backend.boilerplate.repository;
 
-import com.backend.boilerplate.TestBoilerplateServiceApplication;
-import com.backend.boilerplate.entity.Role;
-import com.backend.boilerplate.entity.Status;
-import com.backend.boilerplate.entity.User;
-import com.backend.boilerplate.entity.UserHistory;
-import com.backend.boilerplate.entity.UserRole;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.backend.boilerplate.AbstractIT;
+import com.backend.boilerplate.entity.*;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -25,12 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.backend.boilerplate.entity.Status.CREATED;
-import static com.backend.boilerplate.entity.Status.DELETED;
-import static com.backend.boilerplate.entity.Status.UPDATED;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.backend.boilerplate.entity.Status.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author sarvesh
@@ -38,11 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 0.0.1
  */
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-@ContextConfiguration(classes = {TestBoilerplateServiceApplication.class})
-@AutoConfigureEmbeddedDatabase
-@ActiveProfiles("embeddedpostgres")
-class UserRepositoryTest {
+@Disabled
+class UserRepositoryTest extends AbstractIT {
     @Autowired
     private TestEntityManager testEntityManager;
 
