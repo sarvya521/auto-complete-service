@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/2021-08-01-create-table-app_user.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-claim.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-module.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-module_features.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-module_features_claim.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-role.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-role_features.sql
+  - include:
+      file: db/changelog/2021-08-01-create-table-user_role.sql
+  - include:
+      file: db/changelog/2021-08-01-create-procedure-map_claims_to_feature.sql
+  - include:
+      file: db/changelog/2021-08-01-insert-default-role-with-default-claims.sql
+  - include:
+      file: db/changelog/2021-08-01-insert-featureClaims-user.sql
+  - include:
+      file: db/changelog/2021-08-01-insert-system-admin-role-with-claims.sql
+

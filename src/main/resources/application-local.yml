@@ -4,9 +4,9 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: jdbc:mysql://localhost:13306/daznpicks?allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:13306/springboot-boilerplate?allowPublicKeyRetrieval=true&useSSL=false
+    username: admin
+    password: admin
   jpa:
     properties:
       hibernate:

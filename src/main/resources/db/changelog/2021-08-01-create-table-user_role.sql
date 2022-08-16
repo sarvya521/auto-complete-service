@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset Sarvesh:create-table-user_role
+
 CREATE TABLE IF NOT EXISTS user_role (
   fk_user_id BINARY(16) NOT NULL,
   fk_role_id BINARY(16) NOT NULL,

@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset Sarvesh:create-table-role_features
+
 CREATE TABLE IF NOT EXISTS role_features (
     fk_role_id BINARY(16) NOT NULL,
     fk_module_features_id BINARY(16) NOT NULL,

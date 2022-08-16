@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset Sarvesh:create-table-app_user splitStatements:true
+
 /*
  * - Every table has UUID along with its primary key.
  *    We shall not share ID(primary key) in API response, instead we should share UUID for particular entity
@@ -53,6 +56,7 @@ CREATE TABLE IF NOT EXISTS app_user (
   version INT NOT NULL,
   CONSTRAINT uk_app_user_email UNIQUE(email)
 );
+
 CREATE TABLE IF NOT EXISTS app_user_history (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id binary(16) NOT NULL,
